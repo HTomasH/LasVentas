@@ -14,7 +14,6 @@ namespace CapaDatos
         //Declaramos la cadena de conexión :       
         public static string Cn = @"Data Source=DESKTOP-TMO9LFM\SQLEXPRESS;Initial Catalog=VentasTOMAS; Integrated Security=True";
 
-        //prueba modificacion 
-
+        
     }
 }
