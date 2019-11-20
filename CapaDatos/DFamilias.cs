@@ -12,7 +12,7 @@ using System.Data.SqlClient;
 
 namespace CapaDatos
 {
-    class DFamilias
+    public class DFamilias   //Indicar que es publica de lo contrario no podre acceder a ella 
     {
         /*
           Declaración de los CAMPOS con los que vamos a trabajar
@@ -38,7 +38,7 @@ namespace CapaDatos
 
 
         //-->Y ahora para pintar las PROPIEDADES, lo haremos Refactorizando !!   
-        //   Se hace coocandose sobre la variable y le damos al botón derecho - Opcion Refactorizar - Encapsular Campo 
+        //   Se hace colocandose sobre la variable y le damos al botón derecho - Opcion Refactorizar - Encapsular Campo 
 
         // GETer   Devuelve valores
         // SETer   Recibe valores.
@@ -69,7 +69,7 @@ namespace CapaDatos
         //---------------------------------------------------------------------------------
         // CODIFICACION    Campos         :  Con guión bajo  _                _idCodFam;    
         //                 Propiedades    :  Con Mayúscula la primera         IdCodFam
-        //                 Parametros     :  Con minúscula la priemera        idCodFam
+        //                 Parametros     :  Con minúscula la primera         idCodFam
         //---------------------------------------------------------------------------------
 
         //-->Constructor  CON PARAMETROS 
@@ -281,9 +281,6 @@ namespace CapaDatos
             }
             return DtResultado;
 
-
-
-
         }
 
 
@@ -322,6 +319,8 @@ namespace CapaDatos
             return DtResultado;
 
         }
+
+
 
 
     }
