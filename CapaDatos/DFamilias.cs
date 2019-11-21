@@ -61,10 +61,6 @@ namespace CapaDatos
             set { _cTextoBuscar = value; }
         }
 
-        //-->Constructor  SIN PARAMETROS 
-        public DFamilias()
-        {
-        }
 
         //---------------------------------------------------------------------------------
         // CODIFICACION    Campos         :  Con guión bajo  _                _idCodFam;    
@@ -72,8 +68,21 @@ namespace CapaDatos
         //                 Parametros     :  Con minúscula la primera         idCodFam
         //---------------------------------------------------------------------------------
 
-        //-->Constructor  CON PARAMETROS 
-        // Vamos a indicar los parametros con  minúsculas 
+
+
+        //------------------- CONSTRUCTORES   ----------------------------------------------
+        //----------------------------------------------------------------------------------
+
+        //-->Constructor  SIN PARAMETROS 
+        //------------------------------
+        public DFamilias()
+        {
+        }
+       
+        //----------------------------------------------------------------------------------        
+        //-->Constructor  CON PARAMETROS (Vamos a indicar los parametros con  minúsculas )
+        //----------------------------------------------------------------------------------        
+
         public DFamilias(int idCodFam, string cNombreFamilia, string cTextoBuscar)
         {
             //Vamos a enviar los datos que  nos llegan en estos parametros  a nuestras propiedades 
@@ -90,10 +99,11 @@ namespace CapaDatos
 
         //-------------------    METODO  ALTAS  ------------------------------------------------------------------
 
-        //En los parametros que vamos a recibir uno del tipo clase DFamilias  para recibirlo como un objeto
-        //esta forma de hacer creo que es por evitar indicar todos los campos de la tabla, que en este caso
-        //son pocos pero si fueran muchos seria un coñazo,  al tener instanciada la clase Familias seguro que 
-        //luego voy a poder indicar los campos que yo quiera...
+        //En los parametros que vamos a recibir en este metodo lo hacemos es 
+        //instanciar  la clase,  de esta forma nos evitamos tener que estar poniendo campo a campo
+        //de los que se tengan que tener en cuenta, en este ejemplo son pocos campos pero si fueramos a tratar tabla
+        //donde hubiera muchos campos es un puto coñazo
+
         public string Insertar(DFamilias Familias)
         {
 
@@ -130,7 +140,7 @@ namespace CapaDatos
                 ParNombreFamilia.ParameterName = "@cNombreFamilia";  //--> Nombre del paramentro como está en el PRC
                 ParNombreFamilia.SqlDbType = SqlDbType.VarChar;      //--> Tipo del campo.
                 ParNombreFamilia.Size = 50;                          //--> Longuitud del campo 
-                ParNombreFamilia.Value = Familias.CNombreFamilia;    //--> Aquí sí, le enviamos el valor del campo
+                ParNombreFamilia.Value = Familias.CNombreFamilia;    //--> Aquí sí, le enviamos el valor que tenemos en la Propiedad OjO
                 SqlCmd.Parameters.Add(ParNombreFamilia);             //--> Acción que tiene que llevar a cabo,  AÑADIR en este caso con los parametros contenidos en ParNombre 
 
 
