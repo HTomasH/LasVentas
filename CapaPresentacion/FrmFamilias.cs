@@ -110,8 +110,9 @@ namespace CapaPresentacion
         //-->Método para ocultar columnas en el Grid de Familias
         private void OcultarColumnas()
         {
-            this.dataListado.Columns[0].Visible = false;   //Esta se corresponde con la Columna para dar de baja 
-            this.dataListado.Columns[1].Visible = false;   //Esta se corresponde con el ID de  la tablas
+            //this.dataListado.Columns[0].Visible = false;   //Esta se corresponde con la Columna para dar de baja 
+           // this.dataListado.Columns[1].Visible = false;   //Esta se corresponde con el ID de  la tablas
+
         }
 
 
@@ -197,7 +198,8 @@ namespace CapaPresentacion
             this.Botones();
             this.Limpiar();
             this.Habilitar(true);
-            this.txtNombre.Focus();
+            this.txtNombre.Focus();   //Foco a la caja de texto del nombre 
+
         }
 
         private void btnGuardar_Click(object sender, EventArgs e)
@@ -236,8 +238,8 @@ namespace CapaPresentacion
                     //   indicado  en la CAPADATOS en los metodos 
                     //   Insertar y Editar de esta forma :  rpta = SqlCmd.ExecuteNonQuery() == 1 ? "OK" : "NO se Ingreso el Registro";  
                     //
-                    //                                               
-                    if (rpta.Equals("OK")) //  Por eso pongo OK sino pondría lo que tuviera puesto...
+                    //  Por eso pongo OK sino pondría lo que tuviera puesto...                                                                   
+                    if (rpta.Equals("OK")) //Comparando cadenas con  :  Equals()      
                     {
                         if (this.IsNuevo)
                         {
@@ -270,7 +272,55 @@ namespace CapaPresentacion
             {
                 MessageBox.Show(ex.Message + ex.StackTrace);
             }
+        }
 
+
+        //--Aqui lo que estamos indicando es que cuando en el GRID se haga doble click se muestre ese registro
+        //  en el formulario individual.
+        //
+        //  Para indicar esta funcionalidad   :   Nos situamos en el GRID,  CLICK para ver sus propiedades y buscamos 
+        //                                        el evento(rayo)  DoubleClick   al clicar sobre el mismo nombre y
+        //                                        selecionar ninguna de la opciones que aparecen en el desplegable 
+        //                                        ya nos creara el "esqueleto" del procedimiento del  evento
+
+
+        private void dataListado_DoubleClick(object sender, EventArgs e)
+        {
+
+            //-->Hacer el Convert  los valores que llegan del Grid llegan como Object 
+            //   el   CurrentRow.Cells  captura lo que tiene la celda actual
+
+            this.txtIdFamilias.Text = Convert.ToString(this.dataListado.CurrentRow.Cells["idCodFam"].Value);
+            this.txtNombre.Text = Convert.ToString(this.dataListado.CurrentRow.Cells["cNombreFamilia"].Value);
+            
+            //-> Para que pinte la  Solapa/folder/TabPage  1   que imagino es la del detalle, la del grid debe ser la 0
+            this.tabControl1.SelectedIndex = 1;
+        }
+
+        private void btnEditar_Click(object sender, EventArgs e)
+        {
+
+            if ( ! this.txtIdFamilias.Text.Equals(""))
+            {
+                this.IsEditar = true;
+                this.Botones();
+                this.Habilitar(true);
+            }
+            else
+            {
+                this.MensajeError("Debe de seleccionar primero el registro a Modificar");
+            }
+        }
+
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+
+            this.IsNuevo = false;
+            this.IsEditar = false;
+
+            this.Botones();
+            this.Limpiar();
+            this.Habilitar(false);
 
         }
     }
