@@ -4,6 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using CapaPresentacion;   //-> Para comunicarse con la capa 
+
+
 namespace LasVentas
 {
     static class Program
@@ -16,7 +19,9 @@ namespace LasVentas
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+
+            //-> Linea por defecto para indicar el formulario de arranque de la aplicacion  :    Application.Run(new Form1());
+            Application.Run(new FrmFamilias());
         }
     }
 }
