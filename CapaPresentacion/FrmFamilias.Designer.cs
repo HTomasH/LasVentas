@@ -117,6 +117,7 @@
             this.dataListado.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataListado.Size = new System.Drawing.Size(667, 187);
             this.dataListado.TabIndex = 7;
+            this.dataListado.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataListado_CellContentClick);
             this.dataListado.DoubleClick += new System.EventHandler(this.dataListado_DoubleClick);
             // 
             // Eliminar
@@ -143,6 +144,7 @@
             this.chkEliminar.TabIndex = 5;
             this.chkEliminar.Text = "Eliminar";
             this.chkEliminar.UseVisualStyleBackColor = true;
+            this.chkEliminar.CheckedChanged += new System.EventHandler(this.chkEliminar_CheckedChanged);
             // 
             // btnImprimir
             // 
@@ -161,6 +163,7 @@
             this.btnEliminar.TabIndex = 3;
             this.btnEliminar.Text = "&Eliminar";
             this.btnEliminar.UseVisualStyleBackColor = true;
+            this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click_1);
             // 
             // btnBuscar
             // 

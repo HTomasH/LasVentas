@@ -9,13 +9,17 @@ namespace CapaDatos
     class Conexion
     {
 
-        // Cadena Verbatim  con  Arroba po rdelante para que no den error los caraceres especiales con la barra invertida 
+        // Cadena  -Verbatim-  con  Arroba por  delante 
+        // para que no den error los caraceres especiales con la barra invertida 
 
-        //Declaramos la cadena de conexión  CASA :       
-        //public static string Cn = @"Data Source=DESKTOP-TMO9LFM\SQLEXPRESS;Initial Catalog=VentasTOMAS; Integrated Security=True";
-        
-         // TRABAJO :       
-        public static string Cn = @"Data Source=MBO9IBSTHERRERO\SQLEXPRESS;Initial Catalog=VentasTOMAS; Integrated Security=True";
-        
+        //Declaramos las cadenas de conexión :
+        //----------------------------------
+
+        // CASA :       
+        public static string Cn = @"Data Source=DESKTOP-TMO9LFM\SQLEXPRESS;Initial Catalog=VentasTOMAS; Integrated Security=True";
+
+        // TRABAJO :       
+        //public static string Cn = @"Data Source=MBO9IBSTHERRERO\SQLEXPRESS;Initial Catalog=VentasTOMAS; Integrated Security=True";
+
     }
 }

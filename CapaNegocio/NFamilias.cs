@@ -39,7 +39,7 @@ namespace CapaNegocio
         {
             DFamilias Obj = new DFamilias();
             Obj.IdCodFam = idCodFam;
-            Obj.CNombreFamilia = cNombreFamilia;
+            Obj.CNombreFamilia = cNombreFamilia;            
             //ATENTO :  El valor de retorno,  se lo estamos enviando al metodo Editar de la clase DFamilias
             return Obj.Editar(Obj);
         }

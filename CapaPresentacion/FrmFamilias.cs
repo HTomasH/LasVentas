@@ -229,7 +229,7 @@ namespace CapaPresentacion
                         rpta = NFamilias.Insertar(this.txtNombre.Text.Trim().ToUpper()  );  //Trim() quitar espacios - ToUpper  todo en mayúsculas 
 
                     }
-                    else    //Es una modificacion 
+                    else    //Es una modificacion   PARECE QUE ESTA MODIFICANDO TODOS !!!
                     {
                         //-->Vamos a llamar al Metodo Editar de la CapaNegocio enviandole los valores 
                         rpta = NFamilias.Editar(Convert.ToInt32(this.txtIdFamilias.Text), this.txtNombre.Text.Trim().ToUpper());
@@ -258,10 +258,12 @@ namespace CapaPresentacion
                         this.MensajeError(rpta);
                     }
 
+                    //Borra la pelotilla del error si estuviera 
+                    errorIcono.Clear();
+
                     //->Una vez insertado el registro dejamos las variables como estaban.
                     this.IsNuevo = false;
                     this.IsEditar = false;
-
 
                     this.Botones();
                     this.Limpiar();
@@ -284,8 +286,6 @@ namespace CapaPresentacion
         //                                        el evento(rayo)  DoubleClick   al clicar sobre el mismo nombre y
         //                                        selecionar ninguna de la opciones que aparecen en el desplegable 
         //                                        ya nos creara el "esqueleto" del procedimiento del  evento
-
-
         private void dataListado_DoubleClick(object sender, EventArgs e)
         {
 
@@ -299,6 +299,7 @@ namespace CapaPresentacion
             this.tabControl1.SelectedIndex = 1;
         }
 
+        //-->EVENTO   CLICK   DEL BOTON EDITAR 
         private void btnEditar_Click(object sender, EventArgs e)
         {
 
@@ -316,6 +317,9 @@ namespace CapaPresentacion
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
+            
+            //Borra la pelotilla del error 
+            errorIcono.Clear();
 
             this.IsNuevo = false;
             this.IsEditar = false;
@@ -325,5 +329,115 @@ namespace CapaPresentacion
             this.Habilitar(false);
 
         }
+
+
+        //Este es el EVENTO de cambio de valor en el CHECK de activar la columna de checks de eliminación 
+        private void chkEliminar_CheckedChanged(object sender, EventArgs e)
+        {
+
+            if (chkEliminar.Checked)   //Si el check está marcado entonces mostramos la columna 0  del  Grid, la de bajas 
+            {
+                this.dataListado.Columns[0].Visible = true;
+            }
+            else
+            {
+                this.dataListado.Columns[0].Visible = false;
+            }
+        }
+
+
+
+        //Para el tratamiento individual de cada registro dentro del GRID    haremos  DobleClick  sobre el GRID  y se 
+        //nos creará el evento   dataListado_CellContentClick
+
+        private void dataListado_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+            //Si el indice de la columna es el de la columna Eliminar
+            if (e.ColumnIndex == dataListado.Columns["Eliminar"].Index)
+            {
+
+                //Declaramos la variable  ChkEliminar   del tipo  DataGridViewCheckBoxCell  
+                //nos traeremos los valores (OjO haciendo conversion al tipo DataGridViewCheckBoxCell)   de donde esta marcando el usuario para eliminar  
+                DataGridViewCheckBoxCell ChkEliminar = (DataGridViewCheckBoxCell)dataListado.Rows[e.RowIndex].Cells["Eliminar"];
+
+                //Estamos indicando el valor si esta marcado o no el checkbox en la columna elimnar del GRID y lo convertimos a True o False 
+                ChkEliminar.Value = !Convert.ToBoolean(ChkEliminar.Value);
+            }
+
+        }
+
+
+
+
+        //--> BORRADO de registros 
+        // 
+        //     MUCHO OJO AL HACER COPY-PASTE DEL OTRO PROGRAMA,  SI NO SE EJECUTA EL EVENTO A LA HORA DE ESTARLO PROGRAMANDO
+        //     NO LO REGISTRA EN EL FICHERO  FrmFamilias.Designer.cs  Y POR LO TANTO AUNQUE LO TENGA COPIADO NO VA A FUNCIONAR
+        //     SALVO QUE A MANOPLA MODIFIQUE EL CODIGO   para ese ejemplo lo he dejado con  el  1     btnEliminar_Click_1       
+        private void btnEliminar_Click_1(object sender, EventArgs e)
+        {
+            try
+            {
+                //Variable de tipo  DialogResult   entiendo que sire para capturar datos de preguntas al usuario
+                DialogResult Opcion;
+
+                //Tipo de mensaje que va a mostrar al usuario los botones  SI  o No 
+                Opcion = MessageBox.Show("Realmente Desea Eliminar los Registros", "Sistema de Ventas", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+
+
+                if (Opcion == DialogResult.OK) //Si es que SI,  que ok
+                {
+                    string Codigo;
+                    string Rpta = "";
+
+                    //->Bucle para recorrerse todo el GRID y ver que esta marcado para borrarlo.....este sistema no vale para muchos registros
+                    //  si cada vez que va a borrar se tiene que recorrer todo el GRID menuda mierder
+                    foreach (DataGridViewRow row in dataListado.Rows)
+                    {
+                        if (Convert.ToBoolean(row.Cells[0].Value))  //Pregunta por el valor de la columna cero del GRID 
+                        {
+                            Codigo = Convert.ToString(row.Cells[1].Value); //Trinca el valor de la columna 1 es decir el IdFamilia
+
+                            //Envia el codigo al metodo ELIMINAR dela CapaNegocio de de Familias, OjO conviertiendo a Int  que es como 
+                            //es el tipo de campo en la tabla Familias 
+                            Rpta = NFamilias.Eliminar(Convert.ToInt32(Codigo));
+
+                            //Utiliza  EQUALS  para comparar cadenas de texto en vez de hacerlo a machete :  if  Rpta  == "OK"
+                            if (Rpta.Equals("OK"))
+                            {
+                                this.MensajeOk("Se Eliminó Correctamente el registro");
+                            }
+                            else
+                            {
+                                this.MensajeError(Rpta);
+                            }
+
+                        }
+                    }
+                    //-->Para volver a pintar el GRID con los cambios
+                    this.Mostrar();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + ex.StackTrace);
+            }
+        }
+
+
+        //BOTON DE IMPRESION 
+        private void btnImprimir_Click(object sender, EventArgs e)
+        {
+
+            this.MensajeOk("Ha pulsado el botón de imprimir ");
+            //Reportes.FrmReporteCategoria frm = new Reportes.FrmReporteCategoria();
+            //frm.Texto = txtBuscar.Text;
+            //frm.ShowDialog();
+        }
+
+
+
+
     }
 }
