@@ -11,9 +11,11 @@ namespace CapaDatos
 
         // Cadena Verbatim  con  Arroba po rdelante para que no den error los caraceres especiales con la barra invertida 
 
-        //Declaramos la cadena de conexión :       
-        public static string Cn = @"Data Source=DESKTOP-TMO9LFM\SQLEXPRESS;Initial Catalog=VentasTOMAS; Integrated Security=True";
-
+        //Declaramos la cadena de conexión  CASA :       
+        //public static string Cn = @"Data Source=DESKTOP-TMO9LFM\SQLEXPRESS;Initial Catalog=VentasTOMAS; Integrated Security=True";
+        
+         // TRABAJO :       
+        public static string Cn = @"Data Source=MBO9IBSTHERRERO\SQLEXPRESS;Initial Catalog=VentasTOMAS; Integrated Security=True";
         
     }
 }

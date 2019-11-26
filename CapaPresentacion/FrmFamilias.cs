@@ -57,6 +57,7 @@ namespace CapaPresentacion
         //-->Limpiar  las  cajas de texto (textBox del formulario)
         private void Limpiar()
         {
+            this.txtIdFamilias.Text = string.Empty;
             this.txtNombre.Text = string.Empty;            
             //this.txtIdFamilias.Text = string.Empty;
         }
@@ -101,7 +102,8 @@ namespace CapaPresentacion
                 this.btnNuevo.Enabled = true;
                 this.btnGuardar.Enabled = false;
                 this.btnEditar.Enabled = true;
-                this.btnCancelar.Enabled = false;
+                //this.btnCancelar.Enabled = false;
+                this.btnCancelar.Enabled = true;
             }
 
         }
@@ -110,8 +112,8 @@ namespace CapaPresentacion
         //-->Método para ocultar columnas en el Grid de Familias
         private void OcultarColumnas()
         {
-            //this.dataListado.Columns[0].Visible = false;   //Esta se corresponde con la Columna para dar de baja 
-           // this.dataListado.Columns[1].Visible = false;   //Esta se corresponde con el ID de  la tablas
+            this.dataListado.Columns[0].Visible = false;   //Esta se corresponde con la Columna para dar de baja 
+            this.dataListado.Columns[1].Visible = false;   //Esta se corresponde con el ID de  la tablas
 
         }
 
