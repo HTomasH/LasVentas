@@ -162,7 +162,7 @@ namespace CapaDatos
             {
                 rpta = ex.Message;   //-->Mostramos el mensaje.
             }
-            finally      //--> el  finally se ejecuta siempre tanto si hay error como si no lo hay, así que cerramos la conexión que ya sabemos como mucha memoria.
+            finally      //--> el  finally se ejecuta siempre tanto si hay error como si no lo hay, así que cerramos la conexión que ya sabemos chupa mucha memoria.
             {
                 if (SqlCon.State == ConnectionState.Open) SqlCon.Close();
             }

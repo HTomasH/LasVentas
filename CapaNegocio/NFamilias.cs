@@ -34,12 +34,13 @@ namespace CapaNegocio
 
 
         //----FUNCION  EDITAR/MODIFICAR   este va a llamar al metodo editar de la clase DFamilias de la capa Datos
-        //de la CapaDatos
+        //
         public static string Editar(int idCodFam, string cNombreFamilia)
         {
             DFamilias Obj = new DFamilias();
             Obj.IdCodFam = idCodFam;
             Obj.CNombreFamilia = cNombreFamilia;            
+            
             //ATENTO :  El valor de retorno,  se lo estamos enviando al metodo Editar de la clase DFamilias
             return Obj.Editar(Obj);
         }
@@ -49,6 +50,7 @@ namespace CapaNegocio
         {
             DFamilias Obj = new DFamilias();
             Obj.IdCodFam = idCodFam;
+            
             //ATENTO :  El valor de retorno,  se lo estamos enviando al metodo Eliminar de la clase DFamilias
             return Obj.Eliminar(Obj);
         }
@@ -67,6 +69,7 @@ namespace CapaNegocio
         {
             DFamilias Obj = new DFamilias();
             Obj.CTextoBuscar = textobuscar;
+            
             //ATENTO :  El valor de retorno,  se lo estamos enviando al metodo BuscarNombre de la clase DFamilias
             return Obj.BuscarNombre(Obj);
         }

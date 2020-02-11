@@ -37,6 +37,7 @@ namespace CapaPresentacion
         public FrmFamilias()
         {
             InitializeComponent(); //Este inicializa los componentes del formulario
+            
             //->Este será el mensaje a mostrar el TOOLTIP al tener el foco en el campo (Caja de texto-TextBox  txtNombre)
             this.ttMensaje.SetToolTip(this.txtNombre, "Indique el Nombre de la Familia");
         }
@@ -375,6 +376,9 @@ namespace CapaPresentacion
         //     MUCHO OJO AL HACER COPY-PASTE DEL OTRO PROGRAMA,  SI NO SE EJECUTA EL EVENTO A LA HORA DE ESTARLO PROGRAMANDO
         //     NO LO REGISTRA EN EL FICHERO  FrmFamilias.Designer.cs  Y POR LO TANTO AUNQUE LO TENGA COPIADO NO VA A FUNCIONAR
         //     SALVO QUE A MANOPLA MODIFIQUE EL CODIGO   para ese ejemplo lo he dejado con  el  1     btnEliminar_Click_1       
+        //
+        // ES DECIR HAY QUE HACER EL DBL-CLICK EN EL CONTROL PARA QUE QUEDE EN EL CODIGO REGISTRADO
+
         private void btnEliminar_Click_1(object sender, EventArgs e)
         {
             try
@@ -391,7 +395,7 @@ namespace CapaPresentacion
                     string Codigo;
                     string Rpta = "";
 
-                    //->Bucle para recorrerse todo el GRID y ver que esta marcado para borrarlo.....este sistema no vale para muchos registros
+                    //->Bucle para recorrerse todo el GRID y mira que esta marcado para borrarlo.....este sistema no vale para muchos registros
                     //  si cada vez que va a borrar se tiene que recorrer todo el GRID menuda mierder
                     foreach (DataGridViewRow row in dataListado.Rows)
                     {
@@ -399,7 +403,7 @@ namespace CapaPresentacion
                         {
                             Codigo = Convert.ToString(row.Cells[1].Value); //Trinca el valor de la columna 1 es decir el IdFamilia
 
-                            //Envia el codigo al metodo ELIMINAR dela CapaNegocio de de Familias, OjO conviertiendo a Int  que es como 
+                            //Envia el codigo al metodo ELIMINAR de la CapaNegocio de de Familias, OjO conviertiendo a Int  que es como 
                             //es el tipo de campo en la tabla Familias 
                             Rpta = NFamilias.Eliminar(Convert.ToInt32(Codigo));
 
