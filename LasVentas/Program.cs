@@ -30,7 +30,7 @@ namespace LasVentas
             // NOTA : No entiendo bien la utilidad de tener o no una instacia creada.
             //        Creo que se debe al tener lupas que abren otros formularios (No Modales) 
              
-            Application.Run(FrmArticulos.GetInstancia());
+            Application.Run(FrmArticulos.GetInstaArti());
 
 
         }

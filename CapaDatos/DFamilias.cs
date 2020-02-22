@@ -278,7 +278,7 @@ namespace CapaDatos
                 SqlCon.ConnectionString = Conexion.Cn;
                 SqlCommand SqlCmd = new SqlCommand();
                 SqlCmd.Connection = SqlCon;
-                SqlCmd.CommandText = "spMostrar_familila";  //En este PRC lo que hacemos es selecionar los primeros 200 regitros 
+                SqlCmd.CommandText = "spMostrar_familia";  //En este PRC lo que hacemos es selecionar los primeros 200 regitros 
                 SqlCmd.CommandType = CommandType.StoredProcedure;
 
                 SqlDataAdapter SqlDat = new SqlDataAdapter(SqlCmd);

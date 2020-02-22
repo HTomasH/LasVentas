@@ -7,7 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using CapaNegocio;
+using CapaNegocio;               //Para comunicar con la capa de negocio
+
 
 
 
@@ -27,7 +28,6 @@ namespace CapaPresentacion
         {
             this.dataListado.Columns[0].Visible = false;   //Esta se corresponde con la Columna para dar de baja 
             this.dataListado.Columns[1].Visible = false;   //Esta se corresponde con el ID de  la tablas
-
         }
 
 
@@ -50,7 +50,6 @@ namespace CapaPresentacion
             //CAPA PRESENTACION  llama a   CAPA NEGOCIO   que llama   a CAPA DATOS    que conecta con  BB.DD
             this.dataListado.DataSource = NFamilias.Mostrar();
 
-
             this.OcultarColumnas();
 
             //-->Pintamos el total de registros : OjO el count es  int  tenemos que convertirlo a String 
@@ -71,20 +70,16 @@ namespace CapaPresentacion
         }
 
 
-        
-
+       
         private void txtBuscar_TextChanged(object sender, EventArgs e)
         {
             this.BuscarNombre();
         }
 
-
-
-
+        
         private void frmVistaFamilia_Articulo_Load(object sender, EventArgs e)
         {
             this.Mostrar();
-
         }
 
 
@@ -93,7 +88,7 @@ namespace CapaPresentacion
         private void dataListado_DoubleClick(object sender, EventArgs e)
         {
             //->Vamos a llamar nuestro metodo que obtiene la instancia 
-            FrmArticulos form = FrmArticulos.GetInstancia();
+            FrmArticulos form = FrmArticulos.GetInstaArti();
             
             // Un par de variables para contener los datos 
             string par1, par2;

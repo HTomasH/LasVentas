@@ -34,22 +34,21 @@ namespace CapaPresentacion
 
 
         //-----------------------------------------------------------------------------------------------------------------------------
-        //-->PARA EL FUNCIONAMIENTO DE LA LUPA  ya que envia parametros de un formulario a otro 
+        //-->PARA LA LUPA DE FAMILIAS  ya que envia parametros de un formulario a otro 
         //-----------------------------------------------------------------------------------------------------------------------------
 
-        //   Variable
-        private static FrmArticulos _Instancia; 
+        // Variable  
+        private static FrmArticulos _InstaArti; 
         
         //   Método   para saber si ya tengo una instancia creada o no, si no la tengo la creo, si existiera pues vale la devolvemos. 
-        public static FrmArticulos GetInstancia()
+        public static FrmArticulos GetInstaArti()
         {
-            if (_Instancia == null)
+            if (_InstaArti == null)
             {
                 //Instancia al formulario,  que tambien es una clase por eso se puede instanciar.
-                _Instancia = new FrmArticulos();
+                _InstaArti = new FrmArticulos();
             }
-
-            return _Instancia;
+            return _InstaArti;
         }
 
 
@@ -59,11 +58,11 @@ namespace CapaPresentacion
             this.txtIdCodFam.Text = idCodFam;
             this.txtNombreFamilia.Text = cNombreFamilia;                       
         }
+        //-->FIN CODIGO PARA LUPA  FAMILIAS 
+        //-----------------------------------------------------------------------------------------------------------------------------
 
 
-        //-----------------------------------------------------------------------------------------------------------------------------
-        //-->FIN CODIGO PARA LUPA 
-        //-----------------------------------------------------------------------------------------------------------------------------
+
 
 
 
@@ -106,9 +105,12 @@ namespace CapaPresentacion
                 this.txtIdCodFam.Text = string.Empty;
                 this.txtidTipoIva.Text = string.Empty;
                 this.txtNombreFamilia.Text = string.Empty;
+                this.txtcCodigoBar.Text = string.Empty;
                 this.txtnPvP.Text = string.Empty;
                 this.txtnStock.Text = string.Empty;
                 this.txtPorcenIva.Text = string.Empty;
+
+
 
                 //-->Si tubiera una imagen, para dejarla vacia haria esto  (Video :  14  Minuto :  05 )
                 //   this.pxImagen.Image = global::CapaPresentacion.Properties.Resources.file;       
@@ -121,18 +123,22 @@ namespace CapaPresentacion
             private void Habilitar(bool valor)
             {
 
-                this.txtidCodArti.ReadOnly = !valor;  //Es un valor Identity  lo 'capo del todo'
+                this.txtidCodArti.ReadOnly = true; // !valor;  //Es un valor Identity  lo 'capo del todo'
+                this.txtidCodArti.Enabled = false; // !valor;  //Es un valor Identity  lo 'capo del todo'
+                //cambiarle el color a esto cuando este deshabilitado 
+                    
+            
 
-                this.txtcCodigoBar.ReadOnly = !valor;
-                this.txtcDetalle.ReadOnly = !valor;
+            this.txtcDetalle.ReadOnly = !valor;
                 this.txtIdCodFam.ReadOnly = !valor;
                 this.txtidTipoIva.ReadOnly = !valor;            
                 this.txtnPvP.ReadOnly = !valor;
                 this.txtnStock.ReadOnly = !valor;
-                this.txtPorcenIva.ReadOnly = !valor;
+                this.txtPorcenIva.ReadOnly = true; // !valor;
+                this.txtcCodigoBar.ReadOnly = !valor;
 
                 this.txtIdCodFam.ReadOnly = valor;
-                this.txtNombreFamilia.ReadOnly = !valor;
+                this.txtNombreFamilia.ReadOnly = true; //!valor;
                 this.btnLupaFami.Enabled = valor;
 
 
@@ -170,14 +176,13 @@ namespace CapaPresentacion
             }
 
 
-
             //-->Método para ocultar columnas en el Grid de Articulos
             private void OcultarColumnas()
             {
                 this.dataListado.Columns[0].Visible = false;   //Esta se corresponde con la Columna para dar de baja 
-                this.dataListado.Columns[1].Visible = false;   //idCodArti
-                this.dataListado.Columns[3].Visible = false;   //idCodFam
-                this.dataListado.Columns[6].Visible = false;   //idTipoIva 
+               // this.dataListado.Columns[1].Visible = false;   //idCodArti
+               // this.dataListado.Columns[3].Visible = false;   //idCodFam
+               // this.dataListado.Columns[6].Visible = false;   //idTipoIva 
 
             }
 
@@ -292,37 +297,35 @@ namespace CapaPresentacion
 
 
 
-                        /*
-                        
-                        
-
-                        @idCodArti int  output,    --OjO que es identity   (autogenerado)   de tipo salida
-                        @cDetalle varchar(100),
-                        @idCodFam int,
-                        @nStock  decimal(18,6),
-                        @idTipoIva smallint,
-                        @nPvP decimal(18,6),
-                        @cCodigoBar varchar(50)
+                        /*                                                
+                            @idCodArti int  output,    --OjO que es identity   (autogenerado)   de tipo salida
+                            @cDetalle varchar(100),
+                            @idCodFam int,
+                            @nStock  decimal(18,6),
+                            @idTipoIva smallint,
+                            @nPvP decimal(18,6),
+                            @cCodigoBar varchar(50)
                          */
 
 
                     }
-                    else    //Es una modificacion   PARECE QUE ESTA MODIFICANDO TODOS !!!
+                    else    //Es una modificacion  
                     {
                         //-->Vamos a llamar al Metodo Editar de la CapaNegocio enviandole los valores 
                         ///rpta = NFamilias.Editar(Convert.ToInt32(this.txtIdFamilias.Text), this.txtNombre.Text.Trim().ToUpper());
-
-                        rpta = NArticulo.Editar(Convert.ToInt32(this.txtidCodArti.Text ) , this.txtcDetalle.Text.Trim().ToUpper(), 
-                                                Convert.ToInt32(this.txtIdCodFam.Text), Convert.ToInt32(this.txtnStock.Text), 
-                                                Convert.ToInt32(this.txtidTipoIva.Text), Convert.ToInt32(this.txtnPvP.Text), this.txtcCodigoBar.Text);
-
-
+                        rpta = NArticulo.Editar(Convert.ToInt32(this.txtidCodArti.Text ),
+                                                this.txtcDetalle.Text.Trim().ToUpper(), 
+                                                Convert.ToInt32(this.txtIdCodFam.Text), 
+                                                Convert.ToDecimal(this.txtnStock.Text), 
+                                                Convert.ToInt16(this.txtidTipoIva.Text), 
+                                                Convert.ToDecimal(this.txtnPvP.Text), 
+                                                this.txtcCodigoBar.Text);                        
                     }
 
                     //-->Ahora vamos a ver si la operación tuvo éxito o no, el "OK" que estamos poniendo aquí es el que está
                     //   indicado  en la CAPADATOS en los metodos 
                     //   Insertar y Editar de esta forma :  rpta = SqlCmd.ExecuteNonQuery() == 1 ? "OK" : "NO se Ingreso el Registro";  
-                      //  Por eso pongo OK sino pondría lo que tuviera puesto...                                                                   
+                    //  Por eso pongo OK sino pondría lo que tuviera puesto...                                                                   
                     if (rpta.Equals("OK")) //Comparando cadenas con  :  Equals()      
                     {
                         if (this.IsNuevo)
@@ -431,36 +434,39 @@ namespace CapaPresentacion
             //-->Hacer el Convert  los valores que llegan del Grid llegan como Object 
             //   el   CurrentRow.Cells  captura lo que tiene la celda actual
 
-            //idCodArti,cDetalle,idCodFam,nStock,idTipoIva,nPvP,cCodigoBar)
-            /*
-            this.txtidCodArti.ReadOnly = !valor;  //Es un valor Identity  lo 'capo del todo'
-
-            this.txtcCodigoBar.ReadOnly = !valor;
-            this.txtcDetalle.ReadOnly = !valor;
-            this.txtIdCodFam.ReadOnly = !valor;
-            this.txtidTipoIva.ReadOnly = !valor;
-            this.txtnPvP.ReadOnly = !valor;
-            this.txtnStock.ReadOnly = !valor;
-            this.txtPorcenIva.ReadOnly = !valor;
-
-            this.txtIdCodFam.ReadOnly = valor;
-            this.txtNombreFamilia.ReadOnly = !valor;
-            this.btnLupaFami.Enabled = valor;
-            */
+                       
+            //->Le he indicado todos los campos para que me lleve todos los valores a la solapa del detalle 
 
             this.txtidCodArti.Text = Convert.ToString(this.dataListado.CurrentRow.Cells["idCodArti"].Value);
-            this.txtcDetalle.Text = Convert.ToString(this.dataListado.CurrentRow.Cells["cDetalle"].Value);
+            this.txtcDetalle.Text = Convert.ToString(this.dataListado.CurrentRow.Cells["cDetalle"].Value);            
+            this.txtIdCodFam.Text = Convert.ToString(this.dataListado.CurrentRow.Cells["idCodFam"].Value);
+            this.txtnPvP.Text = Convert.ToString(this.dataListado.CurrentRow.Cells["nPvP"].Value);
+            this.txtnStock.Text = Convert.ToString(this.dataListado.CurrentRow.Cells["nStock"].Value);
+            this.txtidTipoIva.Text = Convert.ToString(this.dataListado.CurrentRow.Cells["idTipoIva"].Value);
+            this.txtcCodigoBar.Text = Convert.ToString(this.dataListado.CurrentRow.Cells["cCodigoBar"].Value);
+
 
             //->Recuperacion de imagenes en VIDEO 15  minuto 04:00 aprox)
 
+
+            //-------->  TRATAMIENTO INFORMACION LUPA   <-------------------------------------------------------------------------------------------
+
             //Esto es para capturar el valor de lupa 
             this.txtIdCodFam.Text = Convert.ToString(this.dataListado.CurrentRow.Cells["idCodFam"].Value);
-            this.txtNombreFamilia.Text = Convert.ToString(this.dataListado.CurrentRow.Cells["cNombreFamilia"].Value);
 
+            
+                    //CAGATOR  :  el profe no busca los valores de otras tablas cuando son lupas, con el diseño que tiene se apaña ya que utiliza 
+                    //            los nombres y no los codigos.
+                    //RESOLUCION :   Escalo la información llamo a la capa negocios esta llama a la capa datos para mirar en la BB.DD(tabla)                         
+                    this.dataListado.DataSource = NFamilias.Mostrar();
+                    this.txtNombreFamilia.Text = Convert.ToString(this.dataListado.CurrentRow.Cells["cNombreFamilia"].Value);
+                    
+                //Vuelvo a colocar el foco en  los Artículos que sino se queda apuntando a las Familias 
+                    this.dataListado.DataSource = NArticulo.Mostrar();
 
-            //-> Para que pinte la  Solapa/folder/TabPage  1   que imagino es la del detalle, la del grid debe ser la 0
-            this.tabControl1.SelectedIndex = 1;
-
+                    //-> Para que pinte la  Solapa/folder/TabPage  1   que imagino es la del detalle, la del grid debe ser la 0
+                    this.tabControl1.SelectedIndex = 1;
+            //----------------------------------------------------------------------------------------------------------------------------------
 
         }
 
@@ -529,7 +535,7 @@ namespace CapaPresentacion
             }
         }
 
-        //Este es el evento clic de la lupa 
+        //Este es el evento clic de la lupa de las Familias 
         private void btnLupaFami_Click(object sender, EventArgs e)
         {
             //Vamos a instanciar una variable con el tipo del formulario auxiliar y lo mostraremos 
