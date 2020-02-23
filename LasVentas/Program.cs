@@ -28,7 +28,7 @@ namespace LasVentas
             // si ya tengo una instancia la utilizo, si no la tengo la creo.
             // 
             // NOTA : No entiendo bien la utilidad de tener o no una instacia creada.
-            //        Creo que se debe al tener lupas que abren otros formularios (No Modales) 
+            //        Creo que se debe al tener lupas (lupa) que abren otros formularios (No Modales No tienen ni  X  ni  Minimizado ni Maximizado )
              
             Application.Run(FrmArticulos.GetInstaArti());
 
