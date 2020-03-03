@@ -314,6 +314,7 @@
             this.Name = "FrmFamilias";
             this.Text = "                                                                             .:. " +
     "Mantenimiento de Familas .:.";
+            this.TopMost = true;
             this.Load += new System.EventHandler(this.FrmFamilias_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);

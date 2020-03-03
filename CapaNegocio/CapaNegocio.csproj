@@ -43,6 +43,7 @@
     <Compile Include="Class1.cs" />
     <Compile Include="NArticulo.cs" />
     <Compile Include="NFamilias.cs" />
+    <Compile Include="NProveedor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

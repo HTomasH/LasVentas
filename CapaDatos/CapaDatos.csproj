@@ -44,6 +44,7 @@
     <Compile Include="Conexion.cs" />
     <Compile Include="DArticulos.cs" />
     <Compile Include="DFamilias.cs" />
+    <Compile Include="DProveedor.cs" />
     <Compile Include="DTrabajadores.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -123,40 +123,10 @@
   <metadata name="Eliminar.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="btnLupaIVA.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAmRJREFUOE9j
-        GAFAM7xW1SpnSpxr+YJyl+LZ1bap3TnK5r5OQClOiAocwDB9CjMQa9vlTG7LnbL1XEDJ9D8BxdP/pHet
-        vusYX79KXM0sgoFBFLshAklzmPTy5gvb5M/uDSyZ+ff4jef/7r78+P/2s4//d597/L9x4ZFfnjkTrwpI
-        GtpCtaAC2cz5XBJp8xzTJ+54++rVj39/fv/7/+/fv/9///79/+3Lr/+Xbrz537zo5DePvEl7oVpQgX7J
-        Ujn33Mnvd554+P/+/df/Pn/6CsYvn7//d+/Oy39XLj/9t/PIvb9+tSu/Q7WgApXM+Sou2ZM+Hzn78P+z
-        F+///fr1+/+Xz9/+vXj27t9toHeuAQ04d/nZP/f6DX+hWuCASdLATsiuenGAddHcq8t3nPv/9sPnf3/+
-        /AUa8OPf86fv/925+fLfLSC+dPvN38D2bR9BmtgZRRSUlLyTvRxSa8rCaqfMy15w4KBTVvvH3M7lv568
-        fPfvx48f/18D6bu3nv67df3pvyvXXvxffej+d/+O7ccZJHUsghW8knvsSqduC+tYdiepZ9l3v6Kpf2Ia
-        piyyzZlyeea6Az9Pnb/678L5a/9PHr/878Dhq/+Xbr/8u2jukXs+BVOfM4Q3z+v3aFr8PKR/4/+Urvl3
-        ilv6NrfOWTl10b5j2tnTtlW5Fkw5Wdy/4lXn/K1f+xbu+to8d8+bnCm7z3vnT32z4PBlCYbJh+/5BlVN
-        2eacXHGjtbu7/MGlw+z///9m+ffvI/////8FvWqXxikmT1molDp9t3bO3L02FcuXeOVNfta68hw/ONQG
-        GDAwAADKt1hVbOnx5wAAAABJRU5ErkJggg==
-</value>
-  </data>
-  <data name="btnLupaFami.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAmRJREFUOE9j
-        GAFAM7xW1SpnSpxr+YJyl+LZ1bap3TnK5r5OQClOiAocwDB9CjMQa9vlTG7LnbL1XEDJ9D8BxdP/pHet
-        vusYX79KXM0sgoFBFLshAklzmPTy5gvb5M/uDSyZ+ff4jef/7r78+P/2s4//d597/L9x4ZFfnjkTrwpI
-        GtpCtaAC2cz5XBJp8xzTJ+54++rVj39/fv/7/+/fv/9///79/+3Lr/+Xbrz537zo5DePvEl7oVpQgX7J
-        Ujn33Mnvd554+P/+/df/Pn/6CsYvn7//d+/Oy39XLj/9t/PIvb9+tSu/Q7WgApXM+Sou2ZM+Hzn78P+z
-        F+///fr1+/+Xz9/+vXj27t9toHeuAQ04d/nZP/f6DX+hWuCASdLATsiuenGAddHcq8t3nPv/9sPnf3/+
-        /AUa8OPf86fv/925+fLfLSC+dPvN38D2bR9BmtgZRRSUlLyTvRxSa8rCaqfMy15w4KBTVvvH3M7lv568
-        fPfvx48f/18D6bu3nv67df3pvyvXXvxffej+d/+O7ccZJHUsghW8knvsSqduC+tYdiepZ9l3v6Kpf2Ia
-        piyyzZlyeea6Az9Pnb/678L5a/9PHr/878Dhq/+Xbr/8u2jukXs+BVOfM4Q3z+v3aFr8PKR/4/+Urvl3
-        ilv6NrfOWTl10b5j2tnTtlW5Fkw5Wdy/4lXn/K1f+xbu+to8d8+bnCm7z3vnT32z4PBlCYbJh+/5BlVN
-        2eacXHGjtbu7/MGlw+z///9m+ffvI/////8FvWqXxikmT1molDp9t3bO3L02FcuXeOVNfta68hw/ONQG
-        GDAwAADKt1hVbOnx5wAAAABJRU5ErkJggg==
-</value>
-  </data>
   <metadata name="errorIcono.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>336, 17</value>
   </metadata>
+  <data name="textBox2.Text" xml:space="preserve">
+    <value>LOS CONTROLES SE PUEDEN COPIAR DE OTROS FORMULARIOS PERO PARA DARLES FUNCIONALIDAD HAY QUE PICAR SOBRE ELLOS Y DARSELA DE LO CONTRARIO NOS DARA ERRORES A LA HORA  DE COMPILAR.     TAMBIEN,   PARA EL INICIO DE VER EL CODIGO DEL FORMULARIO SITUARNOS EN UNA PARTE DONDE NO ESTE NINGUN CONTROL Y HACER DOLBE CICK</value>
+  </data>
 </root>

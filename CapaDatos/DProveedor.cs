@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 //-->Usings para poder trabajar con el tipo Datos  y enviar información a SQLServerr
 using System.Data;
 using System.Data.SqlClient;
@@ -12,8 +11,9 @@ using System.Data.SqlClient;
 
 namespace CapaDatos
 {
-    public class DFamilias   //Indicar que es publica de lo contrario no podre acceder a ella 
+    public class DProveedor
     {
+
         /*
           Declaración de los CAMPOS con los que vamos a trabajar
           que son los campos de la tabla Familias.
@@ -25,71 +25,61 @@ namespace CapaDatos
         //---------------------------------------------------------------------------------
         // CODIFICACION    Campos         :  Con guión bajo  _                _idCodFam;    
         //                 Propiedades    :  Con Mayúscula la primera         IdCodFam
-        //                 Paremetros     :  Con minúscula la priemera        idCodFam
+        //                 Parametros     :  Con minúscula la priemera        idCodFam
         //---------------------------------------------------------------------------------
 
-
-        private int _idCodFam;
-        private string _cNombreFamilia;
+        private int _idProveedo;
+        private string _cNomPro;
+        private string _cNifDni;
 
         //->Variable extra para las búsqueda del nombre 
         private string _cTextoBuscar;
 
 
-
-        //-->Y ahora para pintar las PROPIEDADES, lo haremos Refactorizando !!   
-        //   Se hace colocandose sobre la variable y le damos al botón derecho - Opcion Refactorizar - Encapsular Campo 
-
-        // GETer   Devuelve valores
-        // SETer   Recibe valores.
-
-        public int IdCodFam
+        public int IdProveedo
         {
-            get { return _idCodFam; }
-            set { _idCodFam = value; }
+            get {return _idProveedo; }
+            set { _idProveedo = value;}
         }
 
-        public string CNombreFamilia
+        public string CNomPro
         {
-            get { return _cNombreFamilia; }
-            set { _cNombreFamilia = value; }
+            get {return _cNomPro;}
+            set { _cNomPro = value; }
+        }
+
+        public string CNifDni
+        {
+            get { return _cNifDni; }
+            set { _cNifDni = value; }
         }
 
         public string CTextoBuscar
         {
-            get { return _cTextoBuscar; }
-            set { _cTextoBuscar = value; }
+            get { return CTextoBuscar;   }
+            set { CTextoBuscar = value;   }
         }
 
 
-        //---------------------------------------------------------------------------------
-        // CODIFICACION    Campos         :  Con guión bajo  _                _idCodFam;    
-        //                 Propiedades    :  Con Mayúscula la primera         IdCodFam
-        //                 Parametros     :  Con minúscula la primera         idCodFam
-        //---------------------------------------------------------------------------------
-
-
-
-        //------------------- CONSTRUCTORES   ----------------------------------------------
-        //----------------------------------------------------------------------------------
-
+        
         //-->Constructor  SIN PARAMETROS 
         //------------------------------
-        public DFamilias()
+        public DProveedor()
         {
         }
-       
-        //----------------------------------------------------------------------------------        
+
+
+        
         //-->Constructor  CON PARAMETROS (Vamos a indicar los parametros con  minúsculas )
         //----------------------------------------------------------------------------------        
-
-        public DFamilias(int idCodFam, string cNombreFamilia, string cTextoBuscar)
+        public DProveedor(int idProveedo, string cNomPro, string cNifDni, string cTextoBuscar)
         {
             //Vamos a enviar los datos que  nos llegan en estos parametros  a nuestras propiedades 
-
-            this.CNombreFamilia = cNombreFamilia;
-            this.IdCodFam = idCodFam;
-            this.CTextoBuscar = cTextoBuscar;
+            this.IdProveedo = idProveedo;
+            this.CNomPro = cNomPro;
+            this.CNifDni = cNifDni;
+            
+            this.CTextoBuscar = cTextoBuscar;                               
         }
 
 
@@ -104,9 +94,8 @@ namespace CapaDatos
         //de los que se tengan que tener en cuenta, en este ejemplo son pocos campos pero si fueramos a tratar tabla
         //donde hubiera muchos campos es un puto coñazo
 
-        public string Insertar(DFamilias Familias)
+        public string Insertar( DProveedor Proveedor )
         {
-
 
 
             string rpta = "";                             //-->  rpta  -  Variable para saber el valor de retorno
@@ -120,28 +109,38 @@ namespace CapaDatos
 
                 SqlCommand SqlCmd = new SqlCommand();              //-->  SqlCmd  -  Variable de la clase SqlCommand para poder utilizar los comandos de SQL 
                 SqlCmd.Connection = SqlCon;                        //-->  Le pasamos la conexión.
-                SqlCmd.CommandText = "spInsertar_familia";         //-->  Le decimos el nombre del Procedimiento a ejecutar 
+                SqlCmd.CommandText = "spInsertar_Proveedor";         //-->  Le decimos el nombre del Procedimiento a ejecutar 
                 SqlCmd.CommandType = CommandType.StoredProcedure;  //-->  Le decimos que el tipo de comando es un PRC
 
 
-                //-->Descripción del campo   idCodFam   de la tabla Familias   
+                //-->Descripción del campo   idProveedo 
                 //-----------------------------------------------------------------------------------
-                SqlParameter ParIdCodFam = new SqlParameter();      //-> Esto es para "parametrizar", poder enviar parametros en consultas                 
-                ParIdCodFam.ParameterName = "@idCodFam";            //-> Nombre del parametro, este es el mismo que tengo puesto en el PRC
-                ParIdCodFam.SqlDbType = SqlDbType.Int;              //-> Tipo del campo
-                ParIdCodFam.Direction = ParameterDirection.Output;  //-> Este campo es Identity por lo tanto indicar que es de salida Output                
-                SqlCmd.Parameters.Add(ParIdCodFam);                 //-> Acción que tiene que llevar a cabo,  AÑADIR en este caso con los parametros contenidos en ParNombre 
+                SqlParameter ParIdProveedo = new SqlParameter();      //-> Esto es para "parametrizar", poder enviar parametros en consultas                 
+                ParIdProveedo.ParameterName = "@idProveedo";          //-> Nombre del parametro, este es el mismo que tengo puesto en el PRC
+                ParIdProveedo.SqlDbType = SqlDbType.Int;              //-> Tipo del campo
+                ParIdProveedo.Direction = ParameterDirection.Output;  //-> Este campo es Identity por lo tanto indicar que es de salida Output                
+                SqlCmd.Parameters.Add(ParIdProveedo);                 //-> Acción que tiene que llevar a cabo,  AÑADIR en este caso con los parametros contenidos en ParNombre 
 
-
-                //-->Descripción del campo   cNombreFamilia   de la tabla Familias   
+                //-->Descripción del campo   CNomPro 
                 //-----------------------------------------------------------------------------------
 
-                SqlParameter ParNombreFamilia = new SqlParameter();  //--> Esto es para "parametrizar", poder enviar parametros en consultas                 
-                ParNombreFamilia.ParameterName = "@cNombreFamilia";  //--> Nombre del paramentro como está en el PRC
-                ParNombreFamilia.SqlDbType = SqlDbType.VarChar;      //--> Tipo del campo.
-                ParNombreFamilia.Size = 50;                          //--> Longuitud del campo 
-                ParNombreFamilia.Value = Familias.CNombreFamilia;    //--> Aquí sí, le enviamos el valor que tenemos en la Propiedad OjO
-                SqlCmd.Parameters.Add(ParNombreFamilia);             //--> Acción que tiene que llevar a cabo,  AÑADIR en este caso con los parametros contenidos en ParNombre 
+                SqlParameter ParCNomPro = new SqlParameter();  //--> Esto es para "parametrizar", poder enviar parametros en consultas                 
+                ParCNomPro.ParameterName = "@cNomPro";         //--> Nombre del paramentro como está en el PRC
+                ParCNomPro.SqlDbType = SqlDbType.VarChar;      //--> Tipo del campo.
+                ParCNomPro.Size = 120;                          //--> Longuitud del campo 
+                ParCNomPro.Value = Proveedor.CNomPro;          //--> Aquí sí, le enviamos el valor que tenemos en la Propiedad OjO
+                SqlCmd.Parameters.Add(ParCNomPro);             //--> Acción que tiene que llevar a cabo,  AÑADIR en este caso con los parametros contenidos en ParNombre 
+
+
+                SqlParameter ParCNifDni = new SqlParameter();  //--> Esto es para "parametrizar", poder enviar parametros en consultas                 
+                ParCNifDni.ParameterName = "@cNifDni";         //--> Nombre del paramentro como está en el PRC
+                ParCNifDni.SqlDbType = SqlDbType.VarChar;      //--> Tipo del campo.
+                ParCNifDni.Size = 12;                          //--> Longuitud del campo 
+                ParCNifDni.Value = Proveedor.CNifDni;          //--> Aquí sí, le enviamos el valor que tenemos en la Propiedad OjO
+                SqlCmd.Parameters.Add(ParCNifDni);             //--> Acción que tiene que llevar a cabo,  AÑADIR en este caso con los parametros contenidos en ParNombre 
+
+
+
 
 
                 //--> Ahora Ejecutamos nuestro comando (tipo  TERNARIO),  es decir estamos llamando al procedimiento almacenado para que se ejecute 
@@ -172,36 +171,45 @@ namespace CapaDatos
 
 
         //-------------------    METODO  MODIFICAR/EDITAR -----------------------------------------------------------------
-        public string Editar(DFamilias Familias)
+        public string Editar(DProveedor Proveedor)
         {
             string rpta = "";
             SqlConnection SqlCon = new SqlConnection();
             try
             {
-                
+
                 SqlCon.ConnectionString = Conexion.Cn;
                 SqlCon.Open();
-                
+
                 //Establecer el Comando
                 SqlCommand SqlCmd = new SqlCommand();
                 SqlCmd.Connection = SqlCon;
-                SqlCmd.CommandText = "spEditar_familia";
+                SqlCmd.CommandText = "spEditar_Proveedor";
                 SqlCmd.CommandType = CommandType.StoredProcedure;
 
 
-                SqlParameter ParIdCodFam = new SqlParameter();
-                ParIdCodFam.ParameterName = "@idCodFam";  //Nombre que tengo en el PCR
-                ParIdCodFam.SqlDbType = SqlDbType.Int;
-                ParIdCodFam.Value = Familias.IdCodFam;    //Toma el valor de la propiedad 
-                SqlCmd.Parameters.Add(ParIdCodFam);
+                SqlParameter ParIdProveedo = new SqlParameter();
+                ParIdProveedo.ParameterName = "@idProveedo";  //Nombre que tengo en el PCR
+                ParIdProveedo.SqlDbType = SqlDbType.Int;
+                ParIdProveedo.Value = Proveedor.IdProveedo;    //Toma el valor de la propiedad 
+                SqlCmd.Parameters.Add(ParIdProveedo);
+
+                
+                SqlParameter ParCNomPro = new SqlParameter();
+                ParCNomPro.ParameterName = "@cNomPro";   //Nombre que tengo en el PCR
+                ParCNomPro.SqlDbType = SqlDbType.VarChar;
+                ParCNomPro.Size = 120;
+                ParCNomPro.Value = Proveedor.CNomPro;
+                SqlCmd.Parameters.Add(ParCNomPro);
+
+                SqlParameter ParCNifDni = new SqlParameter();  //--> Esto es para "parametrizar", poder enviar parametros en consultas                 
+                ParCNifDni.ParameterName = "@cNifDni";         //--> Nombre del paramentro como está en el PRC
+                ParCNifDni.SqlDbType = SqlDbType.VarChar;      //--> Tipo del campo.
+                ParCNifDni.Size = 12;                          //--> Longuitud del campo 
+                ParCNifDni.Value = Proveedor.CNifDni;          //--> Aquí sí, le enviamos el valor que tenemos en la Propiedad OjO
+                SqlCmd.Parameters.Add(ParCNifDni);             //--> Acción que tiene que llevar a cabo,  AÑADIR en este caso con los parametros contenidos en ParNombre 
 
 
-                SqlParameter ParNombreFamilia = new SqlParameter();
-                ParNombreFamilia.ParameterName = "@cNombreFamilia";   //Nombre que tengo en el PCR
-                ParNombreFamilia.SqlDbType = SqlDbType.VarChar;
-                ParNombreFamilia.Size = 50;
-                ParNombreFamilia.Value = Familias.CNombreFamilia;
-                SqlCmd.Parameters.Add(ParNombreFamilia);
 
                 //Ejecutamos nuestro comando, es decir estamos llamando al procedimiento almacenado para que se ejecute 
                 rpta = SqlCmd.ExecuteNonQuery() == 1 ? "OK" : "NO se Actualizo el Registro";
@@ -223,29 +231,32 @@ namespace CapaDatos
 
 
         //-------------------    METODO  BAJAS/ELIMINAR -----------------------------------------------------------------
-        public string Eliminar(DFamilias Familias)
+        public string Eliminar(DProveedor Proveedor)
         {
             string rpta = "";
             SqlConnection SqlCon = new SqlConnection();
+
+            
 
             try
             {
                 //Código
                 SqlCon.ConnectionString = Conexion.Cn;
                 SqlCon.Open();
-            
+
                 //Establecer el Comando
                 SqlCommand SqlCmd = new SqlCommand();
                 SqlCmd.Connection = SqlCon;
-                SqlCmd.CommandText = "spEliminar_familia";
+                SqlCmd.CommandText = "spEliminar_Proveedor";
                 SqlCmd.CommandType = CommandType.StoredProcedure;
 
 
-                SqlParameter ParIdCodFam = new SqlParameter();
-                ParIdCodFam.ParameterName = "@idCodFam";
-                ParIdCodFam.SqlDbType = SqlDbType.Int;
-                ParIdCodFam.Value = Familias.IdCodFam;
-                SqlCmd.Parameters.Add(ParIdCodFam);
+                SqlParameter ParIdProveedo = new SqlParameter();
+                ParIdProveedo.ParameterName = "@idProveedo";  //Nombre que tengo en el PCR
+                ParIdProveedo.SqlDbType = SqlDbType.Int;
+                ParIdProveedo.Value = Proveedor.IdProveedo;    //Toma el valor de la propiedad 
+                SqlCmd.Parameters.Add(ParIdProveedo);
+
 
                 //Ejecutamos nuestro comando, es decir estamos llamando al procedimiento almacenado para que se ejecute 
                 rpta = SqlCmd.ExecuteNonQuery() == 1 ? "OK" : "NO se Elimino el Registro";
@@ -266,11 +277,11 @@ namespace CapaDatos
 
 
         //-------------------    METODO  CONSULTAR/MOSTRAR -----------------------------------------------------------------
-        
+
         public DataTable Mostrar()
         {
             //-> OjO   de tipo DateTable 
-            DataTable DtResultado = new DataTable("Familias");
+            DataTable DtResultado = new DataTable("Proveedores");
             SqlConnection SqlCon = new SqlConnection();
 
             try
@@ -278,7 +289,7 @@ namespace CapaDatos
                 SqlCon.ConnectionString = Conexion.Cn;
                 SqlCommand SqlCmd = new SqlCommand();
                 SqlCmd.Connection = SqlCon;
-                SqlCmd.CommandText = "spMostrar_familia";  //En este PRC lo que hacemos es selecionar los primeros 200 regitros 
+                SqlCmd.CommandText = "spMostrar_Proveedor";  //En este PRC lo que hacemos es selecionar los primeros 200 regitros 
                 SqlCmd.CommandType = CommandType.StoredProcedure;
 
                 SqlDataAdapter SqlDat = new SqlDataAdapter(SqlCmd);
@@ -294,13 +305,11 @@ namespace CapaDatos
         }
 
 
-
-        //-> metodo para buscar solo el nombre de las familias, lo mismo en vez de recibir el campo en cuestion indicamos toda la clase
-        //public DataTable BuscarNombre (DCategoria Categoria)
-        public DataTable BuscarRazonSocial( DFamilias Familias)
+        
+        public DataTable BuscarRazonSocial(DProveedor Proveedor)
         {
 
-            DataTable DtResultado = new DataTable("Familias");
+            DataTable DtResultado = new DataTable("Proveedores");
             SqlConnection SqlCon = new SqlConnection();
 
             try
@@ -308,14 +317,14 @@ namespace CapaDatos
                 SqlCon.ConnectionString = Conexion.Cn;
                 SqlCommand SqlCmd = new SqlCommand();
                 SqlCmd.Connection = SqlCon;
-                SqlCmd.CommandText = "spBuscarNombre_familia";
+                SqlCmd.CommandText = "spBuscar_Proveedor_razon_social";
                 SqlCmd.CommandType = CommandType.StoredProcedure;
 
                 SqlParameter ParTextoBuscar = new SqlParameter();
                 ParTextoBuscar.ParameterName = "@textobuscar";
                 ParTextoBuscar.SqlDbType = SqlDbType.VarChar;
-                ParTextoBuscar.Size = 50;
-                ParTextoBuscar.Value = Familias.CTextoBuscar;
+                ParTextoBuscar.Size = 120;
+                ParTextoBuscar.Value = Proveedor.CTextoBuscar;
                 SqlCmd.Parameters.Add(ParTextoBuscar);
 
                 SqlDataAdapter SqlDat = new SqlDataAdapter(SqlCmd);
@@ -330,10 +339,11 @@ namespace CapaDatos
 
         }
 
-        public DataTable BuscarNombre(DFamilias Familias)
+
+        public DataTable BuscarNumeroDocumento(DProveedor Proveedor)
         {
 
-            DataTable DtResultado = new DataTable("Familias");
+            DataTable DtResultado = new DataTable("Proveedores");
             SqlConnection SqlCon = new SqlConnection();
 
             try
@@ -347,8 +357,8 @@ namespace CapaDatos
                 SqlParameter ParTextoBuscar = new SqlParameter();
                 ParTextoBuscar.ParameterName = "@textobuscar";
                 ParTextoBuscar.SqlDbType = SqlDbType.VarChar;
-                ParTextoBuscar.Size = 12;
-                ParTextoBuscar.Value = Familias.CTextoBuscar;
+                ParTextoBuscar.Size = 120;
+                ParTextoBuscar.Value = Proveedor.CTextoBuscar;
                 SqlCmd.Parameters.Add(ParTextoBuscar);
 
                 SqlDataAdapter SqlDat = new SqlDataAdapter(SqlCmd);

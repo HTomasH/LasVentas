@@ -126,10 +126,8 @@ namespace CapaPresentacion
                 this.txtidCodArti.ReadOnly = true; // !valor;  //Es un valor Identity  lo 'capo del todo'
                 this.txtidCodArti.Enabled = false; // !valor;  //Es un valor Identity  lo 'capo del todo'
                 //cambiarle el color a esto cuando este deshabilitado 
-                    
-            
-
-            this.txtcDetalle.ReadOnly = !valor;
+                                
+                this.txtcDetalle.ReadOnly = !valor;
                 this.txtIdCodFam.ReadOnly = !valor;
                 this.txtidTipoIva.ReadOnly = !valor;            
                 this.txtnPvP.ReadOnly = !valor;
@@ -427,7 +425,7 @@ namespace CapaPresentacion
 
         }
 
-        //Este es el evento del doble click del Grid  que se crea desde la ventana de propiedades del objeto, del Grid
+        // OJO  RECORDAR  :  Este es el evento del doble click del Grid  que se crea desde la ventana de propiedades del objeto, del Grid
         private void dataListado_DoubleClick(object sender, EventArgs e)
         {
 

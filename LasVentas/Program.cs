@@ -21,16 +21,27 @@ namespace LasVentas
             Application.SetCompatibleTextRenderingDefault(false);
 
             //-> Linea por defecto para indicar el formulario de arranque de la aplicacion  :    
+
+            //--> PRUEBA 1    INICIO
             // Application.Run(new Form1());
+
+            //--> PRUEBA 2    FAMILIAS 
             // Application.Run(new FrmFamilias());
 
-            // Para ejecutar los Articulos se hace de esta forma, llamando a la instancia y como hemos dejado en el FrmArticulos
-            // si ya tengo una instancia la utilizo, si no la tengo la creo.
-            // 
-            // NOTA : No entiendo bien la utilidad de tener o no una instacia creada.
-            //        Creo que se debe al tener lupas (lupa) que abren otros formularios (No Modales No tienen ni  X  ni  Minimizado ni Maximizado )
-             
-            Application.Run(FrmArticulos.GetInstaArti());
+            /*
+            //--> PRUEBA 3    ARTICULOS 
+                  Para ejecutar los Articulos se hace de esta forma, llamando a la instancia y como hemos dejado en el FrmArticulos
+                  si ya tengo una instancia la utilizo, si no la tengo la creo.
+                 
+                  NOTA : No entiendo bien la utilidad de tener o no una instacia creada.
+                         Creo que se debe al tener lupas (lupa) 
+                         que abren otros formularios (No Modales No tienen ni  X  ni  Minimizado ni Maximizado )
+
+                  Application.Run(FrmArticulos.GetInstaArti());
+            */
+
+            //--> PRUEBA 4   PROVEEDORES
+            Application.Run(new FrmProveedor());
 
 
         }
