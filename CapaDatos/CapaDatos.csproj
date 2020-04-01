@@ -43,6 +43,7 @@
     <Compile Include="Class1.cs" />
     <Compile Include="Conexion.cs" />
     <Compile Include="DArticulos.cs" />
+    <Compile Include="DClientes.cs" />
     <Compile Include="DFamilias.cs" />
     <Compile Include="DProveedor.cs" />
     <Compile Include="DTrabajadores.cs" />

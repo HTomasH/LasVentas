@@ -16,7 +16,7 @@ namespace CapaDatos
 
         /*
           Declaración de los CAMPOS con los que vamos a trabajar
-          que son los campos de la tabla Familias.
+          que son los campos de la tabla Proveedores.
           
           Vamos a ponerles un guion bajo  por delante para diferenciar los Campos  y  las Propiedades 
         */
