@@ -27,9 +27,10 @@ namespace CapaPresentacion
         {
             InitializeComponent();  //Se inicializan todos los componentes del formulario
 
-            //->MENSAJES TOOLTIP EN LAS CAJAS DE TEXTO 
+            //->MENSAJES de ayuda TOOLTIP EN LAS CAJAS DE TEXTO 
             this.ttMensaje.SetToolTip(this.txtNombre, "Indique el Nombre del Cliente");
             this.ttMensaje.SetToolTip(this.txtNumeroDocu, "Indique el número del Documento");
+            //etc..  etc.. pondria los mensajes para todos los campos que quiera...
         }
 
 
@@ -60,8 +61,9 @@ namespace CapaPresentacion
             this.txtPerson.Text = string.Empty;
             this.txtDescuento.Text = string.Empty;
             this.txtCuenta.Text = string.Empty;
+            this.txtEmail.Text = string.Empty;
 
-     
+
             //-->Si tubiera una imagen, para dejarla vacia haria esto  (Video :  14  Minuto :  05 )
             //   this.pxImagen.Image = global::CapaPresentacion.Properties.Resources.file;       
 
@@ -90,6 +92,7 @@ namespace CapaPresentacion
             this.txtPerson.ReadOnly = !valor;
             this.txtDescuento.ReadOnly = !valor;
             this.txtCuenta.ReadOnly = !valor;
+            this.txtEmail.ReadOnly = !valor;
 
         }
 
@@ -203,8 +206,9 @@ namespace CapaPresentacion
         }
 
 
-
-        private void btnBuscar_Click(object sender, EventArgs e)
+        //-->PREGUNTAMOS POR EL VALOR DEL COMBO PARA SABER POR QUE CAMPO TENEMOS QUE BUSCAR 
+        
+        private void btnBuscar_Click_1(object sender, EventArgs e)
         {
             if (cbBuscar.Text.Equals("RAZON SOCIAL"))
             {
@@ -217,7 +221,11 @@ namespace CapaPresentacion
         }
 
 
+
+
+
         //----- BOTON ELIMINAR  ------------------------------------------------------------------------------
+
         private void btnEliminar_Click(object sender, EventArgs e)
         {
 
@@ -268,9 +276,10 @@ namespace CapaPresentacion
                 MessageBox.Show(ex.Message + ex.StackTrace);
             }
         }
-
         //----  BOTON ELIMINAR ---------------------------------------------------------
-        private void chkEliminar_CheckedChanged(object sender, EventArgs e)
+        
+
+        private void chkEliminar_CheckedChanged_1(object sender, EventArgs e)
         {
             if (chkEliminar.Checked)   //Si el check está marcado entonces mostramos la columna 0  del  Grid, la de bajas 
             {
@@ -282,10 +291,10 @@ namespace CapaPresentacion
             }
         }
 
-        //----  BOTON NUEVO ---------------------------------------------------------
-        private void btnNuevo_Click(object sender, EventArgs e)
-        {
 
+        //----  BOTON NUEVO ---------------------------------------------------------                
+        private void btnNuevo_Click_1(object sender, EventArgs e)
+        {
             this.IsNuevo = true;    //Es un alta así que este valor a true   
             this.IsEditar = false;  //Este a False
 
@@ -293,10 +302,256 @@ namespace CapaPresentacion
             this.Limpiar();
             this.Habilitar(true);
             this.txtNombre.Focus();   //Foco a la caja de texto del nombre 
+        }
+
+
+
+
+
+
+        //------ BOTON GUARDAR ------------------------------------------------------------
+        
+        
+        private void btnGuardar_Click_1(object sender, EventArgs e)
+        {
+
+            try   //Control de errores   bien....
+            {
+
+                //-->VALIDACION DE CAMPOS. NOTA en el curso de C# ví que esto se puede hacer en las propiedades GET/SET
+                //----------------------------------------------------------------------------------------------------
+                string rpta = "";
+
+                //Controles que deben de tener valores obligatoriamente -- Si está vacía y como es un campo obligatorio,  pues hay que meterlo
+
+                if (this.txtNombre.Text == string.Empty || this.txtIdCliente.Text == string.Empty || this.txtNumeroDocu.Text == string.Empty)
+                {
+
+                    //--> MENSAJES A MOSTRAR SI LOS CAMPOS OBLIGATORIOS ESTUVIERAN VACIOS  -  Este metodo lo tengo en este mismo módulo
+                    MensajeError("Faltan por indicar  datos, serán remarcados");
+                    //--Vamos a indicar el mensaje a mostrar cuando salga el error.
+                    errorIcono.SetError(txtNombre, "Indique un Nombre");
+                    errorIcono.SetError(txtNumeroDocu, "Indique un número de documento");
+
+                }
+                else  //El textBox llega con valor,  
+                {
+                    if (this.IsNuevo)  //Es un alta ??
+                    {
+                        //-->Si tuvieramos que guardar una imagen, lo tratariamos de esta forma     VIDEO 14 minuto  20 aprox:   
+                        //----------------------------------------------------------------------                     
+                        //   System.IO.MemoryStream ms = new System.IO.MemoryStream();
+                        //   this.pxImagen.Image.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                        //   byte[] imagen = ms.GetBuffer();
+
+
+
+
+                        //-->Vamos a llamar al Metodo Insertar de la CapaNegocio enviandole los valores para insertar en la bb.dd 
+
+
+
+                        rpta = NCliente.Insertar(this.txtNombre.Text.Trim().ToUpper(),
+                                                  this.txtDirCli.Text.Trim().ToUpper(),
+                                                  this.txtPoblacion.Text.Trim().ToUpper(),
+                                                  this.txtNumeroDocu.Text.Trim().ToUpper(),
+                                                  this.txtPerson.Text.Trim().ToUpper(),
+                                                  this.txtCuenta.Text.Trim().ToUpper(),
+                                                  Convert.ToDecimal(this.txtDescuento.Text),
+                                                  this.txtTelefono.Text,
+                                                  this.txtEmail.Text,
+                                                  this.txtCodPostal.Text,
+                                                  this.dtFechaNac.Value,
+                                                  this.txtBuscar.Text.Trim().ToUpper());
+
+
+                    }
+                    else    //Es una modificacion  
+                    {
+                        //-->Vamos a llamar al Metodo Editar de la CapaNegocio enviandole los valores 
+
+
+
+                        rpta = NCliente.Editar(Convert.ToInt32(this.txtIdCliente.Text),
+                                                 this.txtNombre.Text.Trim().ToUpper(),
+                                                 this.txtDirCli.Text.Trim().ToUpper(),
+                                                 this.txtPoblacion.Text.Trim().ToUpper(),
+                                                 this.txtNumeroDocu.Text.Trim().ToUpper(),
+                                                 this.txtPerson.Text.Trim().ToUpper(),
+                                                 this.txtCuenta.Text.Trim().ToUpper(),
+                                                 Convert.ToDecimal(this.txtDescuento.Text),
+                                                 this.txtTelefono.Text,
+                                                 this.txtEmail.Text,
+                                                 this.txtCodPostal.Text,
+                                                 this.dtFechaNac.Value,
+                                                 this.txtBuscar.Text.Trim().ToUpper());
+
+
+
+
+
+
+
+                    }
+
+                    //-->Ahora vamos a ver si la operación tuvo éxito o no, el "OK" que estamos poniendo aquí es el que está
+                    //   indicado  en la CAPADATOS en los metodos 
+                    //   Insertar y Editar de esta forma :  rpta = SqlCmd.ExecuteNonQuery() == 1 ? "OK" : "NO se Ingreso el Registro";  
+                    //  Por eso pongo OK sino pondría lo que tuviera puesto...                                                                   
+                    if (rpta.Equals("OK")) //Comparando cadenas con  :  Equals()      
+                    {
+                        if (this.IsNuevo)
+                        {
+                            this.MensajeOk("Se Insertó de forma correcta el registro");
+                        }
+                        else
+                        {
+                            this.MensajeOk("Se Actualizó de forma correcta el registro");
+                        }
+                    }
+                    else  //Si no han tenido éxito la inserción o modificacion ERROR
+                    {
+                        //-->Vamos a enviar al error el valor de rpta que va a ser lo que tengo puesto en la CAPADATOS
+                        this.MensajeError(rpta);
+                    }
+
+                    //Borra la pelotilla del error si estuviera 
+                    errorIcono.Clear();
+
+                    //->Una vez insertado el registro dejamos las variables como estaban.
+                    this.IsNuevo = false;
+                    this.IsEditar = false;
+
+                    this.Botones();
+                    this.Limpiar();
+                    this.Mostrar();
+
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + ex.StackTrace);
+            }
 
         }
 
-        //------ BOTON GUARDAR ------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+        //--------- BOTON   EDITAR ----------------------------
+        
+        private void btnEditar_Click_1(object sender, EventArgs e)
+        {
+            if (!this.txtIdCliente.Text.Equals(""))
+            {
+                this.IsEditar = true;
+                this.Botones();
+                this.Habilitar(true);
+            }
+            else
+            {
+                this.MensajeError("Debe de seleccionar primero el registro a Modificar");
+            }
+        }
+
+
+
+
+        //--------- BOTON   CANCELAR ----------------------------
+
+        private void btnCancelar_Click_1(object sender, EventArgs e)
+        {
+            //Borra la pelotilla del error 
+            errorIcono.Clear();
+
+            this.IsNuevo = false;
+            this.IsEditar = false;
+
+            this.Botones();
+            this.Limpiar();
+            this.Habilitar(false);
+
+            //->OjO  con esto.... porqué  dejarlo en blanco???
+            this.txtIdCliente.Text = string.Empty;
+
+        }
+
+
+
+        //--> Este evento ocurre antes de que se actualice el valor de la celda.
+        //--> Se genera haciendo doble click  sobre el Grid.  
+        //--> UTILIDAD : Saber el valor inicial del check de baja  
+        //-----------------------------------------------------------------------------------------------------------------------
+
+
+        private void dataListado_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
+        {
+
+            //->Preguntamos si el indice de la columna es el de la columna Eliminar
+            if (e.ColumnIndex == dataListado.Columns["Eliminar"].Index)
+            {
+                //-->Declaramos la variable  ChkEliminar   del tipo  DataGridViewCheckBoxCell  
+                //   nos traeremos los valores (OjO haciendo conversion al tipo DataGridViewCheckBoxCell) 
+                //   de donde esta marcando el usuario para eliminar  
+                DataGridViewCheckBoxCell ChkEliminar = (DataGridViewCheckBoxCell)dataListado.Rows[e.RowIndex].Cells["Eliminar"];
+
+                //-->Estamos indicando  ChkEliminar.Value  si está marcado o no el checkbox 
+                //   en la columna elimnar del GRID y lo convertimos a True o False 
+                ChkEliminar.Value = !Convert.ToBoolean(ChkEliminar.Value);
+            }
+        }
+            
+        //--------- DOBLE CLICK DEL  GRID   MOVIENDO INFORMACION DEL GRID A LOS CAMPOS -----------------------------------------------------
+        //RECORDAR  :  Este es el evento del doble click del Grid  que se crea desde la ventana de propiedades del objeto, del Grid.
+        // 
+        //Aqui lo que estamos indicando es que cuando en el GRID se haga doble click se muestre el registro selecionado
+        //en el formulario individual.
+        //
+        //Para indicar este evento : Nos situamos en el GRID,  CLICK para ver sus propiedades y buscamos 
+        //                           el evento(rayo)  DoubleClick  al clicar sobre el mismo nombre y
+        //                           selecionar ninguna de la opciones que aparecen en el desplegable 
+        //                           ya nos creara el "esqueleto" del procedimiento del  evento
+        //--------------------------------------------------------------------------------------------------------------------------------
+        private void dataListado_DoubleClick(object sender, EventArgs e)
+        {
+            //-->Hacer el Convert : Los valores que llegan del Grid sin tipo Object 
+            //                      El  CurrentRow.Cells  captura lo que tiene la celda actual  
+                              
+            this.txtIdCliente.Text = Convert.ToString(this.dataListado.CurrentRow.Cells["idCodcli"].Value);
+            this.txtNombre.Text = Convert.ToString(this.dataListado.CurrentRow.Cells["cNomCli"].Value);
+            this.txtDirCli.Text = Convert.ToString(this.dataListado.CurrentRow.Cells["cDirCli"].Value);
+            this.txtPoblacion.Text = Convert.ToString(this.dataListado.CurrentRow.Cells["cPobCli"].Value);
+            this.txtCodPostal.Text = Convert.ToString(this.dataListado.CurrentRow.Cells["cCodPostal"].Value);
+            this.txtTelefono.Text = Convert.ToString(this.dataListado.CurrentRow.Cells["cTelefono1"].Value);
+            this.txtNumeroDocu.Text = Convert.ToString(this.dataListado.CurrentRow.Cells["cDniCif"].Value);
+            //->OjO este es de fecha, la conversion es diferente
+            this.dtFechaNac.Value = Convert.ToDateTime(this.dataListado.CurrentRow.Cells["dFechaNaci"].Value);
+            this.txtPerson.Text = Convert.ToString(this.dataListado.CurrentRow.Cells["cContacto"].Value);
+            this.txtDescuento.Text = Convert.ToString(this.dataListado.CurrentRow.Cells["nDto"].Value);
+            this.txtCuenta.Text = Convert.ToString(this.dataListado.CurrentRow.Cells["cCtaContable"].Value);
+            this.txtEmail.Text = Convert.ToString(this.dataListado.CurrentRow.Cells["cEmail"].Value);
+
+            //-> Para pintar la solapa 1... veremos como va 
+            this.tabControl1.SelectedIndex = 1;
+            //->Recuperacion de imagenes en VIDEO 15  minuto 04:00 aprox)
+        }
+
+
+
+
+
+        //-----------------------------------------------------------------------------------------------------------------------------
+        //------- ZONA POR COMEMIERDAS------------------------------------------------------------------------------------------------- 
+        //-----------------------------------------------------------------------------------------------------------------------------
         private void btnGuardar_Click(object sender, EventArgs e)
         {
 
@@ -330,13 +585,24 @@ namespace CapaPresentacion
                         //   byte[] imagen = ms.GetBuffer();
 
 
+
+
                         //-->Vamos a llamar al Metodo Insertar de la CapaNegocio enviandole los valores para insertar en la bb.dd 
 
-                        //rpta = NArticulo.Insertar(this.txtcDetalle.Text.Trim().ToUpper(), Convert.ToInt32(this.txtIdCodFam.Text),
-                        //                            Convert.ToInt32(this.txtnStock.Text), Convert.ToInt32(this.txtidTipoIva.Text), Convert.ToDecimal(this.txtnPvP.Text),
-                        //                            this.txtcCodigoBar.Text);
 
-                        rpta = NProveedor.Insertar(this.txtNombre.Text.Trim().ToUpper(), this.txtNumeroDocu.Text);
+
+                        rpta = NCliente.Insertar(this.txtNombre.Text.Trim().ToUpper(),
+                                                  this.txtDirCli.Text.Trim().ToUpper(),
+                                                  this.txtPoblacion.Text.Trim().ToUpper(),
+                                                  this.txtNumeroDocu.Text.Trim().ToUpper(),
+                                                  this.txtPerson.Text.Trim().ToUpper(),
+                                                  this.txtCuenta.Text.Trim().ToUpper(),
+                                                  Convert.ToDecimal(this.txtDescuento.Text),
+                                                  this.txtTelefono.Text,
+                                                  this.txtEmail.Text,
+                                                  this.txtCodPostal.Text,
+                                                  this.dtFechaNac.Value,
+                                                  this.txtBuscar.Text.Trim().ToUpper());
 
 
                     }
@@ -345,9 +611,27 @@ namespace CapaPresentacion
                         //-->Vamos a llamar al Metodo Editar de la CapaNegocio enviandole los valores 
 
 
-                        rpta = NProveedor.Editar(Convert.ToInt32(this.txtIdCliente.Text),
+
+                        rpta = NCliente.Editar(Convert.ToInt32(this.txtIdCliente.Text),
                                                  this.txtNombre.Text.Trim().ToUpper(),
-                                                 this.txtNumeroDocu.Text);
+                                                 this.txtDirCli.Text.Trim().ToUpper(),
+                                                 this.txtPoblacion.Text.Trim().ToUpper(),
+                                                 this.txtNumeroDocu.Text.Trim().ToUpper(),
+                                                 this.txtPerson.Text.Trim().ToUpper(),
+                                                 this.txtCuenta.Text.Trim().ToUpper(),
+                                                 Convert.ToDecimal(this.txtDescuento.Text),
+                                                 this.txtTelefono.Text,
+                                                 this.txtEmail.Text,
+                                                 this.txtCodPostal.Text,
+                                                 this.dtFechaNac.Value,
+                                                 this.txtBuscar.Text.Trim().ToUpper());
+
+
+
+
+
+
+
                     }
 
                     //-->Ahora vamos a ver si la operación tuvo éxito o no, el "OK" que estamos poniendo aquí es el que está
@@ -390,9 +674,18 @@ namespace CapaPresentacion
             }
         }
 
+        private void btnNuevo_Click(object sender, EventArgs e)
+        {
+            this.IsNuevo = true;    //Es un alta así que este valor a true   
+            this.IsEditar = false;  //Este a False
+
+            this.Botones();
+            this.Limpiar();
+            this.Habilitar(true);
+            this.txtNombre.Focus();   //Foco a la caja de texto del nombre 
+        }
 
 
-        //--------- BOTON   EDITAR ----------------------------
         private void btnEditar_Click(object sender, EventArgs e)
         {
 
@@ -408,7 +701,7 @@ namespace CapaPresentacion
             }
         }
 
-        //--------- BOTON   CANCELAR ----------------------------
+
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             //Borra la pelotilla del error 
@@ -426,75 +719,53 @@ namespace CapaPresentacion
 
         }
 
-
-        //--------- TRATAMIENTO GRID   REPASAR ESTA FUNCION.....
         private void dataListado_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-
-            //Si el indice de la columna es el de la columna Eliminar
+            //->Preguntamos si el indice de la columna es el de la columna Eliminar
             if (e.ColumnIndex == dataListado.Columns["Eliminar"].Index)
             {
-
-                //Declaramos la variable  ChkEliminar   del tipo  DataGridViewCheckBoxCell  
-                //nos traeremos los valores (OjO haciendo conversion al tipo DataGridViewCheckBoxCell) 
-                //de donde esta marcando el usuario para eliminar  
+                //-->Declaramos la variable  ChkEliminar   del tipo  DataGridViewCheckBoxCell  
+                //   nos traeremos los valores (OjO haciendo conversion al tipo DataGridViewCheckBoxCell) 
+                //   de donde esta marcando el usuario para eliminar  
                 DataGridViewCheckBoxCell ChkEliminar = (DataGridViewCheckBoxCell)dataListado.Rows[e.RowIndex].Cells["Eliminar"];
 
-                //Estamos indicando el valor si esta marcado o no el checkbox en la columna elimnar del GRID y lo convertimos a True o False 
+                //-->Estamos indicando  ChkEliminar.Value  si está marcado o no el checkbox 
+                //   en la columna elimnar del GRID y lo convertimos a True o False 
                 ChkEliminar.Value = !Convert.ToBoolean(ChkEliminar.Value);
             }
         }
 
-
-        //--------- DOBLE CLICK DEL  GRID   MOVIENDO INFORMACION DEL GRID A LOS CAMPOS 
-        // OJO  RECORDAR  :  Este es el evento del doble click del Grid  que se crea desde la ventana de propiedades del objeto, del Grid
-        private void dataListado_DoubleClick(object sender, EventArgs e)
+        private void btnBuscar_Click(object sender, EventArgs e)
         {
-
-
-            //-->Hacer el Convert, 
-            //  los valores que llegan del Grid llegan como Object - El  CurrentRow.Cells  captura lo que tiene la celda actual
-
-
-            //->Le he indicado todos los campos para que me lleve todos los valores a la solapa del detalle 
-
-            //this.txtIdProveedor.Text = Convert.ToString(this.dataListado.CurrentRow.Cells["idProveedo"].Value);
-            //this.txtNombre.Text = Convert.ToString(this.dataListado.CurrentRow.Cells["cNomPro"].Value);
-            //this.txtNumeroDocu.Text = Convert.ToString(this.dataListado.CurrentRow.Cells["cNifDni"].Value);
-
-            //AQUIIIIIIIIIIIIIIIIII
-
-            //this.txtIdCliente.ReadOnly = true; // !valor;  //Es un valor Identity  lo 'capo del todo'
-            //this.txtIdCliente.Enabled = false; // !valor;  //Es un valor Identity  lo 'capo del todo'
-            //                                   //cambiarle el color a esto cuando este deshabilitado 
-            //this.txtNombre.ReadOnly = !valor;
-            //this.txtDirCli.ReadOnly = !valor;
-            //this.txtPoblacion.ReadOnly = !valor;
-            //this.txtCodPostal.ReadOnly = !valor;
-            //this.txtTelefono.ReadOnly = !valor;
-            //this.txtNumeroDocu.ReadOnly = !valor;
-
-            ////this.dtFechaNac .ReadOnly = !valor;  Este es la fecha, a ver como se habilita o no 
-            //this.dtFechaNac.Enabled = valor;
-
-            //this.txtPerson.ReadOnly = !valor;
-            //this.txtDescuento.ReadOnly = !valor;
-            //this.txtCuenta.ReadOnly = !valor;
-
-
-
-
-
-            //-> Para pintar la solapa 1... veremos como va 
-            this.tabControl1.SelectedIndex = 1;
-
-
-            //->Recuperacion de imagenes en VIDEO 15  minuto 04:00 aprox)
-
+            if (cbBuscar.Text.Equals("RAZON SOCIAL"))
+            {
+                this.BuscarRazonSocial();
+            }
+            else if (cbBuscar.Text.Equals("DOCUMENTO"))
+            {
+                this.BuscarDocumento();
+            }
         }
 
 
 
+        private void chkEliminar_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkEliminar.Checked)   //Si el check está marcado entonces mostramos la columna 0  del  Grid, la de bajas 
+            {
+                this.dataListado.Columns[0].Visible = true;
+            }
+            else
+            {
+                this.dataListado.Columns[0].Visible = false;
+            }
+        }
 
+        private void btnImprimir_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        
     }
 }

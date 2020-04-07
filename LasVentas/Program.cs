@@ -41,7 +41,13 @@ namespace LasVentas
             */
 
             //--> PRUEBA 4   PROVEEDORES
-            Application.Run(new FrmProveedor());
+            //Application.Run(new FrmProveedor());
+
+            //--> PRUEBA 5   CIENTES
+            Application.Run(new  frmCliente());
+
+
+
 
 
         }
