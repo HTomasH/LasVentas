@@ -59,10 +59,13 @@ namespace CapaPresentacion
             this.txtNumeroDocu.Text = string.Empty;
             this.dtFechaNac.Text = string.Empty;            
             this.txtPerson.Text = string.Empty;
-            this.txtDescuento.Text = string.Empty;
+
+            //this.txtDescuento.Text = string.Empty;  
+            this.txtDescuento.Text = "0,00";
+
+
             this.txtCuenta.Text = string.Empty;
             this.txtEmail.Text = string.Empty;
-
 
             //-->Si tubiera una imagen, para dejarla vacia haria esto  (Video :  14  Minuto :  05 )
             //   this.pxImagen.Image = global::CapaPresentacion.Properties.Resources.file;       
@@ -79,7 +82,12 @@ namespace CapaPresentacion
             this.txtIdCliente.ReadOnly = true; // !valor;  //Es un valor Identity  lo 'capo del todo'
             this.txtIdCliente.Enabled = false; // !valor;  //Es un valor Identity  lo 'capo del todo'
                                                //cambiarle el color a esto cuando este deshabilitado 
-            this.txtNombre.ReadOnly = !valor;
+
+            //EN ALTAS LLEGARA COMO TRUE ENTONCES COMO ES SOLO LECTURA EL CONTRARIO ES FALSE, ES DECIR NOOO SOLO LECTURA
+            //JODER QUE MIERDA QUE ES ESTO
+
+           
+            this.txtNombre.ReadOnly = !valor;  
             this.txtDirCli.ReadOnly = !valor;
             this.txtPoblacion.ReadOnly = !valor;
             this.txtCodPostal.ReadOnly = !valor;
@@ -276,9 +284,9 @@ namespace CapaPresentacion
                 MessageBox.Show(ex.Message + ex.StackTrace);
             }
         }
-        //----  BOTON ELIMINAR ---------------------------------------------------------
         
-
+        
+        //----  BOTON ELIMINAR ---------------------------------------------------------        
         private void chkEliminar_CheckedChanged_1(object sender, EventArgs e)
         {
             if (chkEliminar.Checked)   //Si el check está marcado entonces mostramos la columna 0  del  Grid, la de bajas 
@@ -305,13 +313,8 @@ namespace CapaPresentacion
         }
 
 
-
-
-
-
-        //------ BOTON GUARDAR ------------------------------------------------------------
-        
-        
+    
+        //------ BOTON GUARDAR ------------------------------------------------------------                
         private void btnGuardar_Click_1(object sender, EventArgs e)
         {
 
@@ -324,7 +327,8 @@ namespace CapaPresentacion
 
                 //Controles que deben de tener valores obligatoriamente -- Si está vacía y como es un campo obligatorio,  pues hay que meterlo
 
-                if (this.txtNombre.Text == string.Empty || this.txtIdCliente.Text == string.Empty || this.txtNumeroDocu.Text == string.Empty)
+                //if (this.txtNombre.Text == string.Empty || this.txtIdCliente.Text == string.Empty || this.txtNumeroDocu.Text == string.Empty)
+                if (this.txtNombre.Text == string.Empty  || this.txtNumeroDocu.Text == string.Empty)
                 {
 
                     //--> MENSAJES A MOSTRAR SI LOS CAMPOS OBLIGATORIOS ESTUVIERAN VACIOS  -  Este metodo lo tengo en este mismo módulo
@@ -363,6 +367,11 @@ namespace CapaPresentacion
                                                   this.txtCodPostal.Text,
                                                   this.dtFechaNac.Value,
                                                   this.txtBuscar.Text.Trim().ToUpper());
+
+
+
+                                                      
+
 
 
                     }
@@ -546,12 +555,173 @@ namespace CapaPresentacion
         }
 
 
+        //----------------------------------------------------------------------------------------------------
+        //--->                         VALIDACIONES DE  CAMPOS                                     <----------
+        //
+        //   Para poder utilizar en ENTER para salir de los campos hay que indicarlo en todos ellos
+        //----------------------------------------------------------------------------------------------------
+
+        
+
+
+        //--->  EDICION DE CAMPOS (doble clic desde las propiedades del campo  en KeyPress)
+        //------------------------------------------------------------------------------------------
+        private void txtCodPostal_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            Validaciones.SoloNumeros(e);
+            Validaciones.ValiEnter(e);
+        }
+
+        private void txtDescuento_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            Validaciones.NumerosDecimales(e);
+            Validaciones.ValiEnter(e);
+        }
+
+        private void txtCuenta_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            Validaciones.SoloNumeros(e);
+            Validaciones.ValiEnter(e);
+        }
+
+
+        private void txtNombre_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            Validaciones.ValiEnter(e);
+        }
+
+        private void txtPoblacion_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            Validaciones.ValiEnter(e);
+        }
+
+        private void txtDirCli_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            Validaciones.ValiEnter(e);
+        }
+
+        private void txtTelefono_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            Validaciones.ValiEnter(e);
+        }
+
+        private void dtFechaNac_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            Validaciones.ValiEnter(e);
+        }
+
+        private void txtPerson_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            Validaciones.ValiEnter(e);
+        }
+
+        private void txtEmail_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            Validaciones.ValiEnter(e);
+        }
+
+        private void cbTipo_Documento_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            Validaciones.ValiEnter(e);
+        }
+
+        private void txtNumeroDocu_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            Validaciones.ValiEnter(e);
+        }
 
 
 
-        //-----------------------------------------------------------------------------------------------------------------------------
-        //------- ZONA POR COMEMIERDAS------------------------------------------------------------------------------------------------- 
-        //-----------------------------------------------------------------------------------------------------------------------------
+        //----------------------//
+
+        //-> Vamos a validar lo que introduce el usuario contra la tabla de codigos postales 
+        //  y además pintar el nombre de la poblacion en un labal que cree
+        // TABLA  CODIPOS
+        //                    CodPostal  char  5 
+        //                    Poblaca    Varchar(50)
+
+        private void txtCodPostal_Validating(object sender, CancelEventArgs e)
+        {
+
+        }
+
+
+
+        //----------------------//
+
+        private void txtNumeroDocu_Validating(object sender, CancelEventArgs e)
+        {
+            int numero;
+            char cReciLetra;            
+            int index;
+
+            //-> Tratamiendo segun documento, tengo un código donde se trata el cálculo de la letra para 
+            //   cada tipo de documento.
+            //------------------------------------------------------------------------------------------
+            index = cbTipo_Documento.SelectedIndex;
+
+            switch (index)
+            {
+                case 0:                    
+                    numero = Convert.ToInt32(txtNumeroDocu.Text);
+                    //cReciLetra = Convert.ToString(Validaciones.calcularLetra(numero));
+                    cReciLetra = Validaciones.calcularLetra(numero);
+
+                    MessageBox.Show("El resultado es: " + txtNumeroDocu.Text + cReciLetra);
+                    txtNumeroDocu.Text = txtNumeroDocu.Text + cReciLetra;
+                    break;
+                case 1:                   
+                    MessageBox.Show("Es NIE" );
+                    break;
+                case 2:                    
+                    MessageBox.Show("Es PASAPORTE");
+                    break;
+                default:
+                    MessageBox.Show("NO ES NINGUNO");
+                    break;
+            }            
+        }
+
+        //->ESTA PROPIEDAD ES CUANDO EL USUARIO CIERRA EL FORMULARIO  
+        //  ->>>> No lo voy a utilizar pero esta bien saberlo <<<<<
+        //private void frmCliente_FormClosing(object sender, FormClosingEventArgs e)
+        //{
+        //    Application.Exit();
+        //}
+
+
+        private void txtDescuento_Validated(object sender, EventArgs e)
+        {
+            //decimal joder;
+            //joder = Convert.ToDecimal(txtDescuento.Text);
+
+            MessageBox.Show("Como has dejado esto : " + Convert.ToDecimal(txtDescuento.Text) );
+        }
+
+
+
+        // QUE DIFERENCIA HAY ENTRE VALIDATING(Antes de Validated)  Y  VALIDATED (Despues de haberse hecho Validating)
+
+        //private void textbox_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        //{
+        //    if (textbox.text == "")
+        //    {
+        //        e.Cancel = true;
+        //        textbox.Select(0, textBox1.Text.Length);
+        //        errorProvider1.SetError(textBox1, "Debe introducir el nombre");
+        //    }
+        //}
+
+        //private void textBox1_Validated(object sender, System.EventArgs e)
+        //{
+        //    errorProvider1.SetError(textbox, "");
+        //}
+
+
+
+        //-----------------------------------------------------------------------------------------------------------------------
+        //------- ZONA POR COME_MIERDAS   copie los controles y no hice click sobre ellos antes de meter el código           ---- 
+        //-----------------------------------------------------------------------------------------------------------------------
         private void btnGuardar_Click(object sender, EventArgs e)
         {
 
@@ -766,6 +936,7 @@ namespace CapaPresentacion
 
         }
 
+        //eeeeeeeeeeeeeeeeeeeeeeeeee
         
     }
 }

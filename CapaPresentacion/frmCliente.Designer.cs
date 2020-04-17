@@ -274,7 +274,8 @@
             this.txtEmail.Location = new System.Drawing.Point(333, 149);
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.Size = new System.Drawing.Size(116, 20);
-            this.txtEmail.TabIndex = 30;
+            this.txtEmail.TabIndex = 8;
+            this.txtEmail.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtEmail_KeyPress);
             // 
             // label15
             // 
@@ -292,7 +293,8 @@
             this.txtDirCli.Location = new System.Drawing.Point(316, 91);
             this.txtDirCli.Name = "txtDirCli";
             this.txtDirCli.Size = new System.Drawing.Size(138, 20);
-            this.txtDirCli.TabIndex = 28;
+            this.txtDirCli.TabIndex = 3;
+            this.txtDirCli.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtDirCli_KeyPress);
             // 
             // label14
             // 
@@ -309,16 +311,20 @@
             this.dtFechaNac.Location = new System.Drawing.Point(527, 119);
             this.dtFechaNac.Name = "dtFechaNac";
             this.dtFechaNac.Size = new System.Drawing.Size(99, 20);
-            this.dtFechaNac.TabIndex = 26;
+            this.dtFechaNac.TabIndex = 6;
+            this.dtFechaNac.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.dtFechaNac_KeyPress);
             // 
             // txtCodPostal
             // 
             this.txtCodPostal.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.txtCodPostal.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtCodPostal.Location = new System.Drawing.Point(526, 86);
+            this.txtCodPostal.Location = new System.Drawing.Point(557, 86);
+            this.txtCodPostal.MaxLength = 5;
             this.txtCodPostal.Name = "txtCodPostal";
-            this.txtCodPostal.Size = new System.Drawing.Size(100, 20);
-            this.txtCodPostal.TabIndex = 25;
+            this.txtCodPostal.Size = new System.Drawing.Size(69, 20);
+            this.txtCodPostal.TabIndex = 4;
+            this.txtCodPostal.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCodPostal_KeyPress);
+            this.txtCodPostal.Validating += new System.ComponentModel.CancelEventHandler(this.txtCodPostal_Validating);
             // 
             // txtCuenta
             // 
@@ -327,7 +333,8 @@
             this.txtCuenta.Location = new System.Drawing.Point(148, 249);
             this.txtCuenta.Name = "txtCuenta";
             this.txtCuenta.Size = new System.Drawing.Size(100, 20);
-            this.txtCuenta.TabIndex = 24;
+            this.txtCuenta.TabIndex = 12;
+            this.txtCuenta.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCuenta_KeyPress);
             // 
             // txtDescuento
             // 
@@ -336,7 +343,10 @@
             this.txtDescuento.Location = new System.Drawing.Point(148, 217);
             this.txtDescuento.Name = "txtDescuento";
             this.txtDescuento.Size = new System.Drawing.Size(100, 20);
-            this.txtDescuento.TabIndex = 23;
+            this.txtDescuento.TabIndex = 11;
+            this.txtDescuento.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtDescuento.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtDescuento_KeyPress);
+            this.txtDescuento.Validated += new System.EventHandler(this.txtDescuento_Validated);
             // 
             // txtPerson
             // 
@@ -345,7 +355,8 @@
             this.txtPerson.Location = new System.Drawing.Point(148, 147);
             this.txtPerson.Name = "txtPerson";
             this.txtPerson.Size = new System.Drawing.Size(100, 20);
-            this.txtPerson.TabIndex = 22;
+            this.txtPerson.TabIndex = 7;
+            this.txtPerson.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPerson_KeyPress);
             // 
             // txtTelefono
             // 
@@ -354,7 +365,8 @@
             this.txtTelefono.Location = new System.Drawing.Point(148, 121);
             this.txtTelefono.Name = "txtTelefono";
             this.txtTelefono.Size = new System.Drawing.Size(100, 20);
-            this.txtTelefono.TabIndex = 21;
+            this.txtTelefono.TabIndex = 5;
+            this.txtTelefono.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtTelefono_KeyPress);
             // 
             // txtPoblacion
             // 
@@ -363,7 +375,8 @@
             this.txtPoblacion.Location = new System.Drawing.Point(148, 89);
             this.txtPoblacion.Name = "txtPoblacion";
             this.txtPoblacion.Size = new System.Drawing.Size(100, 20);
-            this.txtPoblacion.TabIndex = 20;
+            this.txtPoblacion.TabIndex = 2;
+            this.txtPoblacion.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPoblacion_KeyPress);
             // 
             // label13
             // 
@@ -413,7 +426,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(460, 93);
+            this.label8.Location = new System.Drawing.Point(481, 93);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(58, 13);
             this.label8.TabIndex = 14;
@@ -448,8 +461,9 @@
             this.cbTipo_Documento.Location = new System.Drawing.Point(148, 188);
             this.cbTipo_Documento.Name = "cbTipo_Documento";
             this.cbTipo_Documento.Size = new System.Drawing.Size(121, 21);
-            this.cbTipo_Documento.TabIndex = 11;
+            this.cbTipo_Documento.TabIndex = 9;
             this.cbTipo_Documento.Text = "DNI";
+            this.cbTipo_Documento.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cbTipo_Documento_KeyPress);
             // 
             // label6
             // 
@@ -467,7 +481,9 @@
             this.txtNumeroDocu.Location = new System.Drawing.Point(401, 192);
             this.txtNumeroDocu.Name = "txtNumeroDocu";
             this.txtNumeroDocu.Size = new System.Drawing.Size(116, 20);
-            this.txtNumeroDocu.TabIndex = 9;
+            this.txtNumeroDocu.TabIndex = 10;
+            this.txtNumeroDocu.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtNumeroDocu_KeyPress);
+            this.txtNumeroDocu.Validating += new System.ComponentModel.CancelEventHandler(this.txtNumeroDocu_Validating);
             // 
             // label5
             // 
@@ -483,7 +499,7 @@
             this.btnCancelar.Location = new System.Drawing.Point(557, 278);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(75, 23);
-            this.btnCancelar.TabIndex = 7;
+            this.btnCancelar.TabIndex = 16;
             this.btnCancelar.Text = "&Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click_1);
@@ -493,7 +509,7 @@
             this.btnEditar.Location = new System.Drawing.Point(464, 278);
             this.btnEditar.Name = "btnEditar";
             this.btnEditar.Size = new System.Drawing.Size(75, 23);
-            this.btnEditar.TabIndex = 6;
+            this.btnEditar.TabIndex = 15;
             this.btnEditar.Text = "E&ditar";
             this.btnEditar.UseVisualStyleBackColor = true;
             this.btnEditar.Click += new System.EventHandler(this.btnEditar_Click_1);
@@ -503,7 +519,7 @@
             this.btnGuardar.Location = new System.Drawing.Point(370, 278);
             this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.Size = new System.Drawing.Size(75, 23);
-            this.btnGuardar.TabIndex = 5;
+            this.btnGuardar.TabIndex = 14;
             this.btnGuardar.Text = "&Guardar";
             this.btnGuardar.UseVisualStyleBackColor = true;
             this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click_1);
@@ -513,7 +529,7 @@
             this.btnNuevo.Location = new System.Drawing.Point(275, 278);
             this.btnNuevo.Name = "btnNuevo";
             this.btnNuevo.Size = new System.Drawing.Size(75, 23);
-            this.btnNuevo.TabIndex = 4;
+            this.btnNuevo.TabIndex = 13;
             this.btnNuevo.Text = "&Nuevo";
             this.btnNuevo.UseVisualStyleBackColor = true;
             this.btnNuevo.Click += new System.EventHandler(this.btnNuevo_Click_1);
@@ -525,7 +541,8 @@
             this.txtNombre.Location = new System.Drawing.Point(148, 60);
             this.txtNombre.Name = "txtNombre";
             this.txtNombre.Size = new System.Drawing.Size(219, 20);
-            this.txtNombre.TabIndex = 3;
+            this.txtNombre.TabIndex = 1;
+            this.txtNombre.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtNombre_KeyPress);
             // 
             // txtIdCliente
             // 
@@ -534,7 +551,7 @@
             this.txtIdCliente.Location = new System.Drawing.Point(148, 30);
             this.txtIdCliente.Name = "txtIdCliente";
             this.txtIdCliente.Size = new System.Drawing.Size(100, 20);
-            this.txtIdCliente.TabIndex = 2;
+            this.txtIdCliente.TabIndex = 0;
             // 
             // label4
             // 

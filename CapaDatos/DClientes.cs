@@ -247,6 +247,34 @@ namespace CapaDatos
                 SqlCmd.Parameters.Add(ParnDto);             //--> Acción que tiene que llevar a cabo,  AÑADIR en este caso con los parametros contenidos en ParNombre 
 
 
+                SqlParameter ParcTele = new SqlParameter();  //--> Esto es para "parametrizar", poder enviar parametros en consultas                 
+                ParcTele.ParameterName = "@cTelefono1";         //--> Nombre del paramentro como está en el PRC
+                ParcTele.SqlDbType = SqlDbType.VarChar;      //--> Tipo del campo.                
+                ParcTele.Value = Clientes.CTelefono1;          //--> Aquí sí, le enviamos el valor que tenemos en la Propiedad OjO
+                SqlCmd.Parameters.Add(ParcTele);             //--> Acción que tiene que llevar a cabo,  AÑADIR en este caso con los parametros contenidos en ParNombre 
+
+                SqlParameter ParcMail = new SqlParameter();  //--> Esto es para "parametrizar", poder enviar parametros en consultas                 
+                ParcMail.ParameterName = "@cEmail";         //--> Nombre del paramentro como está en el PRC
+                ParcMail.SqlDbType = SqlDbType.VarChar;      //--> Tipo del campo.                
+                ParcMail.Value = Clientes.CEmail;          //--> Aquí sí, le enviamos el valor que tenemos en la Propiedad OjO
+                SqlCmd.Parameters.Add(ParcMail);             //--> Acción que tiene que llevar a cabo,  AÑADIR en este caso con los parametros contenidos en ParNombre 
+
+                SqlParameter ParcPostal = new SqlParameter();  //--> Esto es para "parametrizar", poder enviar parametros en consultas                 
+                ParcPostal.ParameterName = "@cCodPostal";         //--> Nombre del paramentro como está en el PRC
+                ParcPostal.SqlDbType = SqlDbType.VarChar;      //--> Tipo del campo.                
+                ParcPostal.Value = Clientes.CCodPostal;          //--> Aquí sí, le enviamos el valor que tenemos en la Propiedad OjO
+                SqlCmd.Parameters.Add(ParcPostal);             //--> Acción que tiene que llevar a cabo,  AÑADIR en este caso con los parametros contenidos en ParNombre 
+
+
+                SqlParameter PardFecha = new SqlParameter();  //--> Esto es para "parametrizar", poder enviar parametros en consultas                 
+                PardFecha.ParameterName = "@dFechaNaci";         //--> Nombre del paramentro como está en el PRC
+                PardFecha.SqlDbType = SqlDbType.Date;      //--> Tipo del campo.                
+                PardFecha.Value = Clientes.DFechaNaci;          //--> Aquí sí, le enviamos el valor que tenemos en la Propiedad OjO
+                SqlCmd.Parameters.Add(PardFecha);             //--> Acción que tiene que llevar a cabo,  AÑADIR en este caso con los parametros contenidos en ParNombre 
+
+
+
+                
 
 
 
@@ -362,7 +390,36 @@ namespace CapaDatos
                 ParnDto.ParameterName = "@nDto";         
                 ParnDto.SqlDbType = SqlDbType.Decimal;   
                 ParnDto.Value = Clientes.NDto;          
-                SqlCmd.Parameters.Add(ParnDto);         
+                SqlCmd.Parameters.Add(ParnDto);
+
+
+
+                SqlParameter ParcTele = new SqlParameter();  //--> Esto es para "parametrizar", poder enviar parametros en consultas                 
+                ParcTele.ParameterName = "@cTelefono1";         //--> Nombre del paramentro como está en el PRC
+                ParcTele.SqlDbType = SqlDbType.VarChar;      //--> Tipo del campo.                
+                ParcTele.Value = Clientes.CTelefono1;          //--> Aquí sí, le enviamos el valor que tenemos en la Propiedad OjO
+                SqlCmd.Parameters.Add(ParcTele);             //--> Acción que tiene que llevar a cabo,  AÑADIR en este caso con los parametros contenidos en ParNombre 
+
+                SqlParameter ParcMail = new SqlParameter();  //--> Esto es para "parametrizar", poder enviar parametros en consultas                 
+                ParcMail.ParameterName = "@cEmail";         //--> Nombre del paramentro como está en el PRC
+                ParcMail.SqlDbType = SqlDbType.VarChar;      //--> Tipo del campo.                
+                ParcMail.Value = Clientes.CEmail;          //--> Aquí sí, le enviamos el valor que tenemos en la Propiedad OjO
+                SqlCmd.Parameters.Add(ParcMail);             //--> Acción que tiene que llevar a cabo,  AÑADIR en este caso con los parametros contenidos en ParNombre 
+
+                SqlParameter ParcPostal = new SqlParameter();  //--> Esto es para "parametrizar", poder enviar parametros en consultas                 
+                ParcPostal.ParameterName = "@cCodPostal";         //--> Nombre del paramentro como está en el PRC
+                ParcPostal.SqlDbType = SqlDbType.VarChar;      //--> Tipo del campo.                
+                ParcPostal.Value = Clientes.CCodPostal;          //--> Aquí sí, le enviamos el valor que tenemos en la Propiedad OjO
+                SqlCmd.Parameters.Add(ParcPostal);             //--> Acción que tiene que llevar a cabo,  AÑADIR en este caso con los parametros contenidos en ParNombre 
+
+
+                SqlParameter PardFecha = new SqlParameter();  //--> Esto es para "parametrizar", poder enviar parametros en consultas                 
+                PardFecha.ParameterName = "@dFechaNaci";         //--> Nombre del paramentro como está en el PRC
+                PardFecha.SqlDbType = SqlDbType.Date;      //--> Tipo del campo.                
+                PardFecha.Value = Clientes.DFechaNaci;          //--> Aquí sí, le enviamos el valor que tenemos en la Propiedad OjO
+                SqlCmd.Parameters.Add(PardFecha);             //--> Acción que tiene que llevar a cabo,  AÑADIR en este caso con los parametros contenidos en ParNombre 
+
+
 
 
                 //Ejecutamos nuestro comando, es decir estamos llamando al procedimiento almacenado para que se ejecute 
