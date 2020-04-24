@@ -4,8 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
+
 namespace CapaDatos
 {
+
     class Conexion
     {
 
@@ -22,4 +25,5 @@ namespace CapaDatos
         //public static string Cn = @"Data Source=MBO9IBSTHERRERO\SQLEXPRESS;Initial Catalog=VentasTOMAS; Integrated Security=True";
 
     }
+
 }

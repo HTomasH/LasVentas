@@ -8,8 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-using CapaNegocio;   //Esto no termino de verlo, si tengo la referencia a la CapaNegocio además hay que hacer el usign
-                     //Por lo que veo son necesarias las dos acciones,  primero indicar la Referencia y luego el using
+using CapaDatos;   //Tengo que utilizar objetos de esta capa 
+using CapaNegocio; //Tengo que utilizar objetos de esta capa   
 
 
 namespace CapaPresentacion
@@ -31,9 +31,23 @@ namespace CapaPresentacion
             this.ttMensaje.SetToolTip(this.txtNombre, "Indique el Nombre del Cliente");
             this.ttMensaje.SetToolTip(this.txtNumeroDocu, "Indique el número del Documento");
             //etc..  etc.. pondria los mensajes para todos los campos que quiera...
+
+            
         }
 
 
+        //->Este es el evento de cambio de valor en el ComboBox lo obtengo haciendo dobleClick sobre el control en el formulario
+        private void cbCodPostal_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cbCodPostal.SelectedIndex > 0)
+            {                
+                string[] valores =  DValidator.captar_info(cbCodPostal.Text.Substring(0,5));
+                this.txtCodPostal.Text = valores[0];  
+                this.txtPoblacion.Text = valores[1];  
+            }
+        }
+
+                
         //-->Mostrar Mensaje de Confirmación de la operación, del tipo  Información 
         private void MensajeOk(string mensaje)
         {
@@ -67,6 +81,12 @@ namespace CapaPresentacion
             this.txtCuenta.Text = string.Empty;
             this.txtEmail.Text = string.Empty;
 
+
+            //-->Cargo el combo de los codigos postales             
+            DValidator.RellenoComboPostal(cbCodPostal);
+            cbCodPostal.SelectedIndex = 0;  //lo colocamos en la primera posicion con valores 
+
+
             //-->Si tubiera una imagen, para dejarla vacia haria esto  (Video :  14  Minuto :  05 )
             //   this.pxImagen.Image = global::CapaPresentacion.Properties.Resources.file;       
 
@@ -83,10 +103,11 @@ namespace CapaPresentacion
             this.txtIdCliente.Enabled = false; // !valor;  //Es un valor Identity  lo 'capo del todo'
                                                //cambiarle el color a esto cuando este deshabilitado 
 
+          
             //EN ALTAS LLEGARA COMO TRUE ENTONCES COMO ES SOLO LECTURA EL CONTRARIO ES FALSE, ES DECIR NOOO SOLO LECTURA
             //JODER QUE MIERDA QUE ES ESTO
 
-           
+
             this.txtNombre.ReadOnly = !valor;  
             this.txtDirCli.ReadOnly = !valor;
             this.txtPoblacion.ReadOnly = !valor;
@@ -101,7 +122,7 @@ namespace CapaPresentacion
             this.txtDescuento.ReadOnly = !valor;
             this.txtCuenta.ReadOnly = !valor;
             this.txtEmail.ReadOnly = !valor;
-
+                        
         }
 
 
@@ -121,6 +142,7 @@ namespace CapaPresentacion
                 this.btnGuardar.Enabled = true;
                 this.btnEditar.Enabled = false;
                 this.btnCancelar.Enabled = true;
+                this.cbCodPostal.Enabled = true;   //EL COMBO DE CODIGOS POSTALES
             }
             else
             {
@@ -132,6 +154,7 @@ namespace CapaPresentacion
                 this.btnEditar.Enabled = true;
                 //this.btnCancelar.Enabled = false;
                 this.btnCancelar.Enabled = true;
+                this.cbCodPostal.Enabled = false;   //EL COMBO DE CODIGOS POSTALES
             }
 
         }
@@ -171,6 +194,21 @@ namespace CapaPresentacion
 
             //-->Pintamos el total de registros : OjO el count es  int  tenemos que convertirlo a String 
             lblTotal.Text = "Total de Registros: " + Convert.ToString(dataListado.Rows.Count);
+
+            this.dataListado.Columns[1].HeaderText = "ID";
+            this.dataListado.Columns[2].HeaderText = "Nombre";
+            this.dataListado.Columns[3].HeaderText = "Dirección";
+            this.dataListado.Columns[4].HeaderText = "Población";
+            this.dataListado.Columns[5].HeaderText = "Teléfono";
+            this.dataListado.Columns[6].HeaderText = "DNI/NIF/NIE";
+            this.dataListado.Columns[7].HeaderText = "Contacto";
+            this.dataListado.Columns[8].HeaderText = "Cta. Contable";
+            this.dataListado.Columns[9].HeaderText = "Descuento";
+            this.dataListado.Columns[10].HeaderText = "Mail";
+            this.dataListado.Columns[11].HeaderText = "Cod. Postal";
+            this.dataListado.Columns[12].HeaderText = "Fecha Nacimiento";
+
+
         }
 
 
@@ -349,11 +387,10 @@ namespace CapaPresentacion
                         //   byte[] imagen = ms.GetBuffer();
 
 
-
-
                         //-->Vamos a llamar al Metodo Insertar de la CapaNegocio enviandole los valores para insertar en la bb.dd 
+                        //-------------------------------------------------------------------------------------------------------
 
-
+                        
 
                         rpta = NCliente.Insertar(this.txtNombre.Text.Trim().ToUpper(),
                                                   this.txtDirCli.Text.Trim().ToUpper(),
@@ -364,7 +401,7 @@ namespace CapaPresentacion
                                                   Convert.ToDecimal(this.txtDescuento.Text),
                                                   this.txtTelefono.Text,
                                                   this.txtEmail.Text,
-                                                  this.txtCodPostal.Text,
+                                                  Convert.ToString(this.txtCodPostal.Text),
                                                   this.dtFechaNac.Value,
                                                   this.txtBuscar.Text.Trim().ToUpper());
 
@@ -568,85 +605,72 @@ namespace CapaPresentacion
         //------------------------------------------------------------------------------------------
         private void txtCodPostal_KeyPress(object sender, KeyPressEventArgs e)
         {
-            Validaciones.SoloNumeros(e);
-            Validaciones.ValiEnter(e);
+            DValidator.SoloNumeros(e);
+            DValidator.ValiEnter(e);
         }
 
         private void txtDescuento_KeyPress(object sender, KeyPressEventArgs e)
         {
-            Validaciones.NumerosDecimales(e);
-            Validaciones.ValiEnter(e);
+            DValidator.NumerosDecimales(e);
+            DValidator.ValiEnter(e);
         }
 
         private void txtCuenta_KeyPress(object sender, KeyPressEventArgs e)
         {
-            Validaciones.SoloNumeros(e);
-            Validaciones.ValiEnter(e);
+            DValidator.SoloNumeros(e);
+            DValidator.ValiEnter(e);
         }
 
 
         private void txtNombre_KeyPress(object sender, KeyPressEventArgs e)
         {
-            Validaciones.ValiEnter(e);
+            DValidator.ValiEnter(e);
         }
 
         private void txtPoblacion_KeyPress(object sender, KeyPressEventArgs e)
         {
-            Validaciones.ValiEnter(e);
+            DValidator.ValiEnter(e);
         }
 
         private void txtDirCli_KeyPress(object sender, KeyPressEventArgs e)
         {
-            Validaciones.ValiEnter(e);
+            DValidator.ValiEnter(e);
         }
 
         private void txtTelefono_KeyPress(object sender, KeyPressEventArgs e)
         {
-            Validaciones.ValiEnter(e);
+            DValidator.ValiEnter(e);
         }
 
         private void dtFechaNac_KeyPress(object sender, KeyPressEventArgs e)
         {
-            Validaciones.ValiEnter(e);
+            DValidator.ValiEnter(e);
         }
 
         private void txtPerson_KeyPress(object sender, KeyPressEventArgs e)
         {
-            Validaciones.ValiEnter(e);
+            DValidator.ValiEnter(e);
         }
 
         private void txtEmail_KeyPress(object sender, KeyPressEventArgs e)
         {
-            Validaciones.ValiEnter(e);
+            DValidator.ValiEnter(e);
         }
 
         private void cbTipo_Documento_KeyPress(object sender, KeyPressEventArgs e)
         {
-            Validaciones.ValiEnter(e);
+            DValidator.ValiEnter(e);
         }
 
         private void txtNumeroDocu_KeyPress(object sender, KeyPressEventArgs e)
         {
-            Validaciones.ValiEnter(e);
+            DValidator.ValiEnter(e);
         }
 
 
 
-        //----------------------//
-
-        //-> Vamos a validar lo que introduce el usuario contra la tabla de codigos postales 
-        //  y además pintar el nombre de la poblacion en un labal que cree
-        // TABLA  CODIPOS
-        //                    CodPostal  char  5 
-        //                    Poblaca    Varchar(50)
-
-        private void txtCodPostal_Validating(object sender, CancelEventArgs e)
-        {
-
-        }
-
-
-
+        
+        
         //----------------------//
 
         private void txtNumeroDocu_Validating(object sender, CancelEventArgs e)
@@ -665,7 +689,7 @@ namespace CapaPresentacion
                 case 0:                    
                     numero = Convert.ToInt32(txtNumeroDocu.Text);
                     //cReciLetra = Convert.ToString(Validaciones.calcularLetra(numero));
-                    cReciLetra = Validaciones.calcularLetra(numero);
+                    cReciLetra = DValidator.calcularLetra(numero);
 
                     MessageBox.Show("El resultado es: " + txtNumeroDocu.Text + cReciLetra);
                     txtNumeroDocu.Text = txtNumeroDocu.Text + cReciLetra;
@@ -716,6 +740,9 @@ namespace CapaPresentacion
         //{
         //    errorProvider1.SetError(textbox, "");
         //}
+
+
+
 
 
 
@@ -936,7 +963,12 @@ namespace CapaPresentacion
 
         }
 
-        //eeeeeeeeeeeeeeeeeeeeeeeeee
         
+
+        //---->  EL SISTEMA DEJA NUEVO CODIGO ----------------------------------
+
+
+
+
     }
 }

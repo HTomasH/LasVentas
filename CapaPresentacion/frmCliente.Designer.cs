@@ -49,7 +49,6 @@
             this.txtDirCli = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
             this.dtFechaNac = new System.Windows.Forms.DateTimePicker();
-            this.txtCodPostal = new System.Windows.Forms.TextBox();
             this.txtCuenta = new System.Windows.Forms.TextBox();
             this.txtDescuento = new System.Windows.Forms.TextBox();
             this.txtPerson = new System.Windows.Forms.TextBox();
@@ -78,6 +77,8 @@
             this.errorIcono = new System.Windows.Forms.ErrorProvider(this.components);
             this.label1 = new System.Windows.Forms.Label();
             this.ttMensaje = new System.Windows.Forms.ToolTip(this.components);
+            this.cbCodPostal = new System.Windows.Forms.ComboBox();
+            this.txtCodPostal = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataListado)).BeginInit();
@@ -229,12 +230,13 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.txtCodPostal);
+            this.groupBox1.Controls.Add(this.cbCodPostal);
             this.groupBox1.Controls.Add(this.txtEmail);
             this.groupBox1.Controls.Add(this.label15);
             this.groupBox1.Controls.Add(this.txtDirCli);
             this.groupBox1.Controls.Add(this.label14);
             this.groupBox1.Controls.Add(this.dtFechaNac);
-            this.groupBox1.Controls.Add(this.txtCodPostal);
             this.groupBox1.Controls.Add(this.txtCuenta);
             this.groupBox1.Controls.Add(this.txtDescuento);
             this.groupBox1.Controls.Add(this.txtPerson);
@@ -313,18 +315,6 @@
             this.dtFechaNac.Size = new System.Drawing.Size(99, 20);
             this.dtFechaNac.TabIndex = 6;
             this.dtFechaNac.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.dtFechaNac_KeyPress);
-            // 
-            // txtCodPostal
-            // 
-            this.txtCodPostal.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.txtCodPostal.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtCodPostal.Location = new System.Drawing.Point(557, 86);
-            this.txtCodPostal.MaxLength = 5;
-            this.txtCodPostal.Name = "txtCodPostal";
-            this.txtCodPostal.Size = new System.Drawing.Size(69, 20);
-            this.txtCodPostal.TabIndex = 4;
-            this.txtCodPostal.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCodPostal_KeyPress);
-            this.txtCodPostal.Validating += new System.ComponentModel.CancelEventHandler(this.txtCodPostal_Validating);
             // 
             // txtCuenta
             // 
@@ -426,7 +416,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(481, 93);
+            this.label8.Location = new System.Drawing.Point(377, 62);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(58, 13);
             this.label8.TabIndex = 14;
@@ -592,6 +582,29 @@
             // 
             this.ttMensaje.IsBalloon = true;
             // 
+            // cbCodPostal
+            // 
+            this.cbCodPostal.FormattingEnabled = true;
+            this.cbCodPostal.Location = new System.Drawing.Point(441, 54);
+            this.cbCodPostal.Name = "cbCodPostal";
+            this.cbCodPostal.Size = new System.Drawing.Size(217, 21);
+            this.cbCodPostal.TabIndex = 30;
+            this.cbCodPostal.SelectedIndexChanged += new System.EventHandler(this.cbCodPostal_SelectedIndexChanged);
+            // 
+            // txtCodPostal
+            // 
+            this.txtCodPostal.AccessibleRole = System.Windows.Forms.AccessibleRole.TitleBar;
+            this.txtCodPostal.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.txtCodPostal.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtCodPostal.CausesValidation = false;
+            this.txtCodPostal.Enabled = false;
+            this.txtCodPostal.Location = new System.Drawing.Point(604, 28);
+            this.txtCodPostal.Name = "txtCodPostal";
+            this.txtCodPostal.ReadOnly = true;
+            this.txtCodPostal.Size = new System.Drawing.Size(54, 20);
+            this.txtCodPostal.TabIndex = 31;
+            this.txtCodPostal.Visible = false;
+            // 
             // frmCliente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -634,7 +647,6 @@
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.DateTimePicker dtFechaNac;
-        private System.Windows.Forms.TextBox txtCodPostal;
         private System.Windows.Forms.TextBox txtCuenta;
         private System.Windows.Forms.TextBox txtDescuento;
         private System.Windows.Forms.TextBox txtPerson;
@@ -667,5 +679,7 @@
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.TextBox txtEmail;
         private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.ComboBox cbCodPostal;
+        private System.Windows.Forms.TextBox txtCodPostal;
     }
 }
