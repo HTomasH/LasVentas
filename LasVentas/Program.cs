@@ -44,8 +44,10 @@ namespace LasVentas
             //Application.Run(new FrmProveedor());
 
             //--> PRUEBA 5   CIENTES
-            Application.Run(new  frmCliente());
+            //Application.Run(new  frmCliente());
 
+            //--> PRUEBA 6   TRABAJADORES
+            Application.Run(new FrmTrabajador());
 
 
 

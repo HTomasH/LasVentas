@@ -42,7 +42,7 @@ namespace CapaDatos
         private string _cApellidos;
         private string _cAcceso;
         private string _Password;
-
+        private string _cUsuario;
 
         //->Variable extra para las búsqueda del nombre 
         private string _cTextoBuscar;
@@ -84,6 +84,14 @@ namespace CapaDatos
             set { _Password = value; }
         }
 
+
+        public string CUsuario
+        {
+            get { return _cUsuario; }
+            set { _cUsuario = value; }
+        }
+
+
         public string CTextoBuscar
         {
             get { return _cTextoBuscar;  }
@@ -105,7 +113,7 @@ namespace CapaDatos
         //-->Constructor  CON PARAMETROS (Vamos a indicar los parametros con  minúsculas )
         //----------------------------------------------------------------------------------        
 
-        public DTrabajadores(int idTrabajador,  string cNombreTraba,  string cApellidos, string  cAcceso, string Password, string cTextoBuscar)
+        public DTrabajadores(int idTrabajador,  string cNombreTraba,  string cApellidos, string  cAcceso, string Password, string cUsuario ,string cTextoBuscar)
         {
             //Vamos a enviar los datos que  nos llegan en estos parametros  a nuestras propiedades 
 
@@ -115,6 +123,7 @@ namespace CapaDatos
             this.CApellidos = cApellidos;
             this.CAcceso = cAcceso;
             this.Password = Password;
+            this.CUsuario = cUsuario;
             this.CTextoBuscar = cTextoBuscar;
 
         }
@@ -211,9 +220,23 @@ namespace CapaDatos
 
                 SqlCmd.Parameters.Add(ParPassword);             //--> Acción que tiene que llevar a cabo,  AÑADIR en este caso con los parametros contenidos en ParNombre 
 
+                //-------------------------------------------------------------------------------------------------
+
+                SqlParameter ParUsuario = new SqlParameter();  //--> Esto es para "parametrizar", poder enviar parametros en consultas                 
+
+                ParUsuario.ParameterName = "@cUsuario";        //--> Nombre del paramentro como está en el PRC
+                ParUsuario.SqlDbType = SqlDbType.VarChar;     //--> Tipo del campo.
+                ParUsuario.Size = 20;                         //--> Longuitud del campo 
+                ParUsuario.Value = Trabajadores.CUsuario;      //--> Aquí sí, le enviamos el valor que tenemos en la Propiedad OjO
+
+                SqlCmd.Parameters.Add(ParUsuario);             //--> Acción que tiene que llevar a cabo,  AÑADIR en este caso con los parametros contenidos en ParNombre 
+
+
+
+
                 //-----------------------------------------------------------------------------------
 
-        
+
                 //--> Ahora Ejecutamos nuestro comando (tipo  TERNARIO),  es decir estamos llamando al procedimiento almacenado para que se ejecute 
                 //    Controlamos el éxito de la operación con el valor retornado en la variable  rpta
                 //      if  ( SqlCmd.ExecuteNonQuery()  ==   1 )
@@ -312,6 +335,21 @@ namespace CapaDatos
 
                 SqlCmd.Parameters.Add(ParPassword);             //--> Acción que tiene que llevar a cabo,  AÑADIR en este caso con los parametros contenidos en ParNombre 
 
+                //---//
+
+                SqlParameter ParUsuario = new SqlParameter();  //--> Esto es para "parametrizar", poder enviar parametros en consultas                 
+
+                ParUsuario.ParameterName = "@cUsuario";        //--> Nombre del paramentro como está en el PRC
+                ParUsuario.SqlDbType = SqlDbType.VarChar;     //--> Tipo del campo.
+                ParUsuario.Size = 20;                         //--> Longuitud del campo 
+                ParUsuario.Value = Trabajadores.CUsuario;      //--> Aquí sí, le enviamos el valor que tenemos en la Propiedad OjO
+
+                SqlCmd.Parameters.Add(ParUsuario);             //--> Acción que tiene que llevar a cabo,  AÑADIR en este caso con los parametros contenidos en ParNombre 
+
+
+
+
+
 
                 //Ejecutamos nuestro comando, es decir estamos llamando al procedimiento almacenado para que se ejecute 
                 rpta = SqlCmd.ExecuteNonQuery() == 1 ? "OK" : "NO se Actualizo el Registro";
@@ -407,7 +445,7 @@ namespace CapaDatos
 
         //-> metodo para buscar solo el nombre de las familias, lo mismo en vez de recibir el campo en cuestion indicamos toda la clase
         //public DataTable BuscarNombre (DCategoria Categoria)
-        public DataTable BuscarNombre(DTrabajadores Trabajadores)
+        public DataTable BuscarNombreTrabajador(DTrabajadores Trabajadores)
         {
 
             DataTable DtResultado = new DataTable("Trabajadores");
@@ -418,7 +456,7 @@ namespace CapaDatos
                 SqlCon.ConnectionString = Conexion.Cn;
                 SqlCommand SqlCmd = new SqlCommand();
                 SqlCmd.Connection = SqlCon;
-                SqlCmd.CommandText = "spBuscarNombre_trabajador";
+                SqlCmd.CommandText = "spbuscar_trabajador_nombre";
                 SqlCmd.CommandType = CommandType.StoredProcedure;
 
                 SqlParameter ParTextoBuscar = new SqlParameter();
