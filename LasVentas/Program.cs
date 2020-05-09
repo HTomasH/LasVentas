@@ -47,9 +47,15 @@ namespace LasVentas
             //Application.Run(new  frmCliente());
 
             //--> PRUEBA 6   TRABAJADORES
-            Application.Run(new FrmTrabajador());
+            //Application.Run(new FrmTrabajador());
 
+            //--> PRUEBA 7   YA CON EL MENU 
+            // Ojo para que salga maximizada este formulario lo haremos en las propiedades del mismo en WindowsState
+            //Application.Run(new frmPrincipal());
 
+            //--> PRUEBA 8   CON EL CONTROL DE ACCESO 
+            // Ojo para que salga maximizada este formulario lo haremos en las propiedades del mismo en WindowsState
+            Application.Run(new frmLogin());
 
 
         }
