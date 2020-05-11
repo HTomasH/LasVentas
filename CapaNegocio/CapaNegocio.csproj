@@ -44,6 +44,7 @@
     <Compile Include="NArticulo.cs" />
     <Compile Include="NCliente.cs" />
     <Compile Include="NFamilias.cs" />
+    <Compile Include="NImpuestos.cs" />
     <Compile Include="NProveedor.cs" />
     <Compile Include="NTrabajador.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

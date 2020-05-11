@@ -171,6 +171,18 @@ namespace CapaPresentacion
 
         }
 
+        //--->OPCION MENU :  Impuestos.
+        private void impuestosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            frmImpuestos frm = new frmImpuestos();
+            frm.MdiParent = this;     //->Indicado como formulario Padre 
+            frm.Show();
+        }
+
+
+        //ESTO CON UN CASE  VA MAL LIMPIO 
+
 
         //--------->CONTROL DE LOS ACCESOS POR PERFILES 
         private void GestionUsuario()
@@ -237,5 +249,7 @@ namespace CapaPresentacion
 
 
         }
+
+        
     }
 }
