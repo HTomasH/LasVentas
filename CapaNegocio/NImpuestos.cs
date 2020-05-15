@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using CapaDatos;
 using System.Data;
 
+//---->>>    MANTENIMIENTO SIN  PROCEDIMIENTO ALMACENADO,  LO HAGO CON CADENAS   
+
 namespace CapaNegocio
 {
     public class NImpuestos
