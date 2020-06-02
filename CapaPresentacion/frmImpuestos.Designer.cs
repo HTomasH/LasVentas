@@ -75,7 +75,7 @@
             this.label4.Location = new System.Drawing.Point(40, 73);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(63, 13);
-            this.label4.TabIndex = 1;
+            this.label4.TabIndex = 2;
             this.label4.Text = "Descripción";
             // 
             // label3
@@ -101,7 +101,9 @@
             this.dataListado.ReadOnly = true;
             this.dataListado.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataListado.Size = new System.Drawing.Size(667, 187);
-            this.dataListado.TabIndex = 7;
+            this.dataListado.TabIndex = 5;
+            this.dataListado.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataListado_CellContentClick);
+            this.dataListado.DoubleClick += new System.EventHandler(this.dataListado_DoubleClick);
             // 
             // Eliminar
             // 
@@ -116,7 +118,7 @@
             this.txtidTipoIva.Location = new System.Drawing.Point(128, 32);
             this.txtidTipoIva.Name = "txtidTipoIva";
             this.txtidTipoIva.Size = new System.Drawing.Size(51, 20);
-            this.txtidTipoIva.TabIndex = 2;
+            this.txtidTipoIva.TabIndex = 1;
             // 
             // lblTotal
             // 
@@ -133,16 +135,17 @@
             this.chkEliminar.Location = new System.Drawing.Point(24, 91);
             this.chkEliminar.Name = "chkEliminar";
             this.chkEliminar.Size = new System.Drawing.Size(62, 17);
-            this.chkEliminar.TabIndex = 5;
+            this.chkEliminar.TabIndex = 4;
             this.chkEliminar.Text = "Eliminar";
             this.chkEliminar.UseVisualStyleBackColor = true;
+            this.chkEliminar.CheckedChanged += new System.EventHandler(this.chkEliminar_CheckedChanged);
             // 
             // btnImprimir
             // 
             this.btnImprimir.Location = new System.Drawing.Point(616, 36);
             this.btnImprimir.Name = "btnImprimir";
             this.btnImprimir.Size = new System.Drawing.Size(75, 23);
-            this.btnImprimir.TabIndex = 4;
+            this.btnImprimir.TabIndex = 3;
             this.btnImprimir.Text = "&Imprimir";
             this.btnImprimir.UseVisualStyleBackColor = true;
             this.btnImprimir.Click += new System.EventHandler(this.btnImprimir_Click);
@@ -152,16 +155,17 @@
             this.btnEliminar.Location = new System.Drawing.Point(512, 35);
             this.btnEliminar.Name = "btnEliminar";
             this.btnEliminar.Size = new System.Drawing.Size(75, 23);
-            this.btnEliminar.TabIndex = 3;
+            this.btnEliminar.TabIndex = 2;
             this.btnEliminar.Text = "&Eliminar";
             this.btnEliminar.UseVisualStyleBackColor = true;
+            this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
             // 
             // btnBuscar
             // 
             this.btnBuscar.Location = new System.Drawing.Point(407, 35);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(76, 23);
-            this.btnBuscar.TabIndex = 2;
+            this.btnBuscar.TabIndex = 1;
             this.btnBuscar.Text = "&Buscar";
             this.btnBuscar.UseVisualStyleBackColor = true;
             // 
@@ -170,34 +174,37 @@
             this.txtBuscar.Location = new System.Drawing.Point(114, 38);
             this.txtBuscar.Name = "txtBuscar";
             this.txtBuscar.Size = new System.Drawing.Size(223, 20);
-            this.txtBuscar.TabIndex = 1;
+            this.txtBuscar.TabIndex = 0;
             // 
             // btnEditar
             // 
             this.btnEditar.Location = new System.Drawing.Point(464, 249);
             this.btnEditar.Name = "btnEditar";
             this.btnEditar.Size = new System.Drawing.Size(75, 23);
-            this.btnEditar.TabIndex = 6;
+            this.btnEditar.TabIndex = 10;
             this.btnEditar.Text = "E&ditar";
             this.btnEditar.UseVisualStyleBackColor = true;
+            this.btnEditar.Click += new System.EventHandler(this.btnEditar_Click);
             // 
             // btnGuardar
             // 
             this.btnGuardar.Location = new System.Drawing.Point(370, 249);
             this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.Size = new System.Drawing.Size(75, 23);
-            this.btnGuardar.TabIndex = 5;
+            this.btnGuardar.TabIndex = 9;
             this.btnGuardar.Text = "&Guardar";
             this.btnGuardar.UseVisualStyleBackColor = true;
+            this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
             // 
             // btnNuevo
             // 
             this.btnNuevo.Location = new System.Drawing.Point(275, 249);
             this.btnNuevo.Name = "btnNuevo";
             this.btnNuevo.Size = new System.Drawing.Size(75, 23);
-            this.btnNuevo.TabIndex = 4;
+            this.btnNuevo.TabIndex = 8;
             this.btnNuevo.Text = "&Nuevo";
             this.btnNuevo.UseVisualStyleBackColor = true;
+            this.btnNuevo.Click += new System.EventHandler(this.btnNuevo_Click);
             // 
             // txtcDetIva
             // 
@@ -245,7 +252,9 @@
             this.txtnPorReq.Location = new System.Drawing.Point(128, 148);
             this.txtnPorReq.Name = "txtnPorReq";
             this.txtnPorReq.Size = new System.Drawing.Size(50, 20);
-            this.txtnPorReq.TabIndex = 11;
+            this.txtnPorReq.TabIndex = 7;
+            this.txtnPorReq.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtnPorReq.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtnPorReq_KeyPress);
             // 
             // txtnPorcIva
             // 
@@ -254,7 +263,9 @@
             this.txtnPorcIva.Location = new System.Drawing.Point(129, 115);
             this.txtnPorcIva.Name = "txtnPorcIva";
             this.txtnPorcIva.Size = new System.Drawing.Size(50, 20);
-            this.txtnPorcIva.TabIndex = 10;
+            this.txtnPorcIva.TabIndex = 5;
+            this.txtnPorcIva.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtnPorcIva.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtnPorcIva_KeyPress);
             // 
             // label6
             // 
@@ -262,7 +273,7 @@
             this.label6.Location = new System.Drawing.Point(41, 155);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(36, 13);
-            this.label6.TabIndex = 9;
+            this.label6.TabIndex = 6;
             this.label6.Text = "% R.E";
             // 
             // label5
@@ -271,7 +282,7 @@
             this.label5.Location = new System.Drawing.Point(40, 115);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(41, 13);
-            this.label5.TabIndex = 8;
+            this.label5.TabIndex = 4;
             this.label5.Text = "% I.V.A";
             // 
             // btnCancelar
@@ -279,9 +290,10 @@
             this.btnCancelar.Location = new System.Drawing.Point(557, 249);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(75, 23);
-            this.btnCancelar.TabIndex = 7;
+            this.btnCancelar.TabIndex = 11;
             this.btnCancelar.Text = "&Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
+            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
             // tabPage2
             // 

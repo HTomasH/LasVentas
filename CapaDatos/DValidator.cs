@@ -99,6 +99,10 @@ namespace CapaDatos
             {
                 v.Handled = false;
             }
+            else if (v.KeyChar.ToString().Equals("."))   //Esta permite el punto
+            {
+                v.Handled = false;
+            }
             else
             {
                 v.Handled = true;

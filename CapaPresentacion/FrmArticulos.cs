@@ -425,7 +425,11 @@ namespace CapaPresentacion
 
         }
 
-        // OJO  RECORDAR  :  Este es el evento del doble click del Grid  que se crea desde la ventana de propiedades del objeto, del Grid
+        //-----------------------------------------------------------------------------------------------------------------
+        //     Este evento es el que vamos a utilizar para llevar la info del Grid al formulario de detalle 
+        //
+        // OJO  RECORDAR  :  Este es el evento del doble click del Grid  que se crea desde la ventana de propiedades 
+        //                   del objeto, del Grid
         private void dataListado_DoubleClick(object sender, EventArgs e)
         {
 
@@ -453,18 +457,18 @@ namespace CapaPresentacion
             this.txtIdCodFam.Text = Convert.ToString(this.dataListado.CurrentRow.Cells["idCodFam"].Value);
 
             
-                    //CAGATOR  :  el profe no busca los valores de otras tablas cuando son lupas, con el diseño que tiene se apaña ya que utiliza 
-                    //            los nombres y no los codigos.
-                    //RESOLUCION :   Escalo la información llamo a la capa negocios esta llama a la capa datos para mirar en la BB.DD(tabla)                         
-                    this.dataListado.DataSource = NFamilias.Mostrar();
-                    this.txtNombreFamilia.Text = Convert.ToString(this.dataListado.CurrentRow.Cells["cNombreFamilia"].Value);
+            //CAGATOR  :  el profe no busca los valores de otras tablas cuando son lupas, con el diseño que tiene se apaña ya que utiliza 
+            //            los nombres y no los codigos.
+           //RESOLUCION :   Escalo la información llamo a la capa negocios esta llama a la capa datos para mirar en la BB.DD(tabla)                         
+           this.dataListado.DataSource = NFamilias.Mostrar();
+           this.txtNombreFamilia.Text = Convert.ToString(this.dataListado.CurrentRow.Cells["cNombreFamilia"].Value);
                     
-                //Vuelvo a colocar el foco en  los Artículos que sino se queda apuntando a las Familias 
-                    this.dataListado.DataSource = NArticulo.Mostrar();
+          //Vuelvo a colocar el foco en  los Artículos que sino se queda apuntando a las Familias 
+          this.dataListado.DataSource = NArticulo.Mostrar();
 
-                    //-> Para que pinte la  Solapa/folder/TabPage  1   que imagino es la del detalle, la del grid debe ser la 0
-                    this.tabControl1.SelectedIndex = 1;
-            //----------------------------------------------------------------------------------------------------------------------------------
+          //-> Para que pinte la  Solapa/folder/TabPage  1   que imagino es la del detalle, la del grid debe ser la 0
+          this.tabControl1.SelectedIndex = 1;
+        //----------------------------------------------------------------------------------------------------------------------------------
 
         }
 

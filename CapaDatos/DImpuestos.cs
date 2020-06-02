@@ -4,6 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
+
+
 //-->Usings para poder trabajar con el tipo Datos  y enviar información a SQLServerr
 using System.Data;
 using System.Data.SqlClient;
@@ -16,34 +19,177 @@ namespace CapaDatos
     public class DImpuestos
     {
 
+
         /*
-            -   EN ESTA APLICACION SE TRABAJA CON DATATABLE 
-            -   CONSIGO MANTENER LAS ESTRUCTURA DE LAS 3 CAPAS.
-            -   TAMPOCO SE UTILIZAN LAS FOREING KEY ENTRE TABLAS, EN EL EJEMPLO DEL CURSO DE ACCESO A DATOS 
-                SI LAS UTILIZA Y APROVECHA ESAS RELACIONES PARA QUE NO SE PUEDAN BORRAR REGISTROS QUE SE RELACIONEN
-                ENTRE ELLAS. 
+          Declaración de los CAMPOS con los que vamos a trabajar
+          que son los campos de la tabla Familias.
           
-
-            -   TENGO QUE IMPLEMENTAR EL RESTO DE OPCIONES PARA EL MANTINIMIENTO DE IMPUESTOS
-
-
-
-            -   TENDRIA QUE HACER ALGUN MANTENIIENTO CON DATASET  (conjunto de tablas)
-            -   EL ESTILO "AUTOMATICO" DEL DATASET MOLA, AHORA TRABAJO PERO EN LA PRUEBA QUE HICE AÑADÍ EL
-                DATASET EN LA CapaDatos QUE ES DONDE DEBE DE ESTAR PERO... AL INTENTAR UTILIZARLA EN UN FORMULARIO
-                NO CONSEGUIA ACCEDER A ELLA....Y TENIA QUE CREAR UNA NUEVA CONEXIÓN Y ESO SE CARGA EL ESTILO DE LAS CAPAS
-
-           -    SE LE PUEDEN AÑADIR CONDICIONES DE  SELECT WHERE DESDE "DENTRO" UTILIZANDO LA UTILIDADES 
-
-
-
-            --->> UNA VEZ ACABE CON ESTAS VARIANTES DE LOS ACCESOS TENGO QUE VER EL MANTENIMIENTO DE INGRESOS, ES BASTANTE "TOCHO"
-
-
-
+          Vamos a ponerles un guion bajo  por delante para diferenciar los Campos  y  las Propiedades 
         */
+
+
+        //---------------------------------------------------------------------------------
+        // CODIFICACION    Campos         :  Con guión bajo  _                _idCodFam;    
+        //                 Propiedades    :  Con Mayúscula la primera         IdCodFam
+        //                 Paremetros     :  Con minúscula la priemera        idCodFam
+        //---------------------------------------------------------------------------------
+        
        
 
+        private int _idTipoIva;
+        private string _cDetIva;
+        private decimal _nPorcIva;
+        private decimal _nPorReq;
+
+
+        //->Variable extra para las búsqueda del nombre 
+        private string _cTextoBuscar;
+
+        private decimal POLLAS1;
+        private decimal POLLAS2;
+
+
+
+        //-->Y ahora para pintar las PROPIEDADES, lo haremos Refactorizando !!   
+        //   Se hace colocandose sobre la variable y le damos al botón derecho - Opcion Refactorizar - Encapsular Campo 
+
+        // GETer   Devuelve valores
+        // SETer   Recibe valores.
+
+        public int IdTipoIva
+        {
+            get { return _idTipoIva;  }
+            set { _idTipoIva = value;  }
+        }
+
+        public string CDetIva
+        {
+            get {return _cDetIva; }
+            set { _cDetIva = value;}
+        }
+
+        public decimal NPorcIva
+        {
+            get { return _nPorcIva; }
+            set { _nPorcIva = value; }
+        }
+
+        public decimal NPorReq
+        {
+            get { return _nPorReq; }
+            set { _nPorReq = value; }
+        }
+
+        public string CTextoBuscar
+        {
+            get  { return _cTextoBuscar;  }
+            set  { _cTextoBuscar = value; }
+        }
+
+
+
+
+        //------------------------------
+        //-->Constructor  SIN PARAMETROS 
+        //------------------------------
+        public DImpuestos()
+        {
+        }
+
+        //----------------------------------------------------------------------------------        
+        //-->Constructor  CON PARAMETROS (Vamos a indicar los parametros con  minúsculas )
+        //----------------------------------------------------------------------------------        
+
+        public DImpuestos(int idTipoIva, string cDetIva, decimal nPorcIva, decimal nPorReq, string cTextoBuscar)
+        {
+            //-->Vamos a enviar los datos que  nos llegan en estos parametros  a nuestras propiedades 
+            this.IdTipoIva = idTipoIva;
+            this.CDetIva = cDetIva;
+            this.NPorcIva = Convert.ToDecimal(nPorcIva);
+            this.NPorReq = Convert.ToDecimal(nPorReq);
+            this.CTextoBuscar = cTextoBuscar;            
+        }
+
+
+
+
+        //-------------------    METODO  ALTAS  ------------------------------------------------------------------
+
+        /*
+            En los parametros que vamos a recibir en este método lo hacemos es 
+            instanciar  la clase,  de esta forma nos evitamos tener que estar poniendo campo a campo
+            de los que se tengan que tener en cuenta, en este ejemplo son pocos campos pero si fueramos a tratar tabla
+            donde hubiera muchos campos es un puto coñazo
+        */
+        public string Insertar(DImpuestos TiposIva)
+        {
+    
+            string rpta = "";                             //-->  rpta  -  Variable para saber el valor de retorno
+            SqlConnection SqlCon = new SqlConnection();   //-->  SqlCon - Variable de tipo  Conexión SQL
+
+            try  //--->Control de Errores                    
+            {
+
+                //--> Le digo a  ConnectionString  cual es nuestra conexión que tengo en la clase Conexión y en la variable  Cn
+                SqlCon.ConnectionString = Conexion.Cn;   
+                SqlCon.Open();   //--> Abrimos la conexión 
+
+                SqlCommand SqlCmd = new SqlCommand();  //-->  SqlCmd será la variable de la clase SqlCommand para poder utilizar los comandos de SQL 
+                SqlCmd.Connection = SqlCon;            //-->  Le pasamos la conexión.
+
+                //-----------------------CODIGO PARA PROCEDIMIENTOS ALMACENADOS------------------------
+                //SqlCmd.CommandText = "spInsertar_familia";         //-->  Le decimos el nombre del Procedimiento a ejecutar 
+                //SqlCmd.CommandType = CommandType.StoredProcedure;  //-->  Le decimos que el tipo de comando es un PRC
+
+
+                //-----------------------CODIGO PARA TEXTO es el tipo  que está  por defecto ------------------------
+                /*
+                   -  En este caso vamos a utilizar una linea con las instrucciones a ejecutar
+                   -  El  $  es interpolación de cadenas, necesario, tengo mucho caracter especial.
+                   -  NombreTabla  Values  ( valores a grabar en el mismo orden que tengan los campos en la tabla) 
+                   -  Para que no de fallo ya que los campos Identity no se deben de enviar
+                      indicaremos el nombre de la tabla y entre paréntesis el nombre de los campos.
+
+                   -  Si los valores de los porcentajes van con la coma decimal da error de conversion de Varchar a Numeric
+                      los valores de  NPorcIva y NPorReq son correctos, son númericos, pero la coma no la reconoce bien
+
+                      Utilizando la opción del procedimiento almacenado no da ese problema...
+                      los valores que llegan son correctos, son decimal
+                
+                      Con esta cadena de inserción no había forma, daba error de conversion de VarChar a Decimal ... 
+                         SqlCmd.CommandText = $"insert into TiposIva( cDetIva,  nPorcIva,  nPorReq )  values ( '{this.CDetIva}' , {this.NPorcIva}, {this.NPorReq} )";
+                                                                      
+                */
+
+                //-->INSERT con parametrización, esta si va bien, se indica el tipo de cada campo como en el PRC
+                SqlCmd.CommandText = $"insert into TiposIva( cDetIva,  nPorcIva,  nPorReq )  values ( @CDetIva , @NPorcIva, @NPorReq )";
+                SqlParameter parcDetIva = SqlCmd.Parameters.Add("@CDetIva", SqlDbType.VarChar);
+                SqlParameter parNPorcIva = SqlCmd.Parameters.Add("@NPorcIva", SqlDbType.Decimal);
+                SqlParameter parNPorReq = SqlCmd.Parameters.Add("@NPorReq", SqlDbType.Decimal);
+
+                parcDetIva.Value = CDetIva;
+                parNPorcIva.Value = NPorcIva;
+                parNPorReq.Value = NPorReq;
+
+                //--> ExecuteNonQuery  nos devolverá el número de filas(registros) afectados,                                    
+                rpta = SqlCmd.ExecuteNonQuery() == 1 ? "OK" : "NO se Ingreso el Registro";
+
+
+            }
+            catch (Exception ex)
+            {
+                rpta = ex.Message;   //-->Mostramos el mensaje.
+            }
+            finally   //--> El finally se ejecuta siempre 
+                      //    tanto si hay error como si no lo hay, así que cerramos la conexión que chupa mucha memoria.
+            {
+                if (SqlCon.State == ConnectionState.Open) SqlCon.Close();
+            }
+            return rpta;
+
+        }
+
+   
 
         //-------------------    METODO  CONSULTAR/MOSTRAR -----------------------------------------------------------------
 
@@ -54,7 +200,7 @@ namespace CapaDatos
 
             //->Variable de tipo Conexion 
             SqlConnection SqlCon = new SqlConnection();
-
+            
             try
             {
                 //Establecemos lac cadena de conexión.
@@ -63,12 +209,13 @@ namespace CapaDatos
                 /*
                 RECORDANDO :  La ejecución de comandos se realiza siempre a través de una conexión abierta,
                               y utilizando un objeto de tipo Command específico del proveedor de datos en uso. 
+                              
                               Estos objetos serán descendientes de la clase base abstracta DbCommand, implementada 
                               en el espacio de nombres System.Data.Common.
                 
                               Así, como es habitual, el proveedor SqlClient proporcionará acceso a los comandos 
-                              a través de su clase SqlCommand;   OleDb,  en cambio, 
-                              dispondrá de la clase  OleDbCommand para ello, y así para todos los proveedores....
+                              a través de su clase SqlCommand;   
+                              OleDb,  en cambio,  dispondrá de la clase  OleDbCommand para ello, y así para todos los proveedores....
                 */
 
                 //->Variable de tipo Comando para poder utilizar en todas las operaciones 
@@ -76,6 +223,9 @@ namespace CapaDatos
 
                 //->Establecemos la cadena de conexión.
                 SqlCmd.Connection = SqlCon;
+
+                // NO SE DONDE ABRE LA CONEXION LA VERDAD, EN LOS OTROS BOTONES SI SE ABRE Y SE CIERRA 
+
 
                 //->> Inyeccion de codigo ??  NO, esto mas bien seria hardcode tengo el código puesto a machete 
                 //    La inyeccion viene al concatenar datos del usuario(de fuera, externos) con parametros de "dentro" 
@@ -119,20 +269,19 @@ namespace CapaDatos
                 */
 
 
-                             //SqlCmd.CommandText = "spMostrar_familia";  //En este PRC lo que hacemos es selecionar los primeros 200 regitros 
-                //--> RECORDANDO : SqlCmd.CommandText   laS ordenes  SQL a ejecutar.
+                //-->Así indicariamos el nombre del PRC a llamar :   SqlCmd.CommandText = "spMostrar_familia";                  
+
+                //-->En este caso vamos a utilizar una linea con las instrucciones a ejecutar
                 SqlCmd.CommandText = "select * from " + DtResultado.ToString();
-                                //SqlCmd.CommandType = CommandType.StoredProcedure;
-                //Estamos indicando que es de tipo Text  aunque es el que tiene por defecto.
+                
+                //-->Indicamos el tipo del comando  de PRC o Cadena,  por defecto tiene cadena Text
+                //   SqlCmd.CommandType = CommandType.StoredProcedure;                
                 SqlCmd.CommandType = CommandType.Text;
 
-
                 SqlDataAdapter SqlDat = new SqlDataAdapter(SqlCmd);                
+                //-->Estamos rellenando (FILL )el DataTable  
                 SqlDat.Fill(DtResultado);   //Con el Fill estoy rellenado el DataTable  DtResultado 
-
-                
-
-                 // OJO   ¿CUANDO SE CIERRA ESTA CONEXION??
+                                                
             }
             catch (Exception ex)
             {
@@ -142,9 +291,51 @@ namespace CapaDatos
 
         }
 
+        
+          
+         //-------------------    METODO  BAJAS/ELIMINAR -----------------------------------------------------------------
+        public string Eliminar(DImpuestos TiposIva)
+        {
+            string rpta = "";
+            SqlConnection SqlCon = new SqlConnection();
+
+            try
+            {
+                //Código
+                SqlCon.ConnectionString = Conexion.Cn;
+                SqlCon.Open();
+
+                //Establecer el Comando
+                SqlCommand SqlCmd = new SqlCommand();
+                SqlCmd.Connection = SqlCon;
+                                                                         
+                
+                //-->DELETE con parametrización, esta si va bien, se indica el tipo de cada campo como en el PRC
+                SqlCmd.CommandText = $"delete from TiposIva where idTipoIva = @IdTipoIva";
+                SqlParameter paridTipoIva = SqlCmd.Parameters.Add("@IdTipoIva", SqlDbType.Int);
+                
+                paridTipoIva.Value = IdTipoIva;                                
+                //Ejecutamos nuestro comando, es decir estamos llamando al procedimiento almacenado para que se ejecute 
+                rpta = SqlCmd.ExecuteNonQuery() == 1 ? "OK" : "NO se Elimino el Registro";
 
 
-       
+            }
+            catch (Exception ex)
+            {
+                rpta = ex.Message;
+            }
+            finally
+            {
+                if (SqlCon.State == ConnectionState.Open) SqlCon.Close();
+            }
+            return rpta;
+        }
+ 
+         
+        
+
+
+
 
     }
 }

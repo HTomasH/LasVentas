@@ -18,11 +18,14 @@ namespace CapaDatos
         //Declaramos las cadenas de conexión :
         //----------------------------------
 
+
         // CASA :       
         public static string Cn = @"Data Source=DESKTOP-TMO9LFM\SQLEXPRESS;Initial Catalog=VentasTOMAS; Integrated Security=True";
 
         // TRABAJO :       
         //public static string Cn = @"Data Source=MBO9IBSTHERRERO\SQLEXPRESS;Initial Catalog=VentasTOMAS; Integrated Security=True";
+
+        //Si se indica     Data Source=.    es que se trata de un servidor local  el punto   . 
 
     }
 

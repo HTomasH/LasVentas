@@ -191,7 +191,7 @@ namespace CapaDatos
                 SqlParameter ParnStock = new SqlParameter();  //--> Esto es para "parametrizar", poder enviar parametros en consultas                 
                 ParnStock.ParameterName = "@nStock";  //--> Nombre del paramentro como está en el PRC
                 ParnStock.SqlDbType = SqlDbType.Decimal;      //--> Tipo del campo.                
-                ParnStock.Value = Articulos.NStock;       //--> Aquí sí, le enviamos el valor que tenemos en la Propiedad OjO
+                ParnStock.Value =  Articulos.NStock;       //--> Aquí sí, le enviamos el valor que tenemos en la Propiedad OjO
                 SqlCmd.Parameters.Add(ParnStock);             //--> Acción que tiene que llevar a cabo,  AÑADIR en este caso con los parametros contenidos en ParNombre 
 
 

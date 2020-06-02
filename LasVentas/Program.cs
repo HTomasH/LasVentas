@@ -6,35 +6,57 @@ using System.Windows.Forms;
 
 using CapaPresentacion;   //-> Para comunicarse con la capa 
 
+using System.Configuration;
+using System.Data.SqlClient;
+
+
+using System.Collections.Specialized;
+
 
 
 
 /*  =================================>>>>>       HOJA DE RUTA         <<<<========================================================  
         
         -   ESTOY UTILIZANDO EL Framework 4.5.1   se ve en las Properties de cada Capa
+
         -   EN ESTA APLICACION SE TRABAJA CON DATATABLE 
+
         -   CONSIGO MANTENER LAS ESTRUCTURA DE LAS 3 CAPAS.
+
         -   TAMPOCO SE UTILIZAN LAS FOREING KEY ENTRE TABLAS, EN EL EJEMPLO DEL CURSO DE ACCESO A DATOS 
             SI LAS UTILIZA Y APROVECHA ESAS RELACIONES PARA QUE NO SE PUEDAN BORRAR REGISTROS QUE SE RELACIONEN
             ENTRE ELLAS. 
 
+        * DESESTIMO LA ENCRIPTACION DE LA CADENA DE CONEXION, EN TODOS LOS EJEMPLOS SE HACE REFERENCIA SOBRE TODO A APLICACIONES
+          WEB DE ASP.net   
 
-        -   TENGO QUE IMPLEMENTAR EL RESTO DE OPCIONES PARA EL MANTINIMIENTO DE IMPUESTOS
+          LA CADENA DE CONEXIÓN DE ESTE PROGRAMA NO ESTA INDICADO LA PASSWORD NI EL USUARIO
+          connectionString="Data Source=DESKTOP-TMO9LFM\SQLEXPRESS;Initial Catalog=VentasTOMAS;Integrated Security=True"
 
 
+        -   TENGO QUE IMPLEMENTAR EL RESTO DE OPCIONES PARA EL MANTENIMIENTO DE IMPUESTOS
+            *TERMINADO *
 
-        -   TENDRIA QUE HACER ALGUN MANTENIIENTO CON DATASET  (conjunto de tablas)
 
-        -   EL ESTILO "AUTOMATICO" DEL DATASET MOLA, AHORA TRABAJO PERO EN LA PRUEBA QUE HICE AÑADÍ EL
+        -   EL ESTILO "AUTOMATICO" DEL DATASET MOLA, PERO EN LA PRUEBA QUE HICE AÑADÍ EL
             DATASET EN LA CapaDatos QUE ES DONDE DEBE DE ESTAR PERO... AL INTENTAR UTILIZARLA EN UN FORMULARIO
             NO CONSEGUIA ACCEDER A ELLA....Y TENIA QUE CREAR UNA NUEVA CONEXIÓN Y ESO SE CARGA EL ESTILO DE LAS CAPAS
 
+
+        -   TENDRIA QUE HACER ALGUN MANTENIENTO CON DATASET  (conjunto de tablas)
+
+
+        
         -   EN EL VIDEO  https://www.youtube.com/watch?v=W5OWHxKuLew   MUESTRA DOS FORMAS DE VER LA INFORMACION, UNA SOBRE UN 
             GRID Y OTRO QUE CREA UN FORMULARIO  CON OPCIONES DE MENU INCORPORADAS,  MOLA, PERO NO HAY CONTROL ES TODO AUTOMATICO.
 
 
+        -   MANTENIMIENTO CON   ENTITY FRAMEWORK  (es el más moderno)  (genera clases)  vamos a ver si puedo integrarlo en
+            las tres capas. 
 
+        
 
+    
 
         --->> UNA VEZ ACABE CON ESTAS VARIANTES DE LOS ACCESOS TENGO QUE VER EL MANTENIMIENTO DE INGRESOS, ES BASTANTE "TOCHO"
 
@@ -93,6 +115,13 @@ namespace LasVentas
             //--> PRUEBA 8   CON EL CONTROL DE ACCESO 
             // Ojo para que salga maximizada este formulario lo haremos en las propiedades del mismo en WindowsState
             Application.Run(new frmLogin());
+
+
+           
+
+
+
+
 
 
         }

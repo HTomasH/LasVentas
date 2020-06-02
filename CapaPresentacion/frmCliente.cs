@@ -75,6 +75,7 @@ namespace CapaPresentacion
             this.txtPerson.Text = string.Empty;
 
             //this.txtDescuento.Text = string.Empty;  
+            //->Valor por defecto a pintar en el campo
             this.txtDescuento.Text = "0,00";
 
 
