@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 
 //-->Usings para poder trabajar con el tipo Datos  y enviar información a SQLServerr
@@ -153,6 +154,8 @@ namespace CapaDatos
 
         public string Insertar(DTrabajadores Trabajadores)
         {
+
+            
             string rpta = "";                             //-->  rpta  -  Variable para saber el valor de retorno
             SqlConnection SqlCon = new SqlConnection();   //-->  SqlCon - Variable de tipo  Conexión SQL
             try  //--->Control de Errores                    
@@ -484,6 +487,8 @@ namespace CapaDatos
             }
             return DtResultado;
 
+            
+
         }
 
 
@@ -536,6 +541,7 @@ namespace CapaDatos
 
 
 
+        
 
 
 

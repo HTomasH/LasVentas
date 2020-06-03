@@ -3,14 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
 using CapaPresentacion;   //-> Para comunicarse con la capa 
-
 using System.Configuration;
 using System.Data.SqlClient;
-
-
 using System.Collections.Specialized;
+
 
 
 
@@ -76,6 +73,24 @@ namespace LasVentas
         [STAThread]
         static void Main()
         {
+
+
+            //->si esta cololacado bajo el Proyecto LaVentas, solo se ve aqui y solo consigo que funcione aquí
+            // en otra capa no hay forma. el Usign se utiliza para una vez que salga cierre la conexión 
+
+            //El nombre de la clase, se trata de la conexion, no el del Modelo
+           
+            using (VentasTOMASEntities1 db = new VentasTOMASEntities1())
+            {
+                var lst = db.Familias;
+                foreach (var oModerna in lst)
+                {
+                    MessageBox.Show("Nombre : " + oModerna.cNombreFamilia, "CAPTION", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+
+
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
@@ -117,7 +132,7 @@ namespace LasVentas
             Application.Run(new frmLogin());
 
 
-           
+
 
 
 
@@ -126,7 +141,14 @@ namespace LasVentas
 
         }
     }
+
+
+    
+
 }
+
+
+
 
 
 

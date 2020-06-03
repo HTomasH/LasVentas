@@ -18,7 +18,10 @@ using CapaDatos;   //Tengo que utilizar objetos de esta capa para el Dvalidator 
 namespace CapaPresentacion
 {
 
+
+
     
+
 
     public partial class frmImpuestos : Form
     {
@@ -26,6 +29,10 @@ namespace CapaPresentacion
         //->Variables para saber si estamos dando altas o no.  es como el que yo utilizaba de  lAltas 
         private bool IsNuevo = false;
         private bool IsEditar = false;
+
+        
+
+
 
 
         public frmImpuestos()
@@ -35,7 +42,13 @@ namespace CapaPresentacion
             //->Este será el mensaje a mostrar el TOOLTIP al tener el foco en el campo (Caja de texto-TextBox  txtNombre)
             this.ttMensaje.SetToolTip(this.txtcDetIva, "Indique el Nombre del impuesto");
 
+            
         }
+
+
+
+       
+
 
 
         //-->Mostrar Mensaje de Confirmación de la operación, del tipo  Información 
@@ -177,6 +190,12 @@ namespace CapaPresentacion
         {
 
             this.MensajeOk("Ha pulsado el botón de imprimir ");
+
+
+            DImpuestos kaka = new DImpuestos();
+
+            kaka.nabos();
+
             //Reportes.FrmReporteCategoria frm = new Reportes.FrmReporteCategoria();
             //frm.Texto = txtBuscar.Text;
             //frm.ShowDialog();
@@ -306,6 +325,7 @@ namespace CapaPresentacion
 
             //->OjO  con esto.... porqué  dejarlo en blanco???
             this.txtidTipoIva.Text = string.Empty;
+            
         }
 
         //Check Box de la eliminacion 
@@ -434,5 +454,35 @@ namespace CapaPresentacion
 
             //->Recuperacion de imagenes en VIDEO 15  minuto 04:00 aprox)
         }
+
+
+
+        
+
+
+        private void nabos()
+        {
+
+                                    
+            //-> Esta cadena  que es el nombre de la cadena de conexion que hubieramos creado
+            //   ya hace la conexión,  utilizando using para que al terminar cierre la conexión 
+
+
+
+
+            //using (VentasTOMASEntities1 db = new VentasTOMASEntities1())
+            //{
+            //    var lst = db.Moderna;
+            //    foreach (var oModerna in lst)
+            //    {
+            //        MessageBox.Show("Nombre : " + oModerna.nombre + " Departamento :  " + oModerna.departamento, "CAPTION", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //    }
+            //}
+
+
+
+        }
+
+        
     }
 }

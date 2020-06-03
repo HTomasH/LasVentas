@@ -7,6 +7,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using CapaDatos;
+     
+
+
 
 namespace CapaPresentacion
 {
@@ -244,12 +248,15 @@ namespace CapaPresentacion
         private void frmPrincipal_Load(object sender, EventArgs e)
         {
 
+            
             //--Llamamos al metodo de control de perfies 
             GestionUsuario();
 
 
         }
 
-        
+
+
+     
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 
 
@@ -45,10 +46,7 @@ namespace CapaDatos
         //->Variable extra para las búsqueda del nombre 
         private string _cTextoBuscar;
 
-        private decimal POLLAS1;
-        private decimal POLLAS2;
-
-
+    
 
         //-->Y ahora para pintar las PROPIEDADES, lo haremos Refactorizando !!   
         //   Se hace colocandose sobre la variable y le damos al botón derecho - Opcion Refactorizar - Encapsular Campo 
@@ -184,6 +182,8 @@ namespace CapaDatos
                       //    tanto si hay error como si no lo hay, así que cerramos la conexión que chupa mucha memoria.
             {
                 if (SqlCon.State == ConnectionState.Open) SqlCon.Close();
+               
+
             }
             return rpta;
 
@@ -332,7 +332,48 @@ namespace CapaDatos
         }
  
          
-        
+
+        public void nabos()
+        {
+
+             MessageBox.Show("LLEGAMOS " , "CAPTION", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            //El nombre de la clase, se trata de la conexion, no el del Modelo
+            //-----------------------------------------------------------------
+            //-->En este caso NO funciona ya que la variable no carga la estructura de la tabla
+
+            //JODER JODER JODER  al final lo he conseguido  hay que incluir la cadena de conexion en el App.config de  LasVentas 
+
+            // lo que no se es, para mantener las tres capas... es decir si pongo el Modelo en la Capadatos.. deberé de indicar la conexion en 
+            // el App.config  general ???   a ver si funciona 
+
+            // OjO que aqui no se ve el que esta ubicado en LasVentas y viceversa 
+
+            
+            // PROBAR  A PONER EN LA CAPADATOS UN MODELO CON  VARIAS TABLAS
+            // INDICAR EN EL App.config  principal la cadena de conexión  y a ver si se ve
+
+            //--> EFECTIVAMENTEEEEEEEEE    SE VE EN TODA LA CAPA DATOS, POR LO CUAL EL MODELO SE INDICA EN LA CAPA DATOS CON
+            //                             TODAS LAS TABLAS Y EN EL APP.CONFIG GENERAL SE INDICA LA CADENA DE CONEXION
+
+
+            using (VentasTOMASEntities4 dbx = new VentasTOMASEntities4())
+            {
+                var lst = dbx.Proveedores;
+
+                foreach (var oModerna in lst)
+                {
+                    MessageBox.Show("Nombre : " + oModerna.cNomPro, "CAPTION", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+
+
+
+        }
+
+
+
+
 
 
 

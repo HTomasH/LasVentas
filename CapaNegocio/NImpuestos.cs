@@ -4,15 +4,28 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 //-->OjO   OjO    Tengo añadida en Referencias la referencia a CapaDatos  pero además necesitamos sus clases así que hay que indicar using
+
+
 using CapaDatos;
 using System.Data;
+
+
+
 
 //---->>>    MANTENIMIENTO SIN  PROCEDIMIENTO ALMACENADO,  LO HAGO CON CADENAS   
 
 namespace CapaNegocio
 {
+
+
+
     public class NImpuestos
     {
+
+
+
+      
+
 
         public static DataTable Mostrar()
         {
@@ -45,6 +58,9 @@ namespace CapaNegocio
             //ATENTO :  El valor de retorno,  se lo estamos enviando al metodo Eliminar de la clase DImpuestos
             return Obj.Eliminar(Obj);
         }
-
     }
+
+
+
+
 }
