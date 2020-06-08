@@ -9,45 +9,43 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 
+
 using CapaNegocio;   //Esto no termino de verlo, si tengo la referencia a la CapaNegocio además hay que hacer el usign
                      //Por lo que veo son necesarias las dos acciones,  primero indicar la Referencia y luego el using
-
-
-//--------------------------------------------------------------------------------------------------------------------------------------------
-//  ATENCION :  Para cambiar el primer formulario que por defecto queramos que se pinte al entrar en la aplicacion se cambia de esta forma
-//              Hay que ir al fichero Program.cs del proyecto principal(LasVentas)   y  cambiar la linea    Application.Run(new FrmFamilias());
-//
-//              (por defecto siempre apunta al  Form1)
-//------------------------------------------------------------------------------------------------------------------------------------------
-
+using CapaDatos;
 
 
 namespace CapaPresentacion
 {
-    //partial class --> Es dividir una clase en varios ficheros. El compilador los juntará todos al compliar 
-    public partial class FrmFamilias : Form
+    public partial class FPuto : Form
     {
+
 
         //->Variables para saber si estamos dando altas o no.  es como el que yo utilizaba de  lAltas 
         private bool IsNuevo = false;
         private bool IsEditar = false;
 
-
-        //Constructor 
-        public FrmFamilias()
+        public FPuto()
         {
-            InitializeComponent(); //Este inicializa los componentes del formulario
-            
+            InitializeComponent();
+
+
             //->Este será el mensaje a mostrar el TOOLTIP al tener el foco en el campo (Caja de texto-TextBox  txtNombre)
-            this.ttMensaje.SetToolTip(this.txtNombre, "Indique el Nombre de la Familia");
+            this.ttMensaje.SetToolTip(this.txtNombreEntidad, "Indique el Nombre de la Entidad");
+
+            //->Este será el mensaje a mostrar el TOOLTIP al tener el foco en el campo (Caja de texto-TextBox  txtNombre)
+            this.ttMensaje.SetToolTip(this.txtDeparEntidad, "Indique el Departamento de la Entidad");
         }
+
+
 
         //-->Mostrar Mensaje de Confirmación de la operación, del tipo  Información 
         private void MensajeOk(string mensaje)
         {
             MessageBox.Show(mensaje, "Sistema de Ventas", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
-    
+
+
         //-->Mostrar Mensaje de Confirmación de la operación, del tipo  Error  
         //-->Mostrar Mensaje de Error
         private void MensajeError(string mensaje)
@@ -58,25 +56,24 @@ namespace CapaPresentacion
         //-->Limpiar  las  cajas de texto (textBox del formulario)
         private void Limpiar()
         {
-            this.txtIdFamilias.Text = string.Empty;
-            this.txtNombre.Text = string.Empty;            
-            //this.txtIdFamilias.Text = string.Empty;
-        }
+            this.txtIdEntidad.Text = string.Empty;
+            this.txtNombreEntidad.Text = string.Empty;
+            this.txtDeparEntidad.Text = string.Empty;
 
+        }
 
         // Habilitar o NO los controles del formulario        
         //-> Si  valor  llega con valor TRUE pues le indicamos el contrario con ! 
         //   esto es porque la propiedad es  ReadOnly                                 
         private void Habilitar(bool valor)
         {
-            this.txtNombre.ReadOnly = !valor;
-            
-            //this.txtIdFamilias.ReadOnly = !valor;
-            this.txtIdFamilias.ReadOnly = true;  //Es un valor Identity  lo 'capo del todo'
-            this.txtIdFamilias.Enabled = false;
+            this.txtNombreEntidad.ReadOnly = !valor;
+            this.txtDeparEntidad.ReadOnly = !valor;
+
+            this.txtIdEntidad.ReadOnly = true;  //Es un valor Identity  lo 'capo del todo'
+            this.txtIdEntidad.Enabled = false;
 
         }
-
 
 
         //--Habilitar los botones
@@ -119,54 +116,9 @@ namespace CapaPresentacion
         }
 
 
-        
-        //-->Método Mostrar
-        //-------------------------------------------------------------------------------------------
-        private void Mostrar()
+
+        private void FPuto_Load(object sender, EventArgs e)
         {
-
-            //ESCALADO : Para pintar la información en el Grid (dataListado.DataSource)  
-            //
-            //Vamos a llamar  a la clase  NFamilias a su metodo Mostrar  (CAPA NEGOCIO)
-            //
-            //El metodo mostar lo que hace es  llamar al metodo Mostrar de la clase   DFamilias()     (CAPA DATOS)
-            //
-            //EL Metodo Mostrar de la capa datos  lo que hace es llamar al procedimiento almacenado que creamos 
-            // el  "spMostrar_familila";  que es el que finalmente  captura la información en la base de datos 
-
-            //ESCALADO :
-            //CAPA PRESENTACION  llama a   CAPA NEGOCIO   que llama   a CAPA DATOS    que conecta con  BB.DD
-            this.dataListado.DataSource = NFamilias.Mostrar();
-
-
-          
-            this.OcultarColumnas();
-
-            //-->Pintamos el total de registros : OjO el count es  int  tenemos que convertirlo a String 
-            lblTotal.Text = "Total de Registros: " + Convert.ToString(dataListado.Rows.Count);
-        }
-
-
-        //-->Método BuscarNombre
-        //-----------------------------------------------------------------------------------------------
-        private void BuscarNombre()
-        {
-
-            //Hace lo mismo que el procedimiento Mostrar pero la diferencia es que aquí si le estamos enviado 
-            //un valor :   BuscarNombre(this.txtBuscar.Text)     obviamente el nombre que queremos buscar.
-            this.dataListado.DataSource = NFamilias.BuscarNombre(this.txtBuscar.Text);
-            this.OcultarColumnas();
-            lblTotal.Text = "Total de Registros: " + Convert.ToString(dataListado.Rows.Count);
-        }
-
-
-
-
-        //-->Este es el EVENTO LOAD del formulario se obtiene haciendo doble click en cualquier parte del formulario donde no haya nada 
-        //   obviamente aquí se efectuaran las acciones al iniciar el formulario 
-        private void FrmFamilias_Load(object sender, EventArgs e)
-        {
-
             //->Estas coordenadas son para printar el formulario en la esquina superior izquierda
             this.Top = 0;
             this.Left = 0;
@@ -174,14 +126,64 @@ namespace CapaPresentacion
             this.Mostrar();
             this.Habilitar(false);  //Cajas de texto  deshabilitadas de inicio 
             this.Botones();
+        }
+
+        //-->Método Mostrar
+        //-------------------------------------------------------------------------------------------
+        private void Mostrar()
+        {
+
+
+            /*
+              Todas las llamadas que se hacen a Negocio y a datos son funciones de tipo DataTable 
+              por lo cual eso para ese sistema ya no vale, no es un DataTable lo que retorna
+            
+                    this.dataListado.DataSource = NEntidad.Mostrar(dataListado);
+
+             Este código no respeta las tres capas, ya que no veo la forma de tener este 
+             código en la capa Datos para rellenar el Grid :             
+
+             Se esta utilinado una Coleccion -  lista, esto lo vi en el curso del  Gallego..
+
+             */
+
+
+
+
+         
+            //-->FINALMENTE LO HE CONSEGUIDO JODERRR, SIGO RESPETENADO LAS TRES CAPAS  
+
+
+            this.dataListado.DataSource = NEntidad.Mostrar();  
+            this.OcultarColumnas();
+
+
+            //-->Pintamos el total de registros : OjO el count es  int  tenemos que convertirlo a String 
+            lblTotal.Text = "Total de Registros: " + Convert.ToString(dataListado.Rows.Count);
 
         }
-        //-->Evento   Click  del botón buscar que llama al  Metodo  BuscarNombre 
+
+
+
+
+
+        //-->Método BuscarNombre
+        //-----------------------------------------------------------------------------------------------
+        private void BuscarNombre()
+        {
+
+            ////Hace lo mismo que el procedimiento Mostrar pero la diferencia es que aquí si le estamos enviado 
+            ////un valor :   BuscarNombre(this.txtBuscar.Text)     obviamente el nombre que queremos buscar.
+            //this.dataListado.DataSource = NEntidad.BuscarNombre(this.txtBuscar.Text);
+            //this.OcultarColumnas();
+            //lblTotal.Text = "Total de Registros: " + Convert.ToString(dataListado.Rows.Count);
+        }
+
+
         private void btnBuscar_Click(object sender, EventArgs e)
         {
             this.BuscarNombre();
         }
-
 
         //->Búsqueda Incremental,  
         //  el método  TextChanged lo obtengo haciendo doble click en la caja de texto
@@ -200,13 +202,11 @@ namespace CapaPresentacion
             this.Botones();
             this.Limpiar();
             this.Habilitar(true);
-            this.txtNombre.Focus();   //Foco a la caja de texto del nombre 
-
+            this.txtNombreEntidad.Focus();   //Foco a la caja de texto del nombre 
         }
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
-
             try   //Control de errores   bien....
             {
 
@@ -214,26 +214,25 @@ namespace CapaPresentacion
                 //-->VALIDACION DE CAMPOS. NOTA en el curso de C# ví que esto se puede hacer en las propiedades GET/SET
                 //----------------------------------------------------------------------------------------------------
                 string rpta = "";
-                if (this.txtNombre.Text == string.Empty)   //Si está vacía y como es un campo obligatorio,  pues hay que meterlo
+                if (this.txtNombreEntidad.Text == string.Empty)   //Si está vacía y como es un campo obligatorio,  pues hay que meterlo
                 {
                     //-->Este metodo lo tengo en este mismo módulo
                     MensajeError("Faltan por indicar  datos, serán remarcados");
                     //--Vamos a indicar el mensaje a mostrar cuando salga el error.
-                    errorIcono.SetError(txtNombre, "Indique un Nombre");
+                    errorIcono.SetError(txtNombreEntidad, "Indique un Nombre");
                 }
                 else  //El textBox llega con valor,  
                 {
                     if (this.IsNuevo)  //Es un alta ??
                     {
                         //-->Vamos a llamar al Metodo Insertar de la CapaNegocio enviandole los valores para insertar en la bb.dd
-                        rpta = NFamilias.Insertar(this.txtNombre.Text.Trim().ToUpper()  );  //Trim() quitar espacios - ToUpper  todo en mayúsculas 
-
+                        rpta = NEntidad.Insertar(this.txtNombreEntidad.Text.Trim().ToUpper(), this.txtDeparEntidad.Text.Trim().ToUpper());  //Trim() quitar espacios - ToUpper  todo en mayúsculas 
                     }
                     else    //Es una modificacion   PARECE QUE ESTA MODIFICANDO TODOS !!!
                     {
                         //-->Vamos a llamar al Metodo Editar de la CapaNegocio enviandole los valores 
-                        rpta = NFamilias.Editar(Convert.ToInt32(this.txtIdFamilias.Text), this.txtNombre.Text.Trim().ToUpper());
-                            
+                        // rpta = NEntidad.Editar(Convert.ToInt32(this.txtIdFamilias.Text), this.txtNombre.Text.Trim().ToUpper());
+
                     }
 
                     //-->Ahora vamos a ver si la operación tuvo éxito o no, el "OK" que estamos poniendo aquí es el que está
@@ -279,6 +278,12 @@ namespace CapaPresentacion
         }
 
 
+
+
+
+
+
+
         //--Aqui lo que estamos indicando es que cuando en el GRID se haga doble click se muestre ese registro
         //  en el formulario individual.
         //
@@ -288,22 +293,20 @@ namespace CapaPresentacion
         //                                        ya nos creara el "esqueleto" del procedimiento del  evento
         private void dataListado_DoubleClick(object sender, EventArgs e)
         {
-
             //-->Hacer el Convert  los valores que llegan del Grid llegan como Object 
             //   el   CurrentRow.Cells  captura lo que tiene la celda actual
 
-            this.txtIdFamilias.Text = Convert.ToString(this.dataListado.CurrentRow.Cells["idCodFam"].Value);
-            this.txtNombre.Text = Convert.ToString(this.dataListado.CurrentRow.Cells["cNombreFamilia"].Value);
-            
+            this.txtIdEntidad.Text = Convert.ToString(this.dataListado.CurrentRow.Cells["identifica"].Value);
+            this.txtNombreEntidad.Text = Convert.ToString(this.dataListado.CurrentRow.Cells["nombre"].Value);
+            this.txtDeparEntidad.Text = Convert.ToString(this.dataListado.CurrentRow.Cells["departamento"].Value);
+
             //-> Para que pinte la  Solapa/folder/TabPage  1   que imagino es la del detalle, la del grid debe ser la 0
             this.tabControl1.SelectedIndex = 1;
         }
 
-        //-->EVENTO   CLICK   DEL BOTON EDITAR 
         private void btnEditar_Click(object sender, EventArgs e)
         {
-
-            if ( ! this.txtIdFamilias.Text.Equals(""))
+            if (!this.txtIdEntidad.Text.Equals(""))
             {
                 this.IsEditar = true;
                 this.Botones();
@@ -315,9 +318,9 @@ namespace CapaPresentacion
             }
         }
 
+
         private void btnCancelar_Click(object sender, EventArgs e)
         {
-            
             //Borra la pelotilla del error 
             errorIcono.Clear();
 
@@ -327,14 +330,11 @@ namespace CapaPresentacion
             this.Botones();
             this.Limpiar();
             this.Habilitar(false);
-
         }
 
 
-        //Este es el EVENTO de cambio de valor en el CHECK de activar la columna de checks de eliminación 
         private void chkEliminar_CheckedChanged(object sender, EventArgs e)
         {
-
             if (chkEliminar.Checked)   //Si el check está marcado entonces mostramos la columna 0  del  Grid, la de bajas 
             {
                 this.dataListado.Columns[0].Visible = true;
@@ -343,16 +343,15 @@ namespace CapaPresentacion
             {
                 this.dataListado.Columns[0].Visible = false;
             }
+
         }
 
 
 
         //Para el tratamiento individual de cada registro dentro del GRID    haremos  DobleClick  sobre el GRID  y se 
         //nos creará el evento   dataListado_CellContentClick
-
         private void dataListado_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-
             //Si el indice de la columna es el de la columna Eliminar
             if (e.ColumnIndex == dataListado.Columns["Eliminar"].Index)
             {
@@ -364,22 +363,13 @@ namespace CapaPresentacion
                 //Estamos indicando el valor si esta marcado o no el checkbox en la columna elimnar del GRID y lo convertimos a True o False 
                 ChkEliminar.Value = !Convert.ToBoolean(ChkEliminar.Value);
             }
-
         }
 
 
 
-
-        //--> BORRADO de registros 
-        // 
-        //     MUCHO OJO AL HACER COPY-PASTE DEL OTRO PROGRAMA,  SI NO SE EJECUTA EL EVENTO A LA HORA DE ESTARLO PROGRAMANDO
-        //     NO LO REGISTRA EN EL FICHERO  FrmFamilias.Designer.cs  Y POR LO TANTO AUNQUE LO TENGA COPIADO NO VA A FUNCIONAR
-        //     SALVO QUE A MANOPLA MODIFIQUE EL CODIGO   para ese ejemplo lo he dejado con  el  1     btnEliminar_Click_1       
-        //
-        // ES DECIR HAY QUE HACER EL DBL-CLICK EN EL CONTROL PARA QUE QUEDE EN EL CODIGO REGISTRADO
-
-        private void btnEliminar_Click_1(object sender, EventArgs e)
+        private void btnEliminar_Click(object sender, EventArgs e)
         {
+
             try
             {
                 //Variable de tipo  DialogResult   entiendo que sire para capturar datos de preguntas al usuario
@@ -404,7 +394,7 @@ namespace CapaPresentacion
 
                             //Envia el codigo al metodo ELIMINAR de la CapaNegocio de de Familias, OjO conviertiendo a Int  que es como 
                             //es el tipo de campo en la tabla Familias 
-                            Rpta = NFamilias.Eliminar(Convert.ToInt32(Codigo));
+                            /////// Rpta =  NEntidad.Eliminar(Convert.ToInt32(Codigo));
 
                             //Utiliza  EQUALS  para comparar cadenas de texto en vez de hacerlo a machete :  if  Rpta  == "OK"
                             if (Rpta.Equals("OK"))
@@ -426,13 +416,12 @@ namespace CapaPresentacion
             {
                 MessageBox.Show(ex.Message + ex.StackTrace);
             }
+
+
         }
 
-
-        //BOTON DE IMPRESION 
         private void btnImprimir_Click(object sender, EventArgs e)
         {
-
             this.MensajeOk("Ha pulsado el botón de imprimir ");
             //Reportes.FrmReporteCategoria frm = new Reportes.FrmReporteCategoria();
             //frm.Texto = txtBuscar.Text;
@@ -440,7 +429,67 @@ namespace CapaPresentacion
         }
 
 
+        //private void txtBuscar_TextChanged(object sender, EventArgs e)
+        //{
+
+        //}
+
+        //private void btnBuscar_Click(object sender, EventArgs e)
+        //{
+
+        //}
+
+        //private void btnEliminar_Click(object sender, EventArgs e)
+        //{
+
+        //}
+
+        //private void btnImprimir_Click(object sender, EventArgs e)
+        //{
+
+        //}
+
+        //private void chkEliminar_CheckedChanged(object sender, EventArgs e)
+        //{
+
+        //}
+
+        //private void dataListado_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        //{
+
+        //}
+
+        //private void dataListado_DoubleClick(object sender, EventArgs e)
+        //{
+
+        //}
+
+        //private void btnNuevo_Click(object sender, EventArgs e)
+        //{
+
+        //}
+
+        //private void btnGuardar_Click(object sender, EventArgs e)
+        //{
+
+        //}
+
+        //private void btnEditar_Click(object sender, EventArgs e)
+        //{
+
+        //}
+
+        //private void btnCancelar_Click(object sender, EventArgs e)
+        //{
+
+        //}
+
+
+
 
 
     }
+
+
 }
+

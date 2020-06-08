@@ -78,16 +78,19 @@ namespace LasVentas
             //->si esta cololacado bajo el Proyecto LaVentas, solo se ve aqui y solo consigo que funcione aquí
             // en otra capa no hay forma. el Usign se utiliza para una vez que salga cierre la conexión 
 
+
+
+            //JODER JODER JODER  al final lo he conseguido  hay que incluir la cadena de conexion en el App.config de  LasVentas 
+
             //El nombre de la clase, se trata de la conexion, no el del Modelo
-           
-            using (VentasTOMASEntities1 db = new VentasTOMASEntities1())
-            {
-                var lst = db.Familias;
-                foreach (var oModerna in lst)
-                {
-                    MessageBox.Show("Nombre : " + oModerna.cNombreFamilia, "CAPTION", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-            }
+            //using (VentasTOMASEntities1 db = new VentasTOMASEntities1())
+            //{
+            //    var lst = db.Familias;
+            //    foreach (var oModerna in lst)
+            //    {
+            //        MessageBox.Show("Nombre : " + oModerna.cNombreFamilia, "CAPTION", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //    }
+            //}
 
 
 

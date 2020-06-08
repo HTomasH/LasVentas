@@ -1,0 +1,566 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="VentasTOMASModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Articulos">
+          <Key>
+            <PropertyRef Name="idCodArti" />
+          </Key>
+          <Property Name="idCodArti" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cDetalle" Type="varchar" MaxLength="100" />
+          <Property Name="idCodFam" Type="int" Nullable="false" />
+          <Property Name="nStock" Type="decimal" Precision="18" Scale="6" />
+          <Property Name="idTipoIva" Type="smallint" Nullable="false" />
+          <Property Name="nPvP" Type="decimal" Precision="18" Scale="6" />
+          <Property Name="cCodigoBar" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="CABECERA_ALBAS">
+          <Key>
+            <PropertyRef Name="idNumAlba" />
+          </Key>
+          <Property Name="idNumAlba" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="dFecAlb" Type="datetime" />
+          <Property Name="idCodCli" Type="int" Nullable="false" />
+          <Property Name="lFacturado" Type="bit" />
+          <Property Name="cObserva" Type="varchar" MaxLength="100" />
+          <Property Name="nDto" Type="decimal" Precision="16" Scale="2" />
+          <Property Name="nTotBruto" Type="decimal" Precision="18" Scale="6" />
+          <Property Name="nTotNeto" Type="decimal" Precision="18" Scale="6" />
+          <Property Name="nTotAlb" Type="decimal" Precision="18" Scale="6" />
+          <Property Name="nTotalIva" Type="decimal" Precision="18" Scale="6" />
+        </EntityType>
+        <EntityType Name="Clientes">
+          <Key>
+            <PropertyRef Name="idCodCli" />
+          </Key>
+          <Property Name="idCodCli" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cNomcli" Type="varchar" MaxLength="100" />
+          <Property Name="cDirCli" Type="varchar" MaxLength="100" />
+          <Property Name="cPobCli" Type="varchar" MaxLength="100" />
+          <Property Name="cTelefono1" Type="varchar" MaxLength="17" />
+          <Property Name="cDniCif" Type="varchar" MaxLength="17" />
+          <Property Name="cContacto" Type="varchar" MaxLength="100" />
+          <Property Name="cCtaContable" Type="varchar" MaxLength="12" />
+          <Property Name="nDto" Type="decimal" Precision="16" Scale="2" />
+          <Property Name="cEmail" Type="varchar" MaxLength="50" />
+          <Property Name="cCodPostal" Type="varchar" MaxLength="5" />
+          <Property Name="dFechaNaci" Type="datetime" />
+        </EntityType>
+        <EntityType Name="CodiPos">
+          <Key>
+            <PropertyRef Name="codpostal" />
+          </Key>
+          <Property Name="codpostal" Type="char" MaxLength="5" Nullable="false" />
+          <Property Name="poblaca" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Entidad">
+          <Key>
+            <PropertyRef Name="identifica" />
+          </Key>
+          <Property Name="identifica" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="50" />
+          <Property Name="departamento" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Familias">
+          <Key>
+            <PropertyRef Name="idCodFam" />
+          </Key>
+          <Property Name="idCodFam" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cNombreFamilia" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LINEAS_ALBARAN">
+          <Key>
+            <PropertyRef Name="idOrdenLinea" />
+          </Key>
+          <Property Name="idOrdenLinea" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idNumAlba" Type="int" Nullable="false" />
+          <Property Name="idCodArti" Type="int" Nullable="false" />
+          <Property Name="nPvP" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="nIva" Type="decimal" Precision="4" Scale="1" />
+          <Property Name="nDto" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="nUnidades" Type="decimal" Precision="18" Scale="6" />
+          <Property Name="nOrden" Type="int" />
+        </EntityType>
+        <EntityType Name="Proveedores">
+          <Key>
+            <PropertyRef Name="idProveedo" />
+          </Key>
+          <Property Name="idProveedo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cNomPro" Type="varchar" MaxLength="120" />
+          <Property Name="cNifDni" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="TiposIva">
+          <Key>
+            <PropertyRef Name="idTipoIva" />
+          </Key>
+          <Property Name="idTipoIva" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cDetIva" Type="varchar" MaxLength="30" />
+          <Property Name="nPorcIva" Type="decimal" Precision="18" Scale="6" />
+          <Property Name="nPorReq" Type="decimal" Precision="18" Scale="6" />
+        </EntityType>
+        <EntityType Name="Trabajadores">
+          <Key>
+            <PropertyRef Name="idTrabajador" />
+          </Key>
+          <Property Name="idTrabajador" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cNombreTraba" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="cApellidos" Type="varchar" MaxLength="40" />
+          <Property Name="cAcceso" Type="varchar" MaxLength="20" />
+          <Property Name="Password" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="cUsuario" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <Association Name="FK_Articulos_Familias">
+          <End Role="Familias" Type="Self.Familias" Multiplicity="1" />
+          <End Role="Articulos" Type="Self.Articulos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Familias">
+              <PropertyRef Name="idCodFam" />
+            </Principal>
+            <Dependent Role="Articulos">
+              <PropertyRef Name="idCodFam" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Articulos_TiposIva">
+          <End Role="TiposIva" Type="Self.TiposIva" Multiplicity="1" />
+          <End Role="Articulos" Type="Self.Articulos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TiposIva">
+              <PropertyRef Name="idTipoIva" />
+            </Principal>
+            <Dependent Role="Articulos">
+              <PropertyRef Name="idTipoIva" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CABECERA_ALBAS_Clientes">
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="1" />
+          <End Role="CABECERA_ALBAS" Type="Self.CABECERA_ALBAS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clientes">
+              <PropertyRef Name="idCodCli" />
+            </Principal>
+            <Dependent Role="CABECERA_ALBAS">
+              <PropertyRef Name="idCodCli" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LINEAS_ALBARAN_CABECERA_ALBAS">
+          <End Role="CABECERA_ALBAS" Type="Self.CABECERA_ALBAS" Multiplicity="1" />
+          <End Role="LINEAS_ALBARAN" Type="Self.LINEAS_ALBARAN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CABECERA_ALBAS">
+              <PropertyRef Name="idNumAlba" />
+            </Principal>
+            <Dependent Role="LINEAS_ALBARAN">
+              <PropertyRef Name="idNumAlba" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="VentasTOMASModelStoreContainer">
+          <EntitySet Name="Articulos" EntityType="Self.Articulos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CABECERA_ALBAS" EntityType="Self.CABECERA_ALBAS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Clientes" EntityType="Self.Clientes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CodiPos" EntityType="Self.CodiPos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Entidad" EntityType="Self.Entidad" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Familias" EntityType="Self.Familias" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LINEAS_ALBARAN" EntityType="Self.LINEAS_ALBARAN" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Proveedores" EntityType="Self.Proveedores" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TiposIva" EntityType="Self.TiposIva" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Trabajadores" EntityType="Self.Trabajadores" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Articulos_Familias" Association="Self.FK_Articulos_Familias">
+            <End Role="Familias" EntitySet="Familias" />
+            <End Role="Articulos" EntitySet="Articulos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Articulos_TiposIva" Association="Self.FK_Articulos_TiposIva">
+            <End Role="TiposIva" EntitySet="TiposIva" />
+            <End Role="Articulos" EntitySet="Articulos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CABECERA_ALBAS_Clientes" Association="Self.FK_CABECERA_ALBAS_Clientes">
+            <End Role="Clientes" EntitySet="Clientes" />
+            <End Role="CABECERA_ALBAS" EntitySet="CABECERA_ALBAS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LINEAS_ALBARAN_CABECERA_ALBAS" Association="Self.FK_LINEAS_ALBARAN_CABECERA_ALBAS">
+            <End Role="CABECERA_ALBAS" EntitySet="CABECERA_ALBAS" />
+            <End Role="LINEAS_ALBARAN" EntitySet="LINEAS_ALBARAN" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="VentasTOMASModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Articulos">
+          <Key>
+            <PropertyRef Name="idCodArti" />
+          </Key>
+          <Property Name="idCodArti" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cDetalle" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="idCodFam" Type="Int32" Nullable="false" />
+          <Property Name="nStock" Type="Decimal" Precision="18" Scale="6" />
+          <Property Name="idTipoIva" Type="Int16" Nullable="false" />
+          <Property Name="nPvP" Type="Decimal" Precision="18" Scale="6" />
+          <Property Name="cCodigoBar" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Familias" Relationship="Self.FK_Articulos_Familias" FromRole="Articulos" ToRole="Familias" />
+          <NavigationProperty Name="TiposIva" Relationship="Self.FK_Articulos_TiposIva" FromRole="Articulos" ToRole="TiposIva" />
+        </EntityType>
+        <EntityType Name="CABECERA_ALBAS">
+          <Key>
+            <PropertyRef Name="idNumAlba" />
+          </Key>
+          <Property Name="idNumAlba" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="dFecAlb" Type="DateTime" Precision="3" />
+          <Property Name="idCodCli" Type="Int32" Nullable="false" />
+          <Property Name="lFacturado" Type="Boolean" />
+          <Property Name="cObserva" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="nDto" Type="Decimal" Precision="16" Scale="2" />
+          <Property Name="nTotBruto" Type="Decimal" Precision="18" Scale="6" />
+          <Property Name="nTotNeto" Type="Decimal" Precision="18" Scale="6" />
+          <Property Name="nTotAlb" Type="Decimal" Precision="18" Scale="6" />
+          <Property Name="nTotalIva" Type="Decimal" Precision="18" Scale="6" />
+          <NavigationProperty Name="Clientes" Relationship="Self.FK_CABECERA_ALBAS_Clientes" FromRole="CABECERA_ALBAS" ToRole="Clientes" />
+          <NavigationProperty Name="LINEAS_ALBARAN" Relationship="Self.FK_LINEAS_ALBARAN_CABECERA_ALBAS" FromRole="CABECERA_ALBAS" ToRole="LINEAS_ALBARAN" />
+        </EntityType>
+        <EntityType Name="Clientes">
+          <Key>
+            <PropertyRef Name="idCodCli" />
+          </Key>
+          <Property Name="idCodCli" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cNomcli" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="cDirCli" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="cPobCli" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="cTelefono1" Type="String" MaxLength="17" FixedLength="false" Unicode="false" />
+          <Property Name="cDniCif" Type="String" MaxLength="17" FixedLength="false" Unicode="false" />
+          <Property Name="cContacto" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="cCtaContable" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="nDto" Type="Decimal" Precision="16" Scale="2" />
+          <Property Name="cEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="cCodPostal" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="dFechaNaci" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="CABECERA_ALBAS" Relationship="Self.FK_CABECERA_ALBAS_Clientes" FromRole="Clientes" ToRole="CABECERA_ALBAS" />
+        </EntityType>
+        <EntityType Name="CodiPos">
+          <Key>
+            <PropertyRef Name="codpostal" />
+          </Key>
+          <Property Name="codpostal" Type="String" MaxLength="5" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="poblaca" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Entidad">
+          <Key>
+            <PropertyRef Name="identifica" />
+          </Key>
+          <Property Name="identifica" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="departamento" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Familias">
+          <Key>
+            <PropertyRef Name="idCodFam" />
+          </Key>
+          <Property Name="idCodFam" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cNombreFamilia" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Articulos" Relationship="Self.FK_Articulos_Familias" FromRole="Familias" ToRole="Articulos" />
+        </EntityType>
+        <EntityType Name="LINEAS_ALBARAN">
+          <Key>
+            <PropertyRef Name="idOrdenLinea" />
+          </Key>
+          <Property Name="idOrdenLinea" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idNumAlba" Type="Int32" Nullable="false" />
+          <Property Name="idCodArti" Type="Int32" Nullable="false" />
+          <Property Name="nPvP" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="nIva" Type="Decimal" Precision="4" Scale="1" />
+          <Property Name="nDto" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="nUnidades" Type="Decimal" Precision="18" Scale="6" />
+          <Property Name="nOrden" Type="Int32" />
+          <NavigationProperty Name="CABECERA_ALBAS" Relationship="Self.FK_LINEAS_ALBARAN_CABECERA_ALBAS" FromRole="LINEAS_ALBARAN" ToRole="CABECERA_ALBAS" />
+        </EntityType>
+        <EntityType Name="Proveedores">
+          <Key>
+            <PropertyRef Name="idProveedo" />
+          </Key>
+          <Property Name="idProveedo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cNomPro" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
+          <Property Name="cNifDni" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="TiposIva">
+          <Key>
+            <PropertyRef Name="idTipoIva" />
+          </Key>
+          <Property Name="idTipoIva" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cDetIva" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="nPorcIva" Type="Decimal" Precision="18" Scale="6" />
+          <Property Name="nPorReq" Type="Decimal" Precision="18" Scale="6" />
+          <NavigationProperty Name="Articulos" Relationship="Self.FK_Articulos_TiposIva" FromRole="TiposIva" ToRole="Articulos" />
+        </EntityType>
+        <EntityType Name="Trabajadores">
+          <Key>
+            <PropertyRef Name="idTrabajador" />
+          </Key>
+          <Property Name="idTrabajador" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cNombreTraba" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cApellidos" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="cAcceso" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cUsuario" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK_Articulos_Familias">
+          <End Role="Familias" Type="Self.Familias" Multiplicity="1" />
+          <End Role="Articulos" Type="Self.Articulos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Familias">
+              <PropertyRef Name="idCodFam" />
+            </Principal>
+            <Dependent Role="Articulos">
+              <PropertyRef Name="idCodFam" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Articulos_TiposIva">
+          <End Role="TiposIva" Type="Self.TiposIva" Multiplicity="1" />
+          <End Role="Articulos" Type="Self.Articulos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TiposIva">
+              <PropertyRef Name="idTipoIva" />
+            </Principal>
+            <Dependent Role="Articulos">
+              <PropertyRef Name="idTipoIva" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CABECERA_ALBAS_Clientes">
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="1" />
+          <End Role="CABECERA_ALBAS" Type="Self.CABECERA_ALBAS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clientes">
+              <PropertyRef Name="idCodCli" />
+            </Principal>
+            <Dependent Role="CABECERA_ALBAS">
+              <PropertyRef Name="idCodCli" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LINEAS_ALBARAN_CABECERA_ALBAS">
+          <End Role="CABECERA_ALBAS" Type="Self.CABECERA_ALBAS" Multiplicity="1" />
+          <End Role="LINEAS_ALBARAN" Type="Self.LINEAS_ALBARAN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CABECERA_ALBAS">
+              <PropertyRef Name="idNumAlba" />
+            </Principal>
+            <Dependent Role="LINEAS_ALBARAN">
+              <PropertyRef Name="idNumAlba" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="VentasTOMASEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Articulos" EntityType="Self.Articulos" />
+          <EntitySet Name="CABECERA_ALBAS" EntityType="Self.CABECERA_ALBAS" />
+          <EntitySet Name="Clientes" EntityType="Self.Clientes" />
+          <EntitySet Name="CodiPos" EntityType="Self.CodiPos" />
+          <EntitySet Name="Entidad" EntityType="Self.Entidad" />
+          <EntitySet Name="Familias" EntityType="Self.Familias" />
+          <EntitySet Name="LINEAS_ALBARAN" EntityType="Self.LINEAS_ALBARAN" />
+          <EntitySet Name="Proveedores" EntityType="Self.Proveedores" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="TiposIva" EntityType="Self.TiposIva" />
+          <EntitySet Name="Trabajadores" EntityType="Self.Trabajadores" />
+          <AssociationSet Name="FK_Articulos_Familias" Association="Self.FK_Articulos_Familias">
+            <End Role="Familias" EntitySet="Familias" />
+            <End Role="Articulos" EntitySet="Articulos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Articulos_TiposIva" Association="Self.FK_Articulos_TiposIva">
+            <End Role="TiposIva" EntitySet="TiposIva" />
+            <End Role="Articulos" EntitySet="Articulos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CABECERA_ALBAS_Clientes" Association="Self.FK_CABECERA_ALBAS_Clientes">
+            <End Role="Clientes" EntitySet="Clientes" />
+            <End Role="CABECERA_ALBAS" EntitySet="CABECERA_ALBAS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LINEAS_ALBARAN_CABECERA_ALBAS" Association="Self.FK_LINEAS_ALBARAN_CABECERA_ALBAS">
+            <End Role="CABECERA_ALBAS" EntitySet="CABECERA_ALBAS" />
+            <End Role="LINEAS_ALBARAN" EntitySet="LINEAS_ALBARAN" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="VentasTOMASModelStoreContainer" CdmEntityContainer="VentasTOMASEntities">
+          <EntitySetMapping Name="Articulos">
+            <EntityTypeMapping TypeName="VentasTOMASModel.Articulos">
+              <MappingFragment StoreEntitySet="Articulos">
+                <ScalarProperty Name="idCodArti" ColumnName="idCodArti" />
+                <ScalarProperty Name="cDetalle" ColumnName="cDetalle" />
+                <ScalarProperty Name="idCodFam" ColumnName="idCodFam" />
+                <ScalarProperty Name="nStock" ColumnName="nStock" />
+                <ScalarProperty Name="idTipoIva" ColumnName="idTipoIva" />
+                <ScalarProperty Name="nPvP" ColumnName="nPvP" />
+                <ScalarProperty Name="cCodigoBar" ColumnName="cCodigoBar" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CABECERA_ALBAS">
+            <EntityTypeMapping TypeName="VentasTOMASModel.CABECERA_ALBAS">
+              <MappingFragment StoreEntitySet="CABECERA_ALBAS">
+                <ScalarProperty Name="idNumAlba" ColumnName="idNumAlba" />
+                <ScalarProperty Name="dFecAlb" ColumnName="dFecAlb" />
+                <ScalarProperty Name="idCodCli" ColumnName="idCodCli" />
+                <ScalarProperty Name="lFacturado" ColumnName="lFacturado" />
+                <ScalarProperty Name="cObserva" ColumnName="cObserva" />
+                <ScalarProperty Name="nDto" ColumnName="nDto" />
+                <ScalarProperty Name="nTotBruto" ColumnName="nTotBruto" />
+                <ScalarProperty Name="nTotNeto" ColumnName="nTotNeto" />
+                <ScalarProperty Name="nTotAlb" ColumnName="nTotAlb" />
+                <ScalarProperty Name="nTotalIva" ColumnName="nTotalIva" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Clientes">
+            <EntityTypeMapping TypeName="VentasTOMASModel.Clientes">
+              <MappingFragment StoreEntitySet="Clientes">
+                <ScalarProperty Name="idCodCli" ColumnName="idCodCli" />
+                <ScalarProperty Name="cNomcli" ColumnName="cNomcli" />
+                <ScalarProperty Name="cDirCli" ColumnName="cDirCli" />
+                <ScalarProperty Name="cPobCli" ColumnName="cPobCli" />
+                <ScalarProperty Name="cTelefono1" ColumnName="cTelefono1" />
+                <ScalarProperty Name="cDniCif" ColumnName="cDniCif" />
+                <ScalarProperty Name="cContacto" ColumnName="cContacto" />
+                <ScalarProperty Name="cCtaContable" ColumnName="cCtaContable" />
+                <ScalarProperty Name="nDto" ColumnName="nDto" />
+                <ScalarProperty Name="cEmail" ColumnName="cEmail" />
+                <ScalarProperty Name="cCodPostal" ColumnName="cCodPostal" />
+                <ScalarProperty Name="dFechaNaci" ColumnName="dFechaNaci" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CodiPos">
+            <EntityTypeMapping TypeName="VentasTOMASModel.CodiPos">
+              <MappingFragment StoreEntitySet="CodiPos">
+                <ScalarProperty Name="codpostal" ColumnName="codpostal" />
+                <ScalarProperty Name="poblaca" ColumnName="poblaca" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Entidad">
+            <EntityTypeMapping TypeName="VentasTOMASModel.Entidad">
+              <MappingFragment StoreEntitySet="Entidad">
+                <ScalarProperty Name="identifica" ColumnName="identifica" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="departamento" ColumnName="departamento" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Familias">
+            <EntityTypeMapping TypeName="VentasTOMASModel.Familias">
+              <MappingFragment StoreEntitySet="Familias">
+                <ScalarProperty Name="idCodFam" ColumnName="idCodFam" />
+                <ScalarProperty Name="cNombreFamilia" ColumnName="cNombreFamilia" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LINEAS_ALBARAN">
+            <EntityTypeMapping TypeName="VentasTOMASModel.LINEAS_ALBARAN">
+              <MappingFragment StoreEntitySet="LINEAS_ALBARAN">
+                <ScalarProperty Name="idOrdenLinea" ColumnName="idOrdenLinea" />
+                <ScalarProperty Name="idNumAlba" ColumnName="idNumAlba" />
+                <ScalarProperty Name="idCodArti" ColumnName="idCodArti" />
+                <ScalarProperty Name="nPvP" ColumnName="nPvP" />
+                <ScalarProperty Name="nIva" ColumnName="nIva" />
+                <ScalarProperty Name="nDto" ColumnName="nDto" />
+                <ScalarProperty Name="nUnidades" ColumnName="nUnidades" />
+                <ScalarProperty Name="nOrden" ColumnName="nOrden" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Proveedores">
+            <EntityTypeMapping TypeName="VentasTOMASModel.Proveedores">
+              <MappingFragment StoreEntitySet="Proveedores">
+                <ScalarProperty Name="idProveedo" ColumnName="idProveedo" />
+                <ScalarProperty Name="cNomPro" ColumnName="cNomPro" />
+                <ScalarProperty Name="cNifDni" ColumnName="cNifDni" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="VentasTOMASModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TiposIva">
+            <EntityTypeMapping TypeName="VentasTOMASModel.TiposIva">
+              <MappingFragment StoreEntitySet="TiposIva">
+                <ScalarProperty Name="idTipoIva" ColumnName="idTipoIva" />
+                <ScalarProperty Name="cDetIva" ColumnName="cDetIva" />
+                <ScalarProperty Name="nPorcIva" ColumnName="nPorcIva" />
+                <ScalarProperty Name="nPorReq" ColumnName="nPorReq" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Trabajadores">
+            <EntityTypeMapping TypeName="VentasTOMASModel.Trabajadores">
+              <MappingFragment StoreEntitySet="Trabajadores">
+                <ScalarProperty Name="idTrabajador" ColumnName="idTrabajador" />
+                <ScalarProperty Name="cNombreTraba" ColumnName="cNombreTraba" />
+                <ScalarProperty Name="cApellidos" ColumnName="cApellidos" />
+                <ScalarProperty Name="cAcceso" ColumnName="cAcceso" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="cUsuario" ColumnName="cUsuario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

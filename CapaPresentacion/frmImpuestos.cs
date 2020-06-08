@@ -192,9 +192,10 @@ namespace CapaPresentacion
             this.MensajeOk("Ha pulsado el botón de imprimir ");
 
 
-            DImpuestos kaka = new DImpuestos();
+            //DImpuestos kaka = new DImpuestos();
+           // kaka.nabos();
 
-            kaka.nabos();
+
 
             //Reportes.FrmReporteCategoria frm = new Reportes.FrmReporteCategoria();
             //frm.Texto = txtBuscar.Text;
@@ -202,7 +203,7 @@ namespace CapaPresentacion
         }
 
 
-        
+
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {

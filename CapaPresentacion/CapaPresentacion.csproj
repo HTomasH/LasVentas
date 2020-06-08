@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\CapaDatos\bin\Debug\EntityFramework.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Entity" />
@@ -44,6 +47,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
+    <Compile Include="FPuto.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FPuto.Designer.cs">
+      <DependentUpon>FPuto.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmArticulos.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -121,6 +130,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="FPuto.resx">
+      <DependentUpon>FPuto.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmArticulos.resx">
       <DependentUpon>FrmArticulos.cs</DependentUpon>
     </EmbeddedResource>

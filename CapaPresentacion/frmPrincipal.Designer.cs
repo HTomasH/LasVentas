@@ -42,6 +42,7 @@
             this.stockArtículosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MnuUsuarios = new System.Windows.Forms.ToolStripMenuItem();
             this.accesosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.impuestosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MnuHerramientas = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MnuSistema = new System.Windows.Forms.ToolStripMenuItem();
@@ -68,7 +69,7 @@
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.impuestosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.entidadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.toolStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
@@ -169,7 +170,8 @@
             // 
             this.MnuUsuarios.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.accesosToolStripMenuItem,
-            this.impuestosToolStripMenuItem});
+            this.impuestosToolStripMenuItem,
+            this.entidadToolStripMenuItem});
             this.MnuUsuarios.Image = global::CapaPresentacion.Properties.Resources.empleados_b;
             this.MnuUsuarios.Name = "MnuUsuarios";
             this.MnuUsuarios.Size = new System.Drawing.Size(80, 20);
@@ -181,6 +183,13 @@
             this.accesosToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.accesosToolStripMenuItem.Text = "Trabajadores";
             this.accesosToolStripMenuItem.Click += new System.EventHandler(this.accesosToolStripMenuItem_Click);
+            // 
+            // impuestosToolStripMenuItem
+            // 
+            this.impuestosToolStripMenuItem.Name = "impuestosToolStripMenuItem";
+            this.impuestosToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.impuestosToolStripMenuItem.Text = "Impuestos";
+            this.impuestosToolStripMenuItem.Click += new System.EventHandler(this.impuestosToolStripMenuItem_Click);
             // 
             // MnuHerramientas
             // 
@@ -384,12 +393,12 @@
             this.toolStripStatusLabel.Size = new System.Drawing.Size(147, 17);
             this.toolStripStatusLabel.Text = "Primer Sistemas de Ventas ";
             // 
-            // impuestosToolStripMenuItem
+            // entidadToolStripMenuItem
             // 
-            this.impuestosToolStripMenuItem.Name = "impuestosToolStripMenuItem";
-            this.impuestosToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.impuestosToolStripMenuItem.Text = "Impuestos";
-            this.impuestosToolStripMenuItem.Click += new System.EventHandler(this.impuestosToolStripMenuItem_Click);
+            this.entidadToolStripMenuItem.Name = "entidadToolStripMenuItem";
+            this.entidadToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.entidadToolStripMenuItem.Text = "Entidad";
+            this.entidadToolStripMenuItem.Click += new System.EventHandler(this.entidadToolStripMenuItem_Click);
             // 
             // frmPrincipal
             // 
@@ -458,6 +467,7 @@
         private System.Windows.Forms.ToolStripButton TsVentas;
         private System.Windows.Forms.ToolStripButton TsCompras;
         private System.Windows.Forms.ToolStripMenuItem impuestosToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem entidadToolStripMenuItem;
     }
 }
 

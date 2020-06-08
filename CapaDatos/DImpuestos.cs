@@ -13,7 +13,7 @@ using System.Data;
 using System.Data.SqlClient;
 
 
-//---->>>    MANTENIMIENTO SIN  PROCEDIMIENTO ALMACENADO,  LO HAGO CON CADENAS   
+//---->>>    MANTENIMIENTO SIN  PROCEDIMIENTO ALMACENADO,  LO HAGO CON CADENAS  TIPO TEXT   
 
 namespace CapaDatos
 {
@@ -336,20 +336,19 @@ namespace CapaDatos
         public void nabos()
         {
 
-             MessageBox.Show("LLEGAMOS " , "CAPTION", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-            //El nombre de la clase, se trata de la conexion, no el del Modelo
-            //-----------------------------------------------------------------
-            //-->En este caso NO funciona ya que la variable no carga la estructura de la tabla
 
-            //JODER JODER JODER  al final lo he conseguido  hay que incluir la cadena de conexion en el App.config de  LasVentas 
+            //DImpuestos kaka = new DImpuestos();
+            //kaka.nabos();
 
-            // lo que no se es, para mantener las tres capas... es decir si pongo el Modelo en la Capadatos.. deberé de indicar la conexion en 
-            // el App.config  general ???   a ver si funciona 
 
-            // OjO que aqui no se ve el que esta ubicado en LasVentas y viceversa 
 
-            
+            MessageBox.Show("LLEGAMOS " , "CAPTION", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            //OjO nombre de la clase, se trata de la conexion, no el del Modelo
+            //-----------------------------------------------------------------            
+            //JODER JODER JODER  al final lo he conseguido  hay que incluir la cadena de conexion en el App.config de la solución  LasVentas 
+
             // PROBAR  A PONER EN LA CAPADATOS UN MODELO CON  VARIAS TABLAS
             // INDICAR EN EL App.config  principal la cadena de conexión  y a ver si se ve
 
@@ -357,19 +356,22 @@ namespace CapaDatos
             //                             TODAS LAS TABLAS Y EN EL APP.CONFIG GENERAL SE INDICA LA CADENA DE CONEXION
 
 
-            using (VentasTOMASEntities4 dbx = new VentasTOMASEntities4())
-            {
-                var lst = dbx.Proveedores;
+            
 
-                foreach (var oModerna in lst)
-                {
-                    MessageBox.Show("Nombre : " + oModerna.cNomPro, "CAPTION", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-            }
+            
 
+            //using (VentasTOMASEntities1 dbx = new VentasTOMASEntities1()) 
+            //{
+            //    var lst = dbx.Proveedores;
 
+            //    foreach (var oModerna in lst)
+            //    {
+            //        MessageBox.Show("Nombre : " + oModerna.cNomPro, "CAPTION", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //    }
+            //}
+        
 
-        }
+    }
 
 
 

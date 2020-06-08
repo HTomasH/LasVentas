@@ -7,16 +7,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace LasVentas
+namespace CapaDatos
 {
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class VentasTOMASEntities1 : DbContext
+    public partial class VentasTOMASEntities : DbContext
     {
-        public VentasTOMASEntities1()
-            : base("name=VentasTOMASEntities1")
+        public VentasTOMASEntities()
+            : base("name=VentasTOMASEntities")
         {
         }
     
@@ -25,6 +25,16 @@ namespace LasVentas
             throw new UnintentionalCodeFirstException();
         }
     
+        public DbSet<Articulos> Articulos { get; set; }
+        public DbSet<CABECERA_ALBAS> CABECERA_ALBAS { get; set; }
+        public DbSet<Clientes> Clientes { get; set; }
+        public DbSet<CodiPos> CodiPos { get; set; }
+        public DbSet<Entidad> Entidad { get; set; }
         public DbSet<Familias> Familias { get; set; }
+        public DbSet<LINEAS_ALBARAN> LINEAS_ALBARAN { get; set; }
+        public DbSet<Proveedores> Proveedores { get; set; }
+        public DbSet<sysdiagrams> sysdiagrams { get; set; }
+        public DbSet<TiposIva> TiposIva { get; set; }
+        public DbSet<Trabajadores> Trabajadores { get; set; }
     }
 }

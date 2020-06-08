@@ -16,8 +16,11 @@ namespace CapaPresentacion
         {
             InitializeComponent();
 
+
+            //  ME CARGE EL CONTROL DEL RELOJ, es un TIMER que se coloca en la parte externa del formulario  
+
             //Para pintar la hora en la etiqueta 
-            lblHora.Text = DateTime.Now.ToString(); 
+            //lblHora.Text = DateTime.Now.ToString(); 
 
 
         }
@@ -27,13 +30,19 @@ namespace CapaPresentacion
 
         }
 
+        //  ME CARGE EL CONTROL DEL RELOJ    es un TIMER que se coloca en la parte externa del formulario  
+        //--------------------------------------------------------------------------------------------
+
         //-->El control del reloj, este evento  TICK se ejecuta en el intervalo de tiempo que hubieramos indicado
         //   en el control, en este caso cada 1000  milisegundos  lo que es lo mismo   1 segundo 
-        private void timer1_Tick(object sender, EventArgs e)
-        {
+        //private void timer1_Tick(object sender, EventArgs e)
+        //{
 
-            lblHora.Text = DateTime.Now.ToString();
-        }
+        //    lblHora.Text = DateTime.Now.ToString();
+        //}
+
+
+
 
         //Boton de salida
         private void btnSalir_Click(object sender, EventArgs e)

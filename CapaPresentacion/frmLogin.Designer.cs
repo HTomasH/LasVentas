@@ -28,21 +28,19 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.txtUsuario = new System.Windows.Forms.TextBox();
-            this.txtPassword = new System.Windows.Forms.TextBox();
-            this.btnEntrar = new System.Windows.Forms.Button();
             this.btnSalir = new System.Windows.Forms.Button();
+            this.btnEntrar = new System.Windows.Forms.Button();
+            this.txtPassword = new System.Windows.Forms.TextBox();
+            this.txtUsuario = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.lblHora = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -76,38 +74,17 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Acceso al Sistema";
             // 
-            // label2
+            // btnSalir
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(45, 46);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(60, 18);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "Usuario";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(30, 82);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(75, 18);
-            this.label3.TabIndex = 1;
-            this.label3.Text = "Password";
-            // 
-            // txtUsuario
-            // 
-            this.txtUsuario.Location = new System.Drawing.Point(138, 43);
-            this.txtUsuario.Name = "txtUsuario";
-            this.txtUsuario.Size = new System.Drawing.Size(191, 24);
-            this.txtUsuario.TabIndex = 2;
-            // 
-            // txtPassword
-            // 
-            this.txtPassword.Location = new System.Drawing.Point(138, 82);
-            this.txtPassword.Name = "txtPassword";
-            this.txtPassword.PasswordChar = '*';
-            this.txtPassword.Size = new System.Drawing.Size(191, 24);
-            this.txtPassword.TabIndex = 3;
+            this.btnSalir.BackColor = System.Drawing.Color.Gainsboro;
+            this.btnSalir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSalir.Location = new System.Drawing.Point(254, 125);
+            this.btnSalir.Name = "btnSalir";
+            this.btnSalir.Size = new System.Drawing.Size(75, 34);
+            this.btnSalir.TabIndex = 5;
+            this.btnSalir.Text = "SALIR";
+            this.btnSalir.UseVisualStyleBackColor = false;
+            this.btnSalir.Click += new System.EventHandler(this.btnSalir_Click);
             // 
             // btnEntrar
             // 
@@ -121,17 +98,38 @@
             this.btnEntrar.UseVisualStyleBackColor = false;
             this.btnEntrar.Click += new System.EventHandler(this.btnEntrar_Click);
             // 
-            // btnSalir
+            // txtPassword
             // 
-            this.btnSalir.BackColor = System.Drawing.Color.Gainsboro;
-            this.btnSalir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSalir.Location = new System.Drawing.Point(254, 125);
-            this.btnSalir.Name = "btnSalir";
-            this.btnSalir.Size = new System.Drawing.Size(75, 34);
-            this.btnSalir.TabIndex = 5;
-            this.btnSalir.Text = "SALIR";
-            this.btnSalir.UseVisualStyleBackColor = false;
-            this.btnSalir.Click += new System.EventHandler(this.btnSalir_Click);
+            this.txtPassword.Location = new System.Drawing.Point(138, 82);
+            this.txtPassword.Name = "txtPassword";
+            this.txtPassword.PasswordChar = '*';
+            this.txtPassword.Size = new System.Drawing.Size(191, 24);
+            this.txtPassword.TabIndex = 3;
+            // 
+            // txtUsuario
+            // 
+            this.txtUsuario.Location = new System.Drawing.Point(138, 43);
+            this.txtUsuario.Name = "txtUsuario";
+            this.txtUsuario.Size = new System.Drawing.Size(191, 24);
+            this.txtUsuario.TabIndex = 2;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(30, 82);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(75, 18);
+            this.label3.TabIndex = 1;
+            this.label3.Text = "Password";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(45, 46);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(60, 18);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "Usuario";
             // 
             // pictureBox3
             // 
@@ -181,12 +179,6 @@
             this.label5.Text = "El control Timer además de pintar la hora podemos preguntar por elvalor para laza" +
     "r tareas de código";
             // 
-            // timer1
-            // 
-            this.timer1.Enabled = true;
-            this.timer1.Interval = 1000;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
             // frmLogin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -231,6 +223,5 @@
         private System.Windows.Forms.PictureBox pictureBox3;
         private System.Windows.Forms.Label lblHora;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Timer timer1;
     }
 }

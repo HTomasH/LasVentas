@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="4b7712cdecc949e18aa83c496a9dd201" Name="Diagram1">
+        <EntityTypeShape EntityType="VentasTOMASModel.Articulos" Width="1.5" PointX="3" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="VentasTOMASModel.CABECERA_ALBAS" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="VentasTOMASModel.Clientes" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="VentasTOMASModel.CodiPos" Width="1.5" PointX="5.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="VentasTOMASModel.Entidad" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="VentasTOMASModel.Familias" Width="1.5" PointX="0.75" PointY="6.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="VentasTOMASModel.LINEAS_ALBARAN" Width="1.5" PointX="5.25" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="VentasTOMASModel.Proveedores" Width="1.5" PointX="7.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="VentasTOMASModel.sysdiagrams" Width="1.5" PointX="7.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="VentasTOMASModel.TiposIva" Width="1.5" PointX="0.75" PointY="9.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="VentasTOMASModel.Trabajadores" Width="1.5" PointX="9.75" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="VentasTOMASModel.FK_Articulos_Familias" ManuallyRouted="false" />
+        <AssociationConnector Association="VentasTOMASModel.FK_Articulos_TiposIva" ManuallyRouted="false" />
+        <AssociationConnector Association="VentasTOMASModel.FK_CABECERA_ALBAS_Clientes" ManuallyRouted="false" />
+        <AssociationConnector Association="VentasTOMASModel.FK_LINEAS_ALBARAN_CABECERA_ALBAS" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -185,6 +185,19 @@ namespace CapaPresentacion
         }
 
 
+        //--->OPCION MENU :  Entidades.
+        private void entidadToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FPuto frm = new FPuto();
+            frm.MdiParent = this;     //->Indicado como formulario Padre 
+            frm.Show();
+
+            //volver a llamarla igual 
+
+
+        }
+
+
         //ESTO CON UN CASE  VA MAL LIMPIO 
 
 
@@ -255,8 +268,6 @@ namespace CapaPresentacion
 
         }
 
-
-
-     
+        
     }
 }
