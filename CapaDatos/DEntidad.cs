@@ -51,6 +51,12 @@ namespace CapaDatos
             set { _departamento = value; }
         }
 
+        public string CTextoBuscar
+        {
+            get { return _cTextoBuscar;  }
+            set { _cTextoBuscar = value; }
+        }
+
         //------------------- CONSTRUCTORES   ----------------------------------------------
         //----------------------------------------------------------------------------------
 
@@ -71,6 +77,7 @@ namespace CapaDatos
             this.Identifica = identifica;
             this.Nombre = nombre;
             this.Departamento = departamento;
+            this.CTextoBuscar = cTextoBuscar;
         }
 
 
@@ -148,6 +155,8 @@ namespace CapaDatos
 
         */
 
+
+        //--->>    METODO PARA LISTAR/MOSTRAR LA INFORMACION EN EL DATAGRID PRINCIPAL -------------------------------
         public List<Entidad> Listar()
         {
 
@@ -181,22 +190,153 @@ namespace CapaDatos
             return parts;
          }
 
-
-
-
-            //-------------------    METODO  MODIFICAR/EDITAR -----------------------------------------------------------------
-            //public string Editar(DEntidad Entidad)
-            //{
-            //}
-
-
-
-            //public string Eliminar(DEntidad Entidad)
-            //{
-            //}
-
-
+        //--->>    METODO PARA BORRAR ------------------------------------
+        public string Eliminar(DEntidad datoAborrar)
+        {
             
+            string rpta = "";
+            try  //--->Control de Errores                    
+            {
+                rpta = "NO se pudo eliminar el registro";
+
+                using (VentasTOMASEntities db = new VentasTOMASEntities())
+                {
+
+                    //El valor de lo que busco para borrar, utilizar Find  si es el ID lo que vamos a buscar, sino utiliza where 
+                    Entidad oEntidad = db.Entidad.Find(datoAborrar.Identifica); 
+                    db.Entidad.Remove(oEntidad);
+                    db.SaveChanges();
+                    rpta = "OK";
+                }
+            }
+            catch (Exception ex)
+            {
+                rpta = ex.Message;   //-->Mostramos el mensaje.
+            }
+            finally  //Se ejecuta siempre   
+            {
+                //->Con este sistema no hace falta cerrar la conexión el ambito del USING la cierra automáticamente 
+                //               if (SqlCon.State == ConnectionState.Open) SqlCon.Close();
+            }
+            return rpta;
+
 
         }
+
+
+
+        //--->>    METODO PARA EL BOTON DE BUSQUEDA  ------------------------------------
+        public string BuscarNombre(DEntidad datoAbuscar)
+        {
+            string rpta = "";
+            try  //--->Control de Errores                    
+            {
+               rpta = "NO se ha localizado el registro";
+
+                using (VentasTOMASEntities db = new VentasTOMASEntities())
+                {
+                    //Si vamos a buscar el  ID de la tabla utilizar  FIND  
+                    //Si vamos a buscar otro campo utilizar          WHERE                     
+                    //--------------------------------------------------------------------------------------------------------------
+                    //Entidad oEntidad = db.Entidad.Where(d => d.nombre == Convert.ToString(datoAbuscar.CTextoBuscar)).First();
+                    //Entidad oEntidad = db.Entidad.Where(d => d.nombre.Contains(Convert.ToString(datoAbuscar.CTextoBuscar))).First();
+
+                    //Ejemplo de busquedas con  like
+                    //------------------------------------------------
+                    //customers.where(c => c.Name * *like * *"john");
+                    //customers.Where(c => c.Name.Contains("john"));
+
+                    /*
+                        CONTAINS(column, '"text*"')   TIENE MAS POSIBILIDADES QUE  LIKE
+                    
+                        El asterisco representa cero, uno o más caracteres 
+                        (de la palabra raíz o de las palabras de la palabra o la frase). 
+                        Si el texto y el asterisco no se delimitan con comillas dobles de modo que 
+                        el predicado sea CONTAINS(column, 'text*'), 
+                        la búsqueda de texto completo considera el asterisco un carácter
+                        y busca coincidencias exactas con text*.
+                    
+                        El motor de texto completo no encontrará palabras con el carácter de asterisco (*) 
+                        porque los separadores de palabras suelen omitir dichos caracteres.
+                    
+                     */
+
+
+                    Entidad oEntidad = db.Entidad.Where(d => d.nombre.Contains(datoAbuscar.CTextoBuscar)).First();
+
+                    
+                    rpta = Convert.ToString(oEntidad.identifica);
+
+                }
+            }
+            catch (Exception ex)
+            {
+                rpta = ex.Message;   //-->Mostramos el mensaje.
+            }
+            finally  //Se ejecuta siempre   
+            {
+                //->Con este sistema no hace falta cerrar la conexión el ambito del USING la cierra automáticamente 
+                //               if (SqlCon.State == ConnectionState.Open) SqlCon.Close();
+
+                
+
+            }
+            return rpta;
+            
+        }
+
+
+        //-------------------    METODO  MODIFICAR/EDITAR -----------------------------------------------------------------
+        public string Editar(DEntidad datoAlocalizar)
+        {
+            string rpta = "";
+            try  //--->Control de Errores                    
+            {
+                rpta = "NO se pudo editar el registro";
+
+                using (VentasTOMASEntities db = new VentasTOMASEntities())
+                {
+
+                    //Entidad oEntidad = new Entidad();
+                    //El valor de lo que busco para borrar, utilizar Find  si es el ID lo que vamos a buscar, sino utiliza where 
+                    Entidad oEntidad = db.Entidad.Find(datoAlocalizar.Identifica);
+                    
+                    oEntidad.nombre = this.Nombre;
+                    oEntidad.departamento = this.Departamento;
+
+
+                    //->Esta linea sirve para informar de que este objeto tuvo una modificación, esto
+                    //  va bien cuando se trabaja con muchas concurrencias de objetos,etc.., por integridad
+                    //  pero a mi no me funciona...
+                    //
+                    //              Db.Entry(oEntidad).State = System.Data.Entity.EntityState.Modified;
+
+                    //--> A cambio tengo esta que tiene pinta tambien de informar, esto deL EntityState creo que vale para jugar 
+                    //    con el estado de la información antes de hacerle el SaveChanges()  que es como el viejo Commit 
+                    db.Entry(oEntidad).State = EntityState.Modified;                     
+                    db.SaveChanges();
+                    rpta = "OK";                                        
+                }
+            }
+            catch (Exception ex)
+            {
+                rpta = ex.Message;   //-->Mostramos el mensaje.
+            }
+            finally  //Se ejecuta siempre   
+            {
+                //->Con este sistema no hace falta cerrar la conexión el ambito del USING la cierra automáticamente 
+                //               if (SqlCon.State == ConnectionState.Open) SqlCon.Close();
+            }
+            return rpta;
+
+
+        }
+
+
+
+
+
+
+
     }
+}

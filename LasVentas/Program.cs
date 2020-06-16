@@ -47,13 +47,36 @@ using System.Collections.Specialized;
         -   EN EL VIDEO  https://www.youtube.com/watch?v=W5OWHxKuLew   MUESTRA DOS FORMAS DE VER LA INFORMACION, UNA SOBRE UN 
             GRID Y OTRO QUE CREA UN FORMULARIO  CON OPCIONES DE MENU INCORPORADAS,  MOLA, PERO NO HAY CONTROL ES TODO AUTOMATICO.
 
-
+        -------------------------------------------------------------------------------------------------------------------------------- 
         -   MANTENIMIENTO CON   ENTITY FRAMEWORK  (es el más moderno)  (genera clases)  vamos a ver si puedo integrarlo en
             las tres capas. 
-
+     
+        -   REFLEXION QUE HACE EL MEXICA  https://www.youtube.com/watch?v=LO8DCduDjjk  SOBRE LOS TRES TIPOS DE ACCESO     
+        --------------------------------------------------------------------------------------------------------------------------------   
+                ----------------------
+            -   ADO .NET  DATAPROVIDER 
+            -   ----------------------
+            -   Es la más 'pura', y las más rápida ahora bien, es con la que más codigo hay que imprimir, crear cadena de conexión
+            -   abrirla, crear la variable de los comandos, etc... la parte buena es que si trabajamos con un número de usuarios y
+            -   accesos del  copón  será más rápida que las otras.   
         
+                -------------------------------------------
+            -   ADO .NET  DATASET   Conjunto de datos 
+            -   -------------------------------------------
+            -   Es un avance sobre la primera, se escribe menos código pero hay que ir haciendo un DataTable por cada tabla e indicando 
+            -   en su configuracion los  where correspondientes.
+            -   es más lenta que la primera puesto que lleva por encima una capa.   
+        
+                -------------------------------------------
+            -   ENTITY FRAMEWORK  
+            -   -------------------------------------------
+            -   Es la más moderna, como sabemos al crearla ya pilla todas las tabla de la base de datos que le digamos, crea clases para
+            -   cada tabla, podemos importar tambien  Vistas de la Base de datos, es en la que menos código se escribe, la parte mala es que
+            -   si la utilizamos para accesos de un cojón de gente puede ser lenta, obivamente tiene capas por encima.
+            -
 
     
+
 
         --->> UNA VEZ ACABE CON ESTAS VARIANTES DE LOS ACCESOS TENGO QUE VER EL MANTENIMIENTO DE INGRESOS, ES BASTANTE "TOCHO"
 

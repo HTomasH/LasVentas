@@ -111,7 +111,7 @@ namespace CapaPresentacion
         private void OcultarColumnas()
         {
             this.dataListado.Columns[0].Visible = false;   //Esta se corresponde con la Columna para dar de baja 
-            this.dataListado.Columns[1].Visible = false;   //Esta se corresponde con el ID de  la tablas
+           // this.dataListado.Columns[1].Visible = false;   //Esta se corresponde con el ID de  la tablas
 
         }
 
@@ -133,7 +133,6 @@ namespace CapaPresentacion
         private void Mostrar()
         {
 
-
             /*
               Todas las llamadas que se hacen a Negocio y a datos son funciones de tipo DataTable 
               por lo cual eso para ese sistema ya no vale, no es un DataTable lo que retorna
@@ -147,15 +146,11 @@ namespace CapaPresentacion
 
              */
 
-
-
-
-         
             //-->FINALMENTE LO HE CONSEGUIDO JODERRR, SIGO RESPETENADO LAS TRES CAPAS  
 
 
             this.dataListado.DataSource = NEntidad.Mostrar();  
-            this.OcultarColumnas();
+            this.OcultarColumnas();  //KAKA
 
 
             //-->Pintamos el total de registros : OjO el count es  int  tenemos que convertirlo a String 
@@ -165,21 +160,39 @@ namespace CapaPresentacion
 
 
 
-
-
         //-->Método BuscarNombre
         //-----------------------------------------------------------------------------------------------
         private void BuscarNombre()
         {
 
-            ////Hace lo mismo que el procedimiento Mostrar pero la diferencia es que aquí si le estamos enviado 
-            ////un valor :   BuscarNombre(this.txtBuscar.Text)     obviamente el nombre que queremos buscar.
+            string cRecibe;
+            int nRecibe;
+                                    
+            //Este es el del tipo Datatable
             //this.dataListado.DataSource = NEntidad.BuscarNombre(this.txtBuscar.Text);
-            //this.OcultarColumnas();
-            //lblTotal.Text = "Total de Registros: " + Convert.ToString(dataListado.Rows.Count);
+
+            cRecibe = NEntidad.BuscarNombre(this.txtBuscar.Text);
+            nRecibe = Convert.ToInt32(cRecibe);
+            //-->Lo que no veo bien seria el rendimiento, si hay mucha información esto no es bueno.
+            for (int i = 0; i < dataListado.Rows.Count; i++)
+            {
+                String key = dataListado.Rows[i].Cells["identifica"].Value.ToString();
+                if (key.Contains(cRecibe) == true)
+                {
+                    //->Colocar el DataGrid en la posición que me llega  
+                    dataListado.CurrentCell = dataListado.Rows[i].Cells[nRecibe];
+                    dataListado.Refresh();
+                 }                                                                                           
+            }
+            
+            this.OcultarColumnas(); //KAKA
+            lblTotal.Text = "Total de Registros: " + Convert.ToString(dataListado.Rows.Count);
         }
 
 
+
+        //-->botónde buscar 
+        //-----------------------------------------------------------------------------------------------
         private void btnBuscar_Click(object sender, EventArgs e)
         {
             this.BuscarNombre();
@@ -193,6 +206,9 @@ namespace CapaPresentacion
             this.BuscarNombre();
         }
 
+
+        //-->Botón de NUEVO 
+        //-----------------------------------------------------------------------------------------------
         private void btnNuevo_Click(object sender, EventArgs e)
         {
 
@@ -205,6 +221,9 @@ namespace CapaPresentacion
             this.txtNombreEntidad.Focus();   //Foco a la caja de texto del nombre 
         }
 
+
+        //-->Botón de GUARDAR
+        //-----------------------------------------------------------------------------------------------
         private void btnGuardar_Click(object sender, EventArgs e)
         {
             try   //Control de errores   bien....
@@ -230,9 +249,9 @@ namespace CapaPresentacion
                     }
                     else    //Es una modificacion   PARECE QUE ESTA MODIFICANDO TODOS !!!
                     {
-                        //-->Vamos a llamar al Metodo Editar de la CapaNegocio enviandole los valores 
-                        // rpta = NEntidad.Editar(Convert.ToInt32(this.txtIdFamilias.Text), this.txtNombre.Text.Trim().ToUpper());
-
+                        //-->Vamos a llamar al Metodo Editar de la CapaNegocio enviandole los valores                         
+                        rpta = NEntidad.Editar(Convert.ToInt32(this.txtIdEntidad.Text) , this.txtNombreEntidad.Text.Trim().ToUpper(), this.txtDeparEntidad.Text.Trim().ToUpper());
+                        
                     }
 
                     //-->Ahora vamos a ver si la operación tuvo éxito o no, el "OK" que estamos poniendo aquí es el que está
@@ -278,12 +297,6 @@ namespace CapaPresentacion
         }
 
 
-
-
-
-
-
-
         //--Aqui lo que estamos indicando es que cuando en el GRID se haga doble click se muestre ese registro
         //  en el formulario individual.
         //
@@ -304,6 +317,8 @@ namespace CapaPresentacion
             this.tabControl1.SelectedIndex = 1;
         }
 
+
+        // BOTON DE EDITAR EL REGISTRO -------------------------------------------------------------------- 
         private void btnEditar_Click(object sender, EventArgs e)
         {
             if (!this.txtIdEntidad.Text.Equals(""))
@@ -319,6 +334,7 @@ namespace CapaPresentacion
         }
 
 
+        // BOTON DE CANCELAR -------------------------------------------------------------------- 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             //Borra la pelotilla del error 
@@ -333,6 +349,7 @@ namespace CapaPresentacion
         }
 
 
+        // CONTROL DEL CAMBIO DE VALOR EN EL CHECK DE LA COLUMNA DE BORRADO DE RESGISTROS -------------------------------------------- 
         private void chkEliminar_CheckedChanged(object sender, EventArgs e)
         {
             if (chkEliminar.Checked)   //Si el check está marcado entonces mostramos la columna 0  del  Grid, la de bajas 
@@ -345,8 +362,6 @@ namespace CapaPresentacion
             }
 
         }
-
-
 
         //Para el tratamiento individual de cada registro dentro del GRID    haremos  DobleClick  sobre el GRID  y se 
         //nos creará el evento   dataListado_CellContentClick
@@ -366,13 +381,13 @@ namespace CapaPresentacion
         }
 
 
-
+        //----> BOTON DE ELIMINAR ----------------------------------------------------------------------
         private void btnEliminar_Click(object sender, EventArgs e)
         {
 
             try
             {
-                //Variable de tipo  DialogResult   entiendo que sire para capturar datos de preguntas al usuario
+                //Variable de tipo  DialogResult  entiendo que sirve para capturar datos de preguntas al usuario
                 DialogResult Opcion;
 
                 //Tipo de mensaje que va a mostrar al usuario los botones  SI  o No 
@@ -390,11 +405,11 @@ namespace CapaPresentacion
                     {
                         if (Convert.ToBoolean(row.Cells[0].Value))  //Pregunta por el valor de la columna cero del GRID 
                         {
-                            Codigo = Convert.ToString(row.Cells[1].Value); //Trinca el valor de la columna 1 es decir el IdFamilia
+                            Codigo = Convert.ToString(row.Cells[1].Value); //Trinca el valor de la columna 1 es decir el Identifica
 
-                            //Envia el codigo al metodo ELIMINAR de la CapaNegocio de de Familias, OjO conviertiendo a Int  que es como 
-                            //es el tipo de campo en la tabla Familias 
-                            /////// Rpta =  NEntidad.Eliminar(Convert.ToInt32(Codigo));
+                            //Envia el codigo al metodo ELIMINAR de la CapaNegocio de Entidad, OjO conviertiendo a Int  que es como 
+                            //es el tipo de campo en la tabla Entidad 
+                            Rpta =  NEntidad.Eliminar(Convert.ToInt32(Codigo));
 
                             //Utiliza  EQUALS  para comparar cadenas de texto en vez de hacerlo a machete :  if  Rpta  == "OK"
                             if (Rpta.Equals("OK"))
@@ -420,6 +435,9 @@ namespace CapaPresentacion
 
         }
 
+
+        //-->Botón de IMPRIMIR 
+        //-----------------------------------------------------------------------------------------------
         private void btnImprimir_Click(object sender, EventArgs e)
         {
             this.MensajeOk("Ha pulsado el botón de imprimir ");
@@ -429,61 +447,7 @@ namespace CapaPresentacion
         }
 
 
-        //private void txtBuscar_TextChanged(object sender, EventArgs e)
-        //{
-
-        //}
-
-        //private void btnBuscar_Click(object sender, EventArgs e)
-        //{
-
-        //}
-
-        //private void btnEliminar_Click(object sender, EventArgs e)
-        //{
-
-        //}
-
-        //private void btnImprimir_Click(object sender, EventArgs e)
-        //{
-
-        //}
-
-        //private void chkEliminar_CheckedChanged(object sender, EventArgs e)
-        //{
-
-        //}
-
-        //private void dataListado_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        //{
-
-        //}
-
-        //private void dataListado_DoubleClick(object sender, EventArgs e)
-        //{
-
-        //}
-
-        //private void btnNuevo_Click(object sender, EventArgs e)
-        //{
-
-        //}
-
-        //private void btnGuardar_Click(object sender, EventArgs e)
-        //{
-
-        //}
-
-        //private void btnEditar_Click(object sender, EventArgs e)
-        //{
-
-        //}
-
-        //private void btnCancelar_Click(object sender, EventArgs e)
-        //{
-
-        //}
-
+        
 
 
 
